@@ -85,4 +85,22 @@ class Data
         }
 
 };
+
+class Estado
+{
+    private:
+
+        string estado;
+
+        void validar(string) throw (invalid_argument);
+
+    public:
+
+        void SetEstado(string) throw (invalid_argument);
+
+        string GetEstado() const{
+            return estado;
+        }
+
+};
 #endif // DOMINIOSHOTEL_H

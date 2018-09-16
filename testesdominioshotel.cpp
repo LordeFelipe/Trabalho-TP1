@@ -132,3 +132,47 @@ int TUData::Run(){
     TearDown();
     return estado;
 }
+
+//Métodos que testam o Estado
+
+void TUEstado::SetUp(){
+
+    //Criação do objeto estado e definição do estado inicial do teste para sucesso
+    estado = new Estado();
+    estado_teste = SUCESSO;
+}
+
+void TUEstado::TearDown(){
+    delete estado;
+}
+
+void TUEstado::TestarCenarioSucesso(){
+    try{
+        //É setado um estado vaĺido para passsar no teste
+        estado->SetEstado(VALOR_VALIDO);
+        if (estado->GetEstado() != VALOR_VALIDO)
+            estado_teste = FALHA;
+    }
+    catch(invalid_argument excecao){
+        estado_teste = FALHA;
+    }
+}
+
+void TUEstado::TestarCenarioFalha(){
+    try{
+        //É setado um estado inválido para falhar no teste
+        estado->SetEstado(VALOR_INVALIDO);
+        estado_teste = FALHA;
+    }
+    catch(invalid_argument excecao){
+        return;
+    }
+}
+
+int TUEstado::Run(){
+    SetUp();
+    TestarCenarioSucesso();
+    TestarCenarioFalha();
+    TearDown();
+    return estado_teste;
+}

@@ -72,3 +72,26 @@ void Data::SetData(int dia, int mes, int ano) throw (invalid_argument){
     this->mes = mes;
     this->mes = mes;
 }
+
+//Métodos do objeto Data
+void Estado::validar(string estado) throw (invalid_argument){
+
+    if(estado != "AC" && estado != "AL" && estado != "AP" && estado != "AM" && estado != "BA");
+    else if(estado != "CE" && estado !="DF" && estado != "ES" && estado !="GO" && estado != "MA");
+    else if(estado != "MT" && estado !="MS" && estado != "MG" && estado !="PA" && estado != "PB");
+    else if(estado != "PR" && estado !="PE" && estado != "PI" && estado !="RJ" && estado != "RN");
+    else if(estado != "RS" && estado !="RO" && estado != "RR" && estado !="SC" && estado != "SP");
+    else if(estado != "SE" && estado !="TO");
+    else{
+        throw invalid_argument("Argumento invalido.");
+    }
+
+}
+
+void Estado::SetEstado(string estado) throw (invalid_argument){
+
+    validar(estado);
+    this->estado = estado;
+}
+//Métodos do objeto Data
+

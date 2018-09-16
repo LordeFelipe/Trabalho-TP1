@@ -93,4 +93,31 @@ class TUData
 
     int Run();
 };
+
+//Testes referentes ao objeto Estado
+class TUEstado
+{
+    private:
+
+    string VALOR_VALIDO = "TO";
+    string VALOR_INVALIDO = "AA";
+
+    Estado* estado;
+
+    //Estado do Teste
+    int estado_teste;
+
+    //Declaração dos métodos
+    void SetUp();
+    void TearDown();
+    void TestarCenarioSucesso();
+    void TestarCenarioFalha();
+
+    public:
+
+    const static int SUCESSO =  0;
+    const static int FALHA   = -1;
+
+    int Run();
+};
 #endif // TESTESDOMINIOSHOTEL_H
