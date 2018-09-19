@@ -1,3 +1,4 @@
+#include <iostream>
 #include "testesbanco.h"
 
 // Definição dos métodos:
@@ -212,6 +213,80 @@ int TUCartao::run(){
     testarCenarioFalha_QTD();
     testarCenarioFalha_CARAC();
     testarCenarioFalha_NUM();
+    tearDown();
+
+    return estado;
+}
+
+// Testes para a classe Validade:
+void TUValidade::setUp(){
+	data = new Validade();
+	estado = SUCESSO;
+}
+
+void TUValidade::tearDown(){
+	delete data;
+}
+
+void TUValidade::testarCenarioSucesso(){
+	try{
+		data->setVal(VALOR_VALIDO);
+		if(data->getVal() != VALOR_VALIDO){
+			estado = FALHA;
+		}
+	}
+	catch(invalid_argument excecao){
+		estado = FALHA;
+	}
+}
+
+void TUValidade::testarCenarioFalha_QTD(){
+	try{
+		data->setVal(VALOR_INVALIDO_QTD);
+		estado = FALHA;
+	}
+	catch(invalid_argument excecao){
+		return;
+	}
+}
+
+void TUValidade::testarCenarioFalha_SEPARADOR(){
+	try{
+		data->setVal(VALOR_INVALIDO_SEPARADOR);
+		estado = FALHA;
+	}
+	catch(invalid_argument excecao){
+		return;
+	}
+}
+
+void TUValidade::testarCenarioFalha_MES(){
+	try{
+		data->setVal(VALOR_INVALIDO_MES);
+		estado = FALHA;
+	}
+	catch(invalid_argument excecao){
+		return;
+	}
+}
+
+void TUValidade::testarCenarioFalha_ANO(){
+	try{
+		data->setVal(VALOR_INVALIDO_ANO);
+		estado = FALHA;
+	}
+	catch(invalid_argument excecao){
+		return;
+	}
+}
+
+int TUValidade::run(){
+	setUp();
+	testarCenarioSucesso();
+    testarCenarioFalha_QTD();
+    testarCenarioFalha_SEPARADOR();
+    testarCenarioFalha_MES();
+    testarCenarioFalha_ANO();
     tearDown();
 
     return estado;

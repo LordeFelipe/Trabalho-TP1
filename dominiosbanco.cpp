@@ -1,3 +1,4 @@
+#include <iostream>
 #include "dominiosbanco.h"
 
 // Definições de métodos:
@@ -26,7 +27,7 @@ void Agencia::setAgencia(string agencia) throw (invalid_argument){
 
 // Banco:
 void Banco::validar(string banco) throw (invalid_argument){
-	// Lança exceção se a string tiver menos ou mais que 5 dígitos
+	// Lança exceção se a string tiver menos ou mais que 3 dígitos
 	if(banco.length() != N_CARAC){
 		throw invalid_argument("Número de caracteres invalido.");
 		return;
@@ -41,14 +42,14 @@ void Banco::validar(string banco) throw (invalid_argument){
 	}
 }
 
-void Banco::setAgencia(string banco) throw (invalid_argument){
+void Banco::setBanco(string banco) throw (invalid_argument){
 	validar(banco);
 	this->banco = banco;
 }
 
 // Conta:
 void Conta::validar(string conta) throw (invalid_argument){
-	// Lança exceção se a string tiver menos ou mais que 5 dígitos
+	// Lança exceção se a string tiver menos ou mais que 6 dígitos
 	if(conta.length() != N_CARAC){
 		throw invalid_argument("Número de caracteres invalido.");
 		return;
@@ -70,7 +71,7 @@ void Conta::setConta(string conta) throw (invalid_argument){
 
 // Cartao:
 void Cartao::validar(string cartao) throw (invalid_argument){
-	// Lança exceção se a string tiver menos ou mais que 5 dígitos
+	// Lança exceção se a string tiver menos ou mais que 16 dígitos
 	if(cartao.length() != N_CARAC){
 		throw invalid_argument("Número de caracteres invalido.");
 		return;
@@ -110,4 +111,50 @@ void Cartao::validar(string cartao) throw (invalid_argument){
 void Cartao::setCartao(string cartao) throw (invalid_argument){
 	validar(cartao);
 	this->cartao = cartao;
+}
+
+// Validade:
+void Validade::validar(string data) throw (invalid_argument){
+	// Lança exceção se a string tiver menos ou mais que 5 dígitos
+	if(data.length() != N_CARAC){
+		throw invalid_argument("Número de caracteres invalido.");
+		return;
+	}
+
+	// Lança exceção se o caractere do meio não for '/'
+	if(data.at(2) != '/'){
+		throw invalid_argument("Falta de caractere '/' para separar mes e ano");
+		return;
+	}
+
+	// Lança exceção se o ano não conter apenas números
+	for(int i = 3; i < N_CARAC; i++){
+		if(data.at(i) < LIMITE_INF || data.at(i) > LIMITE_SUP){
+			throw invalid_argument("Contem carcteres invalidos no ano.");
+			return;
+		}
+	}
+
+	// Lança exceção para meses inválidos
+	if(data.at(0) == '0'){
+		if(data.at(1) < '1' || data.at(1) > '9'){
+			throw invalid_argument("Mes Invalido.");
+			return;
+		}
+	}
+	else if(data.at(0) == '1'){
+		if(data.at(1) < '0' || data.at(1) > '2'){
+			throw invalid_argument("Mes Invalido.");
+			return;
+		}
+	}
+	else{
+		throw invalid_argument("Mes Invalido.");
+		return;
+	}
+}
+
+void Validade::setVal(string data) throw (invalid_argument){
+	validar(data);
+	this->data = data;
 }

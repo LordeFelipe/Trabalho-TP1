@@ -100,5 +100,27 @@ public:
 	}
 };
 
+class Validade {
+
+private:
+	string data;
+
+	const static int N_CARAC = 5;
+
+	const static int LIMITE_INF = 48;
+
+	const static int LIMITE_SUP = 57;
+
+	// Método de validação
+	void validar(string) throw (invalid_argument);
+
+public:
+	// Métodos de acesso
+	void setVal(string) throw (invalid_argument);
+
+	string getVal() const {
+		return data;
+	}
+};
 
 #endif

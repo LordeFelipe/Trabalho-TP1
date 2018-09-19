@@ -39,7 +39,7 @@ public:
 	// Constantes de estado:
 
 	const static int SUCESSO = 0;
-	const static int FALHA = 0;
+	const static int FALHA = 1;
 
 	int run();
 };
@@ -76,7 +76,7 @@ public:
 	// Constantes de estado:
 
 	const static int SUCESSO = 0;
-	const static int FALHA = 0;
+	const static int FALHA = 1;
 
 	int run();
 };
@@ -113,7 +113,7 @@ public:
 	// Constantes de estado:
 
 	const static int SUCESSO = 0;
-	const static int FALHA = 0;
+	const static int FALHA = 1;
 
 	int run();
 };
@@ -153,7 +153,49 @@ public:
 	// Constantes de estado:
 
 	const static int SUCESSO = 0;
-	const static int FALHA = 0;
+	const static int FALHA = 1;
+
+	int run();
+};
+
+// Testes da classe Cartao:
+class TUValidade {
+
+private:
+
+	// Definição dos valores válidos e inválidos:
+
+	const string VALOR_VALIDO = "12/88";
+	const string VALOR_INVALIDO_SEPARADOR = "12.88";
+	const string VALOR_INVALIDO_MES = "23/88";
+	const string VALOR_INVALIDO_ANO = "12/aa";
+	const string VALOR_INVALIDO_QTD = "12/788";
+
+
+	// Ponteiro para o objeto a ser testado:
+
+	Validade *data;
+
+	// Estado do teste:
+
+	int estado;
+
+	// Declaraçãoo de métodos:
+
+	void setUp();
+	void tearDown();
+	void testarCenarioSucesso();
+	void testarCenarioFalha_QTD();
+	void testarCenarioFalha_MES();
+	void testarCenarioFalha_ANO();
+	void testarCenarioFalha_SEPARADOR();
+
+public:
+
+	// Constantes de estado:
+
+	const static int SUCESSO = 0;
+	const static int FALHA = 1;
 
 	int run();
 };
