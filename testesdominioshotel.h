@@ -66,14 +66,8 @@ class TUData
 {
     private:
 
-    const static int VALOR_VALIDO_DIA = 12;
-    const static int VALOR_INVALIDO_DIA = 40;
-
-    const static int VALOR_VALIDO_MES = 8;
-    const static int VALOR_INVALIDO_MES = 13;
-
-    const static int VALOR_VALIDO_ANO = 2077;
-    const static int VALOR_INVALIDO_ANO = 1999;
+    string VALOR_VALIDO = "01/08/2003";
+    string VALOR_INVALIDO = "10/04/1999";
 
     Data* data;
 

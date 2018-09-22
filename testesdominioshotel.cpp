@@ -105,8 +105,8 @@ void TUData::TearDown(){
 void TUData::TestarCenarioSucesso(){
     try{
         //O valor da data é setado para um valor válido para passar no teste
-        data->SetData(VALOR_VALIDO_DIA, VALOR_VALIDO_MES, VALOR_VALIDO_ANO);
-        if (data->GetDataDia() != VALOR_VALIDO_DIA || data->GetDataMes() != VALOR_VALIDO_MES || data->GetDataAno() != VALOR_VALIDO_ANO)
+        data->SetData(VALOR_VALIDO);
+        if (data->GetData() != VALOR_VALIDO)
             estado = FALHA;
     }
     catch(invalid_argument excecao){
@@ -117,7 +117,7 @@ void TUData::TestarCenarioSucesso(){
 void TUData::TestarCenarioFalha(){
     try{
         //O valor da data é setado para um valor inválido para falhar no teste
-        data->SetData(VALOR_INVALIDO_DIA, VALOR_INVALIDO_MES, VALOR_INVALIDO_ANO);
+        data->SetData(VALOR_INVALIDO);
         estado = FALHA;
     }
     catch(invalid_argument excecao){

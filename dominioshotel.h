@@ -3,6 +3,8 @@
 
 #include <stdexcept>
 #include <string>
+#include <iostream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -52,15 +54,10 @@ class Data
 {
     private:
 
-        int dia;
-        int mes;
-        int ano;
+        string data;
 
         const static int ANO_LIMITE_SUP = 2099;
         const static int ANO_LIMITE_INF = 2000;
-
-        const static int MES_LIMITE_SUP = 12;
-        const static int MES_LIMITE_INF = 1;
 
         const static int DIA_LIMITE_SUP1 = 31;
         const static int DIA_LIMITE_SUP2 = 30;
@@ -68,22 +65,15 @@ class Data
         const static int DIA_LIMITE_SUP4 = 28;
         const static int DIA_LIMITE_INF = 1;
 
-        void validar(int, int, int) throw (invalid_argument);
+        void validar(string) throw (invalid_argument);
 
     public:
 
-        void SetData(int, int, int) throw (invalid_argument);
+        void SetData(string) throw (invalid_argument);
 
-        int GetDataDia() const{
-            return dia;
+        string GetData() const{
+            return data;
         }
-        int GetDataMes() const{
-            return mes;
-        }
-        int GetDataAno() const{
-            return ano;
-        }
-
 };
 
 class Estado

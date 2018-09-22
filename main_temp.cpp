@@ -51,5 +51,40 @@ int main(){
 			break;
 	}
 
+	TUCapacidadeDeAcomodacao Tcapacidade;
+
+    switch(Tcapacidade.Run()){
+	    case TUCapacidadeDeAcomodacao::SUCESSO: cout << "SUCESSO";
+	        break;
+	    case TUCapacidadeDeAcomodacao::FALHA: cout << "SUCESSO";
+	        break;
+    }
+
+    TUData Tdata;
+
+    switch(Tdata.Run()){
+	    case TUData::SUCESSO: cout << "SUCESSO";
+	        break;
+	    case TUData::FALHA: cout << "SUCESSO";
+	        break;
+    }
+
+    TUDiaria Tdiaria;
+
+    switch(Tdiaria.Run()){
+	    case TUDiaria::SUCESSO: cout << "SUCESSO";
+	        break;
+	    case TUDiaria::FALHA: cout << "SUCESSO";
+	        break;
+    }
+
+    TUEstado Testado;
+
+    switch(Testado.Run()){
+	    case TUEstado::SUCESSO: cout << "SUCESSO";
+	        break;
+	    case TUEstado::FALHA: cout << "SUCESSO";
+	        break;
+
 	return 0;
 }
