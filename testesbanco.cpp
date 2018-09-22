@@ -365,3 +365,77 @@ int TUNome::run(){
 
     return estado;
 }
+
+// Testes para a classe Senha:
+void TUSenha::setUp(){
+	senha = new Senha();
+	estado = SUCESSO;
+}
+
+void TUSenha::tearDown(){
+	delete senha;
+}
+
+void TUSenha::testarCenarioSucesso(){
+	try{
+		senha->setSenha(VALOR_VALIDO);
+		if(senha->getSenha() != VALOR_VALIDO){
+			estado = FALHA;
+		}
+	}
+	catch(invalid_argument excecao){
+		estado = FALHA;
+	}
+}
+
+void TUSenha::testarCenarioFalha_TAM(){
+	try{
+		senha->setSenha(VALOR_INVALIDO_TAM);
+		estado = FALHA;
+	}
+	catch(invalid_argument excecao){
+		return;
+	}
+}
+
+void TUSenha::testarCenarioFalha_CARAC(){
+	try{
+		senha->setSenha(VALOR_INVALIDO_CARAC);
+		estado = FALHA;
+	}
+	catch(invalid_argument excecao){
+		return;
+	}
+}
+
+void TUSenha::testarCenarioFalha_REPETIDO(){
+	try{
+		senha->setSenha(VALOR_INVALIDO_REPETIDO);
+		estado = FALHA;
+	}
+	catch(invalid_argument excecao){
+		return;
+	}
+}
+
+void TUSenha::testarCenarioFalha_FALTA(){
+	try{
+		senha->setSenha(VALOR_INVALIDO_FALTA);
+		estado = FALHA;
+	}
+	catch(invalid_argument excecao){
+		return;
+	}
+}
+
+int TUSenha::run(){
+	setUp();
+	testarCenarioSucesso();
+	testarCenarioFalha_TAM();
+	testarCenarioFalha_CARAC();
+	testarCenarioFalha_REPETIDO();
+	testarCenarioFalha_FALTA();
+    tearDown();
+
+    return estado;
+}

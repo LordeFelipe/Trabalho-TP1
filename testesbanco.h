@@ -242,4 +242,46 @@ public:
 	int run();
 };
 
+// Testes da classe Senha:
+class TUSenha {
+
+private:
+
+	// Definição dos valores válidos e inválidos:
+
+	const string VALOR_VALIDO = "1aA#%!&$";
+	const string VALOR_INVALIDO_TAM = "1aA#%!&";
+	const string VALOR_INVALIDO_CARAC = "1aA#%!&*";
+	const string VALOR_INVALIDO_REPETIDO = "1aA#%!&a";
+	const string VALOR_INVALIDO_FALTA = "1aa1aa1a";
+
+
+	// Ponteiro para o objeto a ser testado:
+
+	Senha *senha;
+
+	// Estado do teste:
+
+	int estado;
+
+	// Declaraçãoo de métodos:
+
+	void setUp();
+	void tearDown();
+	void testarCenarioSucesso();
+	void testarCenarioFalha_TAM();
+	void testarCenarioFalha_CARAC();
+	void testarCenarioFalha_REPETIDO();
+	void testarCenarioFalha_FALTA();
+
+public:
+
+	// Constantes de estado:
+
+	const static int SUCESSO = 0;
+	const static int FALHA = 1;
+
+	int run();
+};
+
 #endif

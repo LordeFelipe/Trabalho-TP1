@@ -107,6 +107,15 @@ int main(){
 			break;
 	}
 
+	TUSenha Tsenha;
+
+	switch(Tsenha.run()){
+		case TUSenha::SUCESSO: cout << "Senha: Sucessso" << endl;
+			break;
+		case TUSenha::FALHA: cout << "Senha: Falha" << endl;
+			break;
+	}
+
 	return 0;
 }
 	

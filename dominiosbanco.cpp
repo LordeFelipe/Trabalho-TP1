@@ -174,7 +174,7 @@ void Nome::validar(string nome) throw (invalid_argument){
 	int HaLetras = FALSO;
 
 	// Loop para verificar a string nome
-	for(int i = 0; i < nome.length(); i++){
+	for(unsigned int i = 0; i < nome.length(); i++){
 		// Verificar se é letra
 		if((nome.at(i) >= LIMITE_INF_MAI && nome.at(i) <= LIMITE_SUP_MAI) ||
 			(nome.at(i) >= LIMITE_INF_MIN && nome.at(i) <= LIMITE_SUP_MIN)){
@@ -224,4 +224,75 @@ void Nome::validar(string nome) throw (invalid_argument){
 void Nome::setNome(string nome) throw (invalid_argument){
 	validar(nome);
 	this->nome = nome;
+}
+
+// Senha:
+void Senha::validar(string senha) throw (invalid_argument){
+	// Lança exceção se a string tiver mais ou menos que 8 dígitos
+	if(senha.length() != N_CARAC){
+		throw invalid_argument("Número de caracteres invalido.");
+		return;
+	}
+
+	// Variável para verificar se há letras maiusculas na senha
+	int HaMaiusculas = FALSO;
+
+	// Variável para verificar se há letras minusculas na senha
+	int HaMinusculas = FALSO;
+
+	// Variável para verificar se há numeros na senha
+	int HaNumeros = FALSO;
+
+	// Variável para verificar se há numeros na senha
+	int HaSimbolos = FALSO;
+
+	// Loop para verificar a string senha
+	for(unsigned int i = 0; i < senha.length(); i++){
+		// Verificar se é letra maiuscula
+		if(senha.at(i) >= LIMITE_INF_MAI && senha.at(i) <= LIMITE_SUP_MAI){
+			HaMaiusculas = VERDADEIRO;
+		}
+
+		// Verificar se é letra minuscula
+		else if(senha.at(i) >= LIMITE_INF_MIN && senha.at(i) <= LIMITE_SUP_MIN){
+			HaMinusculas = VERDADEIRO;
+		}
+
+		// Verificar se é numero
+		else if(senha.at(i) >= LIMITE_INF_NUM && senha.at(i) <= LIMITE_SUP_NUM){
+			HaNumeros = VERDADEIRO;
+		}
+
+		// Verificar se é digito
+		else if(senha.at(i) == EXCLAMACAO || senha.at(i) == CERQUILHA || senha.at(i) == CIFRAO
+			|| senha.at(i) == PORCENTAGEM || senha.at(i) == EITZA){
+
+			HaSimbolos = VERDADEIRO;
+		}
+
+		// Lancar escecao caso seja um caractere invalido
+		else{
+			throw invalid_argument("Caractere invalido.");
+			return;
+		}
+
+		// Verificar se há algum caractere repetido
+		for(unsigned int j = 0; j < i; j++){
+			if(senha.at(i) == senha.at(j)){
+				throw invalid_argument("Caractere repetido.");
+				return;
+			}
+		}
+	}
+
+	// Lançar exceção se não tiver ao menos uma letra maiuscula, minuscula, numero e digito na senha
+	if(HaMaiusculas == FALSO || HaMinusculas == FALSO || HaNumeros == FALSO || HaSimbolos == FALSO){
+		throw invalid_argument("A senha deve conter uma letra minuscula, maiuscula, um numero e um digito.");
+		return;
+	}
+}
+
+void Senha::setSenha(string senha) throw (invalid_argument){
+	validar(senha);
+	this->senha = senha;
 }

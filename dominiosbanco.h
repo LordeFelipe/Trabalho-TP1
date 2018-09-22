@@ -298,4 +298,73 @@ public:
 	}
 };
 
+
+/*! \class Senha
+		\brief Classe do tipo Senha.
+
+		Classe que armazena uma string com a senha do usuário e contém os métodos de manipulção desse valor. 
+		A senha tem o formato de uma string com 8 digitos, contendo ao menos uma letra maiuscula, minuscula, um número e um digito(! # $ % &) e sem caracteres repetidos.
+*/
+class Senha {
+
+private:
+	string senha; /*!< String que armazena o nome do usuário. */
+
+	const static int N_CARAC = 8; /*!< Constante que armazena o número de caracteres permitido. */
+
+	const static int LIMITE_INF_MAI = 'A'; /*!< Constante que armaxena o valor ascii de 'A', para definir o limite inferior de letras maiusculas permitidas. */
+
+	const static int LIMITE_SUP_MAI = 'Z'; /*!< Constante que armaxena o valor ascii de 'Z', para definir o limite superior de letras maiusculas permitidas. */
+
+	const static int LIMITE_INF_MIN = 'a'; /*!< Constante que armaxena o valor ascii de 'a', para definir o limite inferior de letras minusculas permitidas. */
+
+	const static int LIMITE_SUP_MIN = 'z'; /*!< Constante que armaxena o valor ascii de 'z', para definir o limite superior de letras minusculas permitidas. */
+
+	const static int LIMITE_INF_NUM = '0'; /*!< Constante que armaxena o valor ascii de '0', para definir o limite inferior de caracteres numéricos permitidos. */
+
+	const static int LIMITE_SUP_NUM = '9'; /*!< Constante que armaxena o valor ascii de '9', para definir o limite superior de caracteres numériocs permitidos. */
+
+	const static int EXCLAMACAO = '!'; /*!< Constante que armazena o valor ASCII do caractere de exclamação. */
+
+	const static int CERQUILHA = '#'; /*!< Constante que armazena o valor ASCII do caractere cerquilha. */
+
+	const static int CIFRAO = '$'; /*!< Constante que armazena o valor ASCII do caractere cifrao. */
+
+	const static int PORCENTAGEM = '%'; /*!< Constante que armazena o valor ASCII do caractere de porcentagem. */
+
+	const static int EITZA = '&'; /*!< Constante que armazena o valor ASCII do caractere eitza. */
+
+	const static int VERDADEIRO = 0; /*!< Constante que armazena o valor 0 representando a verdade de uma varivael. */
+
+	const static int FALSO = 1; /*!< Constante que armazena o valor 1 representando a falsidade de uma varivael. */
+
+	// Método de validação
+	/*! \fn void validar(string)
+        \brief Valida uma string para verificar se esta está no formato adequado da classe.
+
+        Verifica se a string tem 8 digitos, se tem ao menos uma letra maiuscula, minuscula, um número e um digito(! # $ % &),
+        se não há caracteres inválidos e se não há caracteres repetidos.
+
+        \param string Variável com a string a ser validada.
+	*/
+	void validar(string) throw (invalid_argument);
+
+public:
+	// Métodos de acesso
+	/*! \fn void setSenha(string)
+        \brief Verifica se a string é valida e seta a string passada para a variavel 'senha'.
+
+        \param string Variável com a string a ser validada e setada.
+	*/
+	void setSenha(string) throw (invalid_argument);
+
+	/*! \fn void getSenha()
+        \brief Retorna a senha armazenada.
+
+        \return Retorna a variavel armazenda.
+	*/
+	string getSenha() const {
+		return senha;
+	}
+};
 #endif
