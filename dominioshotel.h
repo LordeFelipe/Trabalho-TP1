@@ -14,8 +14,8 @@ class CapacidadeDeAcomodacao
 
         int capacidade;
 
-        const static int LIMITE_SUP = 1;
-        const static int LIMITE_INF = 9;
+        const static int LIMITE_SUP = 9;
+        const static int LIMITE_INF = 1;
 
         void validar(int) throw (invalid_argument);
 
@@ -92,5 +92,22 @@ class Estado
             return estado;
         }
 
+};
+
+class TipoDeAcomodacao
+{
+    private:
+
+        string acomodacao;
+
+        void validar(string) throw (invalid_argument);
+
+    public:
+
+        void SetTipoDeAcomodacao(string) throw (invalid_argument);
+
+        string GetTipoDeAcomodacao() const{
+            return acomodacao;
+        }
 };
 #endif // DOMINIOSHOTEL_H

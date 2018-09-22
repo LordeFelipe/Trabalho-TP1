@@ -7,7 +7,7 @@
 
 using namespace std;
 
-//Testes referentes ao tipo capacidade de acomodação
+//Testes referentes ao tipo CapacidadeDeAcomodação
 class TUCapacidadeDeAcomodacao
 {
     private:
@@ -66,8 +66,8 @@ class TUData
 {
     private:
 
-    string VALOR_VALIDO = "01/08/2003";
-    string VALOR_INVALIDO = "10/04/1999";
+    const string VALOR_VALIDO = "29/fev/2004";
+    const string VALOR_INVALIDO = "31/jan/1999";
 
     Data* data;
 
@@ -93,10 +93,38 @@ class TUEstado
 {
     private:
 
-    string VALOR_VALIDO = "TO";
-    string VALOR_INVALIDO = "AA";
+    const string VALOR_VALIDO = "TO";
+    const string VALOR_INVALIDO = "AA";
 
     Estado* estado;
+
+    //Estado do Teste
+    int estado_teste;
+
+    //Declaração dos métodos
+    void SetUp();
+    void TearDown();
+    void TestarCenarioSucesso();
+    void TestarCenarioFalha();
+
+    public:
+
+    const static int SUCESSO =  0;
+    const static int FALHA   = -1;
+
+    int Run();
+};
+
+//Testes referentes ao objeto TipoDeAcomodacao
+class TUTipoDeAcomodacao
+{
+    private:
+
+    const string VALOR_VALIDO = "Flat";
+    const string VALOR_INVALIDO = "Castelo Medieval";
+
+
+    TipoDeAcomodacao* acomodacao;
 
     //Estado do Teste
     int estado_teste;

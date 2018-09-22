@@ -1,6 +1,8 @@
 #include <iostream>
 #include "dominiosbanco.h"
 #include "testesbanco.h"
+#include "dominioshotel.h"
+#include "testesdominioshotel.h"
 
 using namespace std;
 
@@ -54,37 +56,47 @@ int main(){
 	TUCapacidadeDeAcomodacao Tcapacidade;
 
     switch(Tcapacidade.Run()){
-	    case TUCapacidadeDeAcomodacao::SUCESSO: cout << "SUCESSO";
+	    case TUCapacidadeDeAcomodacao::SUCESSO: cout << "Capacidade de Acomodação: Sucesso" << endl;
 	        break;
-	    case TUCapacidadeDeAcomodacao::FALHA: cout << "SUCESSO";
+	    case TUCapacidadeDeAcomodacao::FALHA: cout << "Capacidade de Acomodação: Falha" << endl;
 	        break;
     }
 
     TUData Tdata;
 
     switch(Tdata.Run()){
-	    case TUData::SUCESSO: cout << "SUCESSO";
+	    case TUData::SUCESSO: cout << "Data: Sucesso" << endl;
 	        break;
-	    case TUData::FALHA: cout << "SUCESSO";
+	    case TUData::FALHA: cout << "Data: Falha" << endl;
 	        break;
     }
 
     TUDiaria Tdiaria;
 
     switch(Tdiaria.Run()){
-	    case TUDiaria::SUCESSO: cout << "SUCESSO";
+	    case TUDiaria::SUCESSO: cout << "Diaria: Sucesso" << endl;
 	        break;
-	    case TUDiaria::FALHA: cout << "SUCESSO";
+	    case TUDiaria::FALHA: cout << "Diaria: Falha" << endl;
 	        break;
     }
 
     TUEstado Testado;
 
     switch(Testado.Run()){
-	    case TUEstado::SUCESSO: cout << "SUCESSO";
+	    case TUEstado::SUCESSO: cout << "Estado: Sucesso" << endl;
 	        break;
-	    case TUEstado::FALHA: cout << "SUCESSO";
+	    case TUEstado::FALHA: cout << "Estado: Falha" << endl;
 	        break;
+	}
 
+	TUTipoDeAcomodacao Tacomodacao;
+
+    switch(Tacomodacao.Run()){
+	    case TUTipoDeAcomodacao::SUCESSO: cout << "Tipo de Acomodação: Sucesso" << endl;
+	        break;
+	    case TUTipoDeAcomodacao::FALHA: cout << "Tipo de Acomodação: Falha" << endl;
+	        break;
+	}
 	return 0;
 }
+	

@@ -5,6 +5,7 @@ void CapacidadeDeAcomodacao::validar(int capacidade) throw (invalid_argument){
 
     if(capacidade > LIMITE_SUP || capacidade < LIMITE_INF){
         throw invalid_argument("Argumento invalido.");
+
     }
 }
 
@@ -22,7 +23,7 @@ void Diaria::validar(float diaria) throw (invalid_argument){
     }
 }
 
-void Diaria::SetDiaria(float capacidade) throw (invalid_argument){
+void Diaria::SetDiaria(float diaria) throw (invalid_argument){
 
     validar(diaria);
     this->diaria = diaria;
@@ -31,12 +32,12 @@ void Diaria::SetDiaria(float capacidade) throw (invalid_argument){
 //Métodos do objeto Data
 void Data::validar(string data) throw (invalid_argument){
 
-    string diastring = data.substr(0,1);
+    string diastring = data.substr(0,2);
     int dia = atoi(diastring.c_str());
 
-    string mes = data.substr(3,5);
+    string mes = data.substr(3,3);
 
-    string anostring = data.substr(7,10);
+    string anostring = data.substr(7,4);
     int ano = atoi(anostring.c_str());
 
     //Verificação do valor do ano
@@ -45,7 +46,7 @@ void Data::validar(string data) throw (invalid_argument){
     }
 
     //Verificão do valor do mes
-    if(mes != "jan" || mes != "fev" || mes != "mar" || mes != "abr" || mes != "mai" || mes != "jun" || mes != "jul" || mes != "ago" || mes != "set" || mes != "out" || mes != "nov" || mes != "dez"){
+    if(mes != "jan" && mes != "fev" && mes != "mar" && mes != "abr" && mes != "mai" && mes != "jun" && mes != "jul" && mes != "ago" && mes != "set" && mes != "out" && mes != "nov" && mes != "dez"){
         throw invalid_argument("O Mês contêm um argumento invalido.");
     }
 
@@ -79,15 +80,15 @@ void Data::SetData(string data) throw (invalid_argument){
     this->data = data;
 }
 
-//Métodos do objeto Data
+//Métodos do objeto Estado
 void Estado::validar(string estado) throw (invalid_argument){
 
-    if(estado != "AC" && estado != "AL" && estado != "AP" && estado != "AM" && estado != "BA");
-    else if(estado != "CE" && estado !="DF" && estado != "ES" && estado !="GO" && estado != "MA");
-    else if(estado != "MT" && estado !="MS" && estado != "MG" && estado !="PA" && estado != "PB");
-    else if(estado != "PR" && estado !="PE" && estado != "PI" && estado !="RJ" && estado != "RN");
-    else if(estado != "RS" && estado !="RO" && estado != "RR" && estado !="SC" && estado != "SP");
-    else if(estado != "SE" && estado !="TO");
+    if(estado == "AC" || estado == "AL" || estado == "AP" || estado == "AM" || estado == "BA");
+    else if(estado == "CE" || estado =="DF" || estado == "ES" || estado == "GO" || estado == "MA");
+    else if(estado == "MT" || estado =="MS" || estado == "MG" || estado == "PA" || estado == "PB");
+    else if(estado == "PR" || estado =="PE" || estado == "PI" || estado == "RJ" || estado == "RN");
+    else if(estado == "RS" || estado =="RO" || estado == "RR" || estado == "SC" || estado == "SP");
+    else if(estado == "SE" || estado =="TO");
     else{
         throw invalid_argument("Argumento invalido.");
     }
@@ -99,5 +100,19 @@ void Estado::SetEstado(string estado) throw (invalid_argument){
     validar(estado);
     this->estado = estado;
 }
-//Métodos do objeto Data
+
+//Métodos do objeto TipoDeAcomodacao
+void TipoDeAcomodacao::validar(string acomodacao) throw (invalid_argument){
+
+    if(acomodacao != "Apartamento" && acomodacao != "Casa" && acomodacao != "Flat"){
+        throw invalid_argument("Argumento invalido.");
+    }
+}
+
+void TipoDeAcomodacao::SetTipoDeAcomodacao(string acomodacao) throw (invalid_argument){
+
+    validar(acomodacao);
+    this->acomodacao = acomodacao;
+}
+
 

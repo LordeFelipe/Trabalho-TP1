@@ -176,3 +176,47 @@ int TUEstado::Run(){
     TearDown();
     return estado_teste;
 }
+
+//Métodos que testam o Estado
+
+void TUTipoDeAcomodacao::SetUp(){
+
+    //Criação do objeto estado e definição do estado inicial do teste para sucesso
+    acomodacao = new TipoDeAcomodacao();
+    estado_teste = SUCESSO;
+}
+
+void TUTipoDeAcomodacao::TearDown(){
+    delete acomodacao;
+}
+
+void TUTipoDeAcomodacao::TestarCenarioSucesso(){
+    try{
+        //É setado um estado vaĺido para passsar no teste
+        acomodacao->SetTipoDeAcomodacao(VALOR_VALIDO);
+        if (acomodacao->GetTipoDeAcomodacao() != VALOR_VALIDO)
+            estado_teste = FALHA;
+    }
+    catch(invalid_argument excecao){
+        estado_teste = FALHA;
+    }
+}
+
+void TUTipoDeAcomodacao::TestarCenarioFalha(){
+    try{
+        //É setado um estado inválido para falhar no teste
+        acomodacao->SetTipoDeAcomodacao(VALOR_INVALIDO);
+        estado_teste = FALHA;
+    }
+    catch(invalid_argument excecao){
+        return;
+    }
+}
+
+int TUTipoDeAcomodacao::Run(){
+    SetUp();
+    TestarCenarioSucesso();
+    TestarCenarioFalha();
+    TearDown();
+    return estado_teste;
+}
