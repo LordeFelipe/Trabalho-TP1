@@ -97,6 +97,16 @@ int main(){
 	    case TUTipoDeAcomodacao::FALHA: cout << "Tipo de Acomodação: Falha" << endl;
 	        break;
 	}
+
+	TUNome Tnome;
+
+	switch(Tnome.run()){
+		case TUNome::SUCESSO: cout << "Nome: Sucessso" << endl;
+			break;
+		case TUNome::FALHA: cout << "Nome: Falha" << endl;
+			break;
+	}
+
 	return 0;
 }
 	

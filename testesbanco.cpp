@@ -291,3 +291,77 @@ int TUValidade::run(){
 
     return estado;
 }
+
+// Testes para a classe Nome:
+void TUNome::setUp(){
+	nome = new Nome();
+	estado = SUCESSO;
+}
+
+void TUNome::tearDown(){
+	delete nome;
+}
+
+void TUNome::testarCenarioSucesso(){
+	try{
+		nome->setNome(VALOR_VALIDO);
+		if(nome->getNome() != VALOR_VALIDO){
+			estado = FALHA;
+		}
+	}
+	catch(invalid_argument excecao){
+		estado = FALHA;
+	}
+}
+
+void TUNome::testarCenarioFalha_TAM(){
+	try{
+		nome->setNome(VALOR_INVALIDO_TAM);
+		estado = FALHA;
+	}
+	catch(invalid_argument excecao){
+		return;
+	}
+}
+
+void TUNome::testarCenarioFalha_CARAC(){
+	try{
+		nome->setNome(VALOR_INVALIDO_CARAC);
+		estado = FALHA;
+	}
+	catch(invalid_argument excecao){
+		return;
+	}
+}
+
+void TUNome::testarCenarioFalha_PONTO(){
+	try{
+		nome->setNome(VALOR_INVALIDO_PONTO);
+		estado = FALHA;
+	}
+	catch(invalid_argument excecao){
+		return;
+	}
+}
+
+void TUNome::testarCenarioFalha_ESPACO(){
+	try{
+		nome->setNome(VALOR_INVALIDO_ESPACO);
+		estado = FALHA;
+	}
+	catch(invalid_argument excecao){
+		return;
+	}
+}
+
+int TUNome::run(){
+	setUp();
+	testarCenarioSucesso();
+	testarCenarioFalha_TAM();
+	testarCenarioFalha_CARAC();
+	testarCenarioFalha_PONTO();
+	testarCenarioFalha_ESPACO();
+    tearDown();
+
+    return estado;
+}

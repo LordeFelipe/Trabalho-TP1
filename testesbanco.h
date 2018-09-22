@@ -200,4 +200,46 @@ public:
 	int run();
 };
 
+// Testes da classe Nome:
+class TUNome {
+
+private:
+
+	// Definição dos valores válidos e inválidos:
+
+	const string VALOR_VALIDO = "Andre M. Valle";
+	const string VALOR_INVALIDO_TAM = "Andre Macedo Prado Valle";
+	const string VALOR_INVALIDO_CARAC = "1209389784";
+	const string VALOR_INVALIDO_PONTO = "Andre . Valle";
+	const string VALOR_INVALIDO_ESPACO = "Andre  Valle";
+
+
+	// Ponteiro para o objeto a ser testado:
+
+	Nome *nome;
+
+	// Estado do teste:
+
+	int estado;
+
+	// Declaraçãoo de métodos:
+
+	void setUp();
+	void tearDown();
+	void testarCenarioSucesso();
+	void testarCenarioFalha_TAM();
+	void testarCenarioFalha_CARAC();
+	void testarCenarioFalha_PONTO();
+	void testarCenarioFalha_ESPACO();
+
+public:
+
+	// Constantes de estado:
+
+	const static int SUCESSO = 0;
+	const static int FALHA = 1;
+
+	int run();
+};
+
 #endif
