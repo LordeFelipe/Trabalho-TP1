@@ -1,8 +1,9 @@
 #include "dominioshotel.h"
 
 //Métodos do objeto CapacidadeDeAcomodacao
-void CapacidadeDeAcomodacao::validar(int capacidade) throw (invalid_argument){
+void CapacidadeDeAcomodacao::Validar(int capacidade) throw (invalid_argument){
 
+    // Lança excessão caso o valor da capacidade ultrapasse um dos seus limites
     if(capacidade > LIMITE_SUP || capacidade < LIMITE_INF){
         throw invalid_argument("Argumento invalido.");
 
@@ -11,13 +12,14 @@ void CapacidadeDeAcomodacao::validar(int capacidade) throw (invalid_argument){
 
 void CapacidadeDeAcomodacao::SetCapacidadeDeAcomodacao(int capacidade) throw (invalid_argument){
 
-    validar(capacidade);
+    Validar(capacidade);
     this->capacidade = capacidade;
 }
 
 //Métodos do objeto Diaria
-void Diaria::validar(float diaria) throw (invalid_argument){
+void Diaria::Validar(float diaria) throw (invalid_argument){
 
+    // Lança excessão caso o valor da diaria ultrapasse um dos seus limites
     if(diaria > LIMITE_SUP || diaria < LIMITE_INF){
         throw invalid_argument("Argumento invalido.");
     }
@@ -25,12 +27,17 @@ void Diaria::validar(float diaria) throw (invalid_argument){
 
 void Diaria::SetDiaria(float diaria) throw (invalid_argument){
 
-    validar(diaria);
+    Validar(diaria);
     this->diaria = diaria;
 }
 
 //Métodos do objeto Data
-void Data::validar(string data) throw (invalid_argument){
+void Data::Validar(string data) throw (invalid_argument){
+
+    //Lança uma exceção se a string tem valor maior que o limite
+    if(data.length() != STRING_TAMANHO){
+        throw invalid_argument("O Ano contêm um argumento invalido.");
+    }
 
     string diastring = data.substr(0,2);
     int dia = atoi(diastring.c_str());
@@ -50,23 +57,28 @@ void Data::validar(string data) throw (invalid_argument){
         throw invalid_argument("O Mês contêm um argumento invalido.");
     }
 
-    //Verificão do valor do mes
+    //Lança exceção caso os meses a seguir tenham mais de 31 dias
     if(mes == "jan" || mes == "mar" || mes == "mai" || mes == "jul" || mes == "ago" || mes == "out" || mes == "dez"){
         if(dia > DIA_LIMITE_SUP1 || dia < DIA_LIMITE_INF){
             throw invalid_argument("O Dia contêm um argumento fora do intervalo [1,31]");
         }
     }
+
+    //Lança exceção caso os meses a seguir tenham mais de 30 dias
     else if(mes == "abr" || mes == "jun" || mes == "set" || mes == "nov"){
         if(dia > DIA_LIMITE_SUP2 || dia < DIA_LIMITE_INF){
             throw invalid_argument("O Dia contêm um argumento fora do intervalo [1,30]");
         }
     }
-    //Fevereiro com ano bisexto
+
+    //Lança exceção caso em que fevereiro tem mais de 29 dias em anos bissextos
     else if(mes == "fev" && ano%4 == 0){
         if(dia > DIA_LIMITE_SUP3 || dia < DIA_LIMITE_INF){
             throw invalid_argument("O Dia contêm um argumento fora do intervalo [1,29]");
         }
     }
+
+    //Lança exceção caso em que fevereiro tem mais de 28 dias em anos não bissextos
     else if(mes == "fev" && ano%4 != 0){
         if(dia > DIA_LIMITE_SUP4 || dia < DIA_LIMITE_INF){
             throw invalid_argument("O Dia contêm um argumento fora do intervalo [1,28]");
@@ -76,13 +88,14 @@ void Data::validar(string data) throw (invalid_argument){
 
 void Data::SetData(string data) throw (invalid_argument){
 
-    validar(data);
+    Validar(data);
     this->data = data;
 }
 
 //Métodos do objeto Estado
-void Estado::validar(string estado) throw (invalid_argument){
+void Estado::Validar(string estado) throw (invalid_argument){
 
+    // Exceção é lançado caso seja fornecido um estado que não existe
     if(estado == "AC" || estado == "AL" || estado == "AP" || estado == "AM" || estado == "BA");
     else if(estado == "CE" || estado =="DF" || estado == "ES" || estado == "GO" || estado == "MA");
     else if(estado == "MT" || estado =="MS" || estado == "MG" || estado == "PA" || estado == "PB");
@@ -97,12 +110,12 @@ void Estado::validar(string estado) throw (invalid_argument){
 
 void Estado::SetEstado(string estado) throw (invalid_argument){
 
-    validar(estado);
+    Validar(estado);
     this->estado = estado;
 }
 
 //Métodos do objeto TipoDeAcomodacao
-void TipoDeAcomodacao::validar(string acomodacao) throw (invalid_argument){
+void TipoDeAcomodacao::Validar(string acomodacao) throw (invalid_argument){
 
     if(acomodacao != "Apartamento" && acomodacao != "Casa" && acomodacao != "Flat"){
         throw invalid_argument("Argumento invalido.");
@@ -111,8 +124,28 @@ void TipoDeAcomodacao::validar(string acomodacao) throw (invalid_argument){
 
 void TipoDeAcomodacao::SetTipoDeAcomodacao(string acomodacao) throw (invalid_argument){
 
-    validar(acomodacao);
+    Validar(acomodacao);
     this->acomodacao = acomodacao;
 }
 
+//Métodos do objeto Identificador
+void Identificador::Validar(string identificador) throw (invalid_argument){
 
+    // Lança exceção se o número de caracteres for diferente do esperado
+    if(identificador.length() != N_CARAC){
+        throw invalid_argument("Argumento invalido.");
+    }
+
+    // Lança exceção se os caracteres não forem todos minúsculos
+    for(int i = 0; i < identificador.length(); i++){
+        if(identificador[i] > LIMITE_SUP || identificador[i] < LIMITE_INF){
+            throw invalid_argument("Argumento invalido.");
+        }
+    }
+}
+
+void Identificador::SetIdentificador(string identificador) throw (invalid_argument){
+
+    Validar(identificador);
+    this->identificador = identificador;
+}

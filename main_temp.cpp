@@ -116,6 +116,15 @@ int main(){
 			break;
 	}
 
+	TUIdentificador Tidentificador;
+
+    switch(Tidentificador.Run()){
+	    case TUIdentificador::SUCESSO: cout << "Identificador: Sucesso" << endl;
+	        break;
+	    case TUIdentificador::FALHA: cout << "Identificador: Falha" << endl;
+	        break;
+	}
+
 	return 0;
 }
 	

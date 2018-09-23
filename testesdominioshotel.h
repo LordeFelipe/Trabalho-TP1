@@ -142,4 +142,32 @@ class TUTipoDeAcomodacao
 
     int Run();
 };
+
+//Testes referentes ao objeto Identificador
+class TUIdentificador
+{
+    private:
+
+    const string VALOR_VALIDO = "joaos";
+    const string VALOR_INVALIDO = "AAAAA";
+
+
+    Identificador* identificador;
+
+    //Estado do Teste
+    int estado;
+
+    //Declaração dos métodos
+    void SetUp();
+    void TearDown();
+    void TestarCenarioSucesso();
+    void TestarCenarioFalha();
+
+    public:
+
+    const static int SUCESSO =  0;
+    const static int FALHA   = -1;
+
+    int Run();
+};
 #endif // TESTESDOMINIOSHOTEL_H

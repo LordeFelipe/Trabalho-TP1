@@ -181,7 +181,7 @@ int TUEstado::Run(){
 
 void TUTipoDeAcomodacao::SetUp(){
 
-    //Criação do objeto estado e definição do estado inicial do teste para sucesso
+    //Criação do objeto acomodacao e definição do estado inicial do teste para sucesso
     acomodacao = new TipoDeAcomodacao();
     estado_teste = SUCESSO;
 }
@@ -192,7 +192,7 @@ void TUTipoDeAcomodacao::TearDown(){
 
 void TUTipoDeAcomodacao::TestarCenarioSucesso(){
     try{
-        //É setado um estado vaĺido para passsar no teste
+        //É setado um tipo de acomodação vaĺido para passsar no teste
         acomodacao->SetTipoDeAcomodacao(VALOR_VALIDO);
         if (acomodacao->GetTipoDeAcomodacao() != VALOR_VALIDO)
             estado_teste = FALHA;
@@ -204,7 +204,7 @@ void TUTipoDeAcomodacao::TestarCenarioSucesso(){
 
 void TUTipoDeAcomodacao::TestarCenarioFalha(){
     try{
-        //É setado um estado inválido para falhar no teste
+        //É setado um tipo de acomodação inválido para falhar no teste
         acomodacao->SetTipoDeAcomodacao(VALOR_INVALIDO);
         estado_teste = FALHA;
     }
@@ -219,4 +219,48 @@ int TUTipoDeAcomodacao::Run(){
     TestarCenarioFalha();
     TearDown();
     return estado_teste;
+}
+
+//Métodos que testam o Identificador
+
+void TUIdentificador::SetUp(){
+
+    //Criação do objeto identificador e definição do estado inicial do teste para sucesso
+    identificador = new Identificador();
+    estado = SUCESSO;
+}
+
+void TUIdentificador::TearDown(){
+    delete identificador;
+}
+
+void TUIdentificador::TestarCenarioSucesso(){
+    try{
+        //O valor do identificador é setado para um valor válido para passar no teste
+        identificador->SetIdentificador(VALOR_VALIDO);
+        if (identificador->GetIdentificador() != VALOR_VALIDO)
+            estado = FALHA;
+    }
+    catch(invalid_argument excecao){
+        estado = FALHA;
+    }
+}
+
+void TUIdentificador::TestarCenarioFalha(){
+    try{
+        //O valor do identificador é setado para um valor inválido para falhar no teste
+        identificador->SetIdentificador(VALOR_INVALIDO);
+        estado = FALHA;
+    }
+    catch(invalid_argument excecao){
+        return;
+    }
+}
+
+int TUIdentificador::Run(){
+    SetUp();
+    TestarCenarioSucesso();
+    TestarCenarioFalha();
+    TearDown();
+    return estado;
 }
