@@ -4,7 +4,7 @@
 // Definições de métodos:
 
 // Agencia:
-void Agencia::validar(string agencia) throw (invalid_argument){
+void Agencia::Validar(string agencia) throw (invalid_argument){
 	// Lança exceção se a string tiver menos ou mais que 5 dígitos
 	if(agencia.length() != N_CARAC){
 		throw invalid_argument("Número de caracteres invalido.");
@@ -20,13 +20,13 @@ void Agencia::validar(string agencia) throw (invalid_argument){
 	}
 }
 
-void Agencia::setAgencia(string agencia) throw (invalid_argument){
-	validar(agencia);
+void Agencia::SetAgencia(string agencia) throw (invalid_argument){
+	Validar(agencia);
 	this->agencia = agencia;
 }
 
 // Banco:
-void Banco::validar(string banco) throw (invalid_argument){
+void Banco::Validar(string banco) throw (invalid_argument){
 	// Lança exceção se a string tiver menos ou mais que 3 dígitos
 	if(banco.length() != N_CARAC){
 		throw invalid_argument("Número de caracteres invalido.");
@@ -42,13 +42,13 @@ void Banco::validar(string banco) throw (invalid_argument){
 	}
 }
 
-void Banco::setBanco(string banco) throw (invalid_argument){
-	validar(banco);
+void Banco::SetBanco(string banco) throw (invalid_argument){
+	Validar(banco);
 	this->banco = banco;
 }
 
 // Conta:
-void Conta::validar(string conta) throw (invalid_argument){
+void Conta::Validar(string conta) throw (invalid_argument){
 	// Lança exceção se a string tiver menos ou mais que 6 dígitos
 	if(conta.length() != N_CARAC){
 		throw invalid_argument("Número de caracteres invalido.");
@@ -64,13 +64,13 @@ void Conta::validar(string conta) throw (invalid_argument){
 	}
 }
 
-void Conta::setConta(string conta) throw (invalid_argument){
-	validar(conta);
+void Conta::SetConta(string conta) throw (invalid_argument){
+	Validar(conta);
 	this->conta = conta;
 }
 
 // Cartao:
-void Cartao::validar(string cartao) throw (invalid_argument){
+void Cartao::Validar(string cartao) throw (invalid_argument){
 	// Lança exceção se a string tiver menos ou mais que 16 dígitos
 	if(cartao.length() != N_CARAC){
 		throw invalid_argument("Número de caracteres invalido.");
@@ -108,13 +108,13 @@ void Cartao::validar(string cartao) throw (invalid_argument){
     }
 }
 
-void Cartao::setCartao(string cartao) throw (invalid_argument){
-	validar(cartao);
+void Cartao::SetCartao(string cartao) throw (invalid_argument){
+	Validar(cartao);
 	this->cartao = cartao;
 }
 
 // Validade:
-void Validade::validar(string data) throw (invalid_argument){
+void Validade::Validar(string data) throw (invalid_argument){
 	// Lança exceção se a string tiver menos ou mais que 5 dígitos
 	if(data.length() != N_CARAC){
 		throw invalid_argument("Número de caracteres invalido.");
@@ -154,13 +154,13 @@ void Validade::validar(string data) throw (invalid_argument){
 	}
 }
 
-void Validade::setVal(string data) throw (invalid_argument){
-	validar(data);
+void Validade::SetVal(string data) throw (invalid_argument){
+	Validar(data);
 	this->data = data;
 }
 
 // Nome:
-void Nome::validar(string nome) throw (invalid_argument){
+void Nome::Validar(string nome) throw (invalid_argument){
 	// Lança exceção se a string tiver mais que 15 dígitos
 	if(nome.length() > N_CARAC){
 		throw invalid_argument("Número de caracteres invalido.");
@@ -221,13 +221,13 @@ void Nome::validar(string nome) throw (invalid_argument){
 	}
 }
 
-void Nome::setNome(string nome) throw (invalid_argument){
-	validar(nome);
+void Nome::SetNome(string nome) throw (invalid_argument){
+	Validar(nome);
 	this->nome = nome;
 }
 
 // Senha:
-void Senha::validar(string senha) throw (invalid_argument){
+void Senha::Validar(string senha) throw (invalid_argument){
 	// Lança exceção se a string tiver mais ou menos que 8 dígitos
 	if(senha.length() != N_CARAC){
 		throw invalid_argument("Número de caracteres invalido.");
@@ -292,7 +292,7 @@ void Senha::validar(string senha) throw (invalid_argument){
 	}
 }
 
-void Senha::setSenha(string senha) throw (invalid_argument){
-	validar(senha);
+void Senha::SetSenha(string senha) throw (invalid_argument){
+	Validar(senha);
 	this->senha = senha;
 }

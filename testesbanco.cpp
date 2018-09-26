@@ -4,19 +4,19 @@
 // Definição dos métodos:
 
 // Testes para a classe Agência:
-void TUAgencia::setUp(){
+void TUAgencia::SetUp(){
 	agencia = new Agencia();
 	estado = SUCESSO;
 }
 
-void TUAgencia::tearDown(){
+void TUAgencia::TearDown(){
 	delete agencia;
 }
 
-void TUAgencia::testarCenarioSucesso(){
+void TUAgencia::TestarCenarioSucesso(){
 	try{
-		agencia->setAgencia(VALOR_VALIDO);
-		if(agencia->getAgencia() != VALOR_VALIDO)
+		agencia->SetAgencia(VALOR_VALIDO);
+		if(agencia->GetAgencia() != VALOR_VALIDO)
 			estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -24,9 +24,9 @@ void TUAgencia::testarCenarioSucesso(){
 	}
 }
 
-void TUAgencia::testarCenarioFalha_QTD(){
+void TUAgencia::TestarCenarioFalha_QTD(){
 	try{
-		agencia->setAgencia(VALOR_INVALIDO_QTD);
+		agencia->SetAgencia(VALOR_INVALIDO_QTD);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -34,9 +34,9 @@ void TUAgencia::testarCenarioFalha_QTD(){
 	}
 }
 
-void TUAgencia::testarCenarioFalha_CARAC(){
+void TUAgencia::TestarCenarioFalha_CARAC(){
 	try{
-		agencia->setAgencia(VALOR_INVALIDO_CARAC);
+		agencia->SetAgencia(VALOR_INVALIDO_CARAC);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -44,30 +44,30 @@ void TUAgencia::testarCenarioFalha_CARAC(){
 	}
 }
 
-int TUAgencia::run(){
-	setUp();
-	testarCenarioSucesso();
-    testarCenarioFalha_QTD();
-    testarCenarioFalha_CARAC();
-    tearDown();
+int TUAgencia::Run(){
+	SetUp();
+	TestarCenarioSucesso();
+    TestarCenarioFalha_QTD();
+    TestarCenarioFalha_CARAC();
+    TearDown();
 
     return estado;
 }
 
 // Testes para a classe Banco:
-void TUBanco::setUp(){
+void TUBanco::SetUp(){
 	banco = new Banco();
 	estado = SUCESSO;
 }
 
-void TUBanco::tearDown(){
+void TUBanco::TearDown(){
 	delete banco;
 }
 
-void TUBanco::testarCenarioSucesso(){
+void TUBanco::TestarCenarioSucesso(){
 	try{
-		banco->setBanco(VALOR_VALIDO);
-		if(banco->getBanco() != VALOR_VALIDO)
+		banco->SetBanco(VALOR_VALIDO);
+		if(banco->GetBanco() != VALOR_VALIDO)
 			estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -75,9 +75,9 @@ void TUBanco::testarCenarioSucesso(){
 	}
 }
 
-void TUBanco::testarCenarioFalha_QTD(){
+void TUBanco::TestarCenarioFalha_QTD(){
 	try{
-		banco->setBanco(VALOR_INVALIDO_QTD);
+		banco->SetBanco(VALOR_INVALIDO_QTD);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -85,9 +85,9 @@ void TUBanco::testarCenarioFalha_QTD(){
 	}
 }
 
-void TUBanco::testarCenarioFalha_CARAC(){
+void TUBanco::TestarCenarioFalha_CARAC(){
 	try{
-		banco->setBanco(VALOR_INVALIDO_CARAC);
+		banco->SetBanco(VALOR_INVALIDO_CARAC);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -95,30 +95,30 @@ void TUBanco::testarCenarioFalha_CARAC(){
 	}
 }
 
-int TUBanco::run(){
-	setUp();
-	testarCenarioSucesso();
-    testarCenarioFalha_QTD();
-    testarCenarioFalha_CARAC();
-    tearDown();
+int TUBanco::Run(){
+	SetUp();
+	TestarCenarioSucesso();
+    TestarCenarioFalha_QTD();
+    TestarCenarioFalha_CARAC();
+    TearDown();
 
     return estado;
 }
 
 // Testes para a classe Conta:
-void TUConta::setUp(){
+void TUConta::SetUp(){
 	conta = new Conta();
 	estado = SUCESSO;
 }
 
-void TUConta::tearDown(){
+void TUConta::TearDown(){
 	delete conta;
 }
 
-void TUConta::testarCenarioSucesso(){
+void TUConta::TestarCenarioSucesso(){
 	try{
-		conta->setConta(VALOR_VALIDO);
-		if(conta->getConta() != VALOR_VALIDO)
+		conta->SetConta(VALOR_VALIDO);
+		if(conta->GetConta() != VALOR_VALIDO)
 			estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -126,9 +126,9 @@ void TUConta::testarCenarioSucesso(){
 	}
 }
 
-void TUConta::testarCenarioFalha_QTD(){
+void TUConta::TestarCenarioFalha_QTD(){
 	try{
-		conta->setConta(VALOR_INVALIDO_QTD);
+		conta->SetConta(VALOR_INVALIDO_QTD);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -136,9 +136,9 @@ void TUConta::testarCenarioFalha_QTD(){
 	}
 }
 
-void TUConta::testarCenarioFalha_CARAC(){
+void TUConta::TestarCenarioFalha_CARAC(){
 	try{
-		conta->setConta(VALOR_INVALIDO_CARAC);
+		conta->SetConta(VALOR_INVALIDO_CARAC);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -146,30 +146,30 @@ void TUConta::testarCenarioFalha_CARAC(){
 	}
 }
 
-int TUConta::run(){
-	setUp();
-	testarCenarioSucesso();
-    testarCenarioFalha_QTD();
-    testarCenarioFalha_CARAC();
-    tearDown();
+int TUConta::Run(){
+	SetUp();
+	TestarCenarioSucesso();
+    TestarCenarioFalha_QTD();
+    TestarCenarioFalha_CARAC();
+    TearDown();
 
     return estado;
 }
 
 // Testes para a classe Cartao:
-void TUCartao::setUp(){
+void TUCartao::SetUp(){
 	cartao = new Cartao();
 	estado = SUCESSO;
 }
 
-void TUCartao::tearDown(){
+void TUCartao::TearDown(){
 	delete cartao;
 }
 
-void TUCartao::testarCenarioSucesso(){
+void TUCartao::TestarCenarioSucesso(){
 	try{
-		cartao->setCartao(VALOR_VALIDO);
-		if(cartao->getCartao() != VALOR_VALIDO)
+		cartao->SetCartao(VALOR_VALIDO);
+		if(cartao->GetCartao() != VALOR_VALIDO)
 			estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -177,9 +177,9 @@ void TUCartao::testarCenarioSucesso(){
 	}
 }
 
-void TUCartao::testarCenarioFalha_QTD(){
+void TUCartao::TestarCenarioFalha_QTD(){
 	try{
-		cartao->setCartao(VALOR_INVALIDO_QTD);
+		cartao->SetCartao(VALOR_INVALIDO_QTD);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -187,9 +187,9 @@ void TUCartao::testarCenarioFalha_QTD(){
 	}
 }
 
-void TUCartao::testarCenarioFalha_CARAC(){
+void TUCartao::TestarCenarioFalha_CARAC(){
 	try{
-		cartao->setCartao(VALOR_INVALIDO_CARAC);
+		cartao->SetCartao(VALOR_INVALIDO_CARAC);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -197,9 +197,9 @@ void TUCartao::testarCenarioFalha_CARAC(){
 	}
 }
 
-void TUCartao::testarCenarioFalha_NUM(){
+void TUCartao::TestarCenarioFalha_NUM(){
 	try{
-		cartao->setCartao(VALOR_INVALIDO_NUM);
+		cartao->SetCartao(VALOR_INVALIDO_NUM);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -207,31 +207,31 @@ void TUCartao::testarCenarioFalha_NUM(){
 	}
 }
 
-int TUCartao::run(){
-	setUp();
-	testarCenarioSucesso();
-    testarCenarioFalha_QTD();
-    testarCenarioFalha_CARAC();
-    testarCenarioFalha_NUM();
-    tearDown();
+int TUCartao::Run(){
+	SetUp();
+	TestarCenarioSucesso();
+    TestarCenarioFalha_QTD();
+    TestarCenarioFalha_CARAC();
+    TestarCenarioFalha_NUM();
+    TearDown();
 
     return estado;
 }
 
 // Testes para a classe Validade:
-void TUValidade::setUp(){
+void TUValidade::SetUp(){
 	data = new Validade();
 	estado = SUCESSO;
 }
 
-void TUValidade::tearDown(){
+void TUValidade::TearDown(){
 	delete data;
 }
 
-void TUValidade::testarCenarioSucesso(){
+void TUValidade::TestarCenarioSucesso(){
 	try{
-		data->setVal(VALOR_VALIDO);
-		if(data->getVal() != VALOR_VALIDO){
+		data->SetVal(VALOR_VALIDO);
+		if(data->GetVal() != VALOR_VALIDO){
 			estado = FALHA;
 		}
 	}
@@ -240,9 +240,9 @@ void TUValidade::testarCenarioSucesso(){
 	}
 }
 
-void TUValidade::testarCenarioFalha_QTD(){
+void TUValidade::TestarCenarioFalha_QTD(){
 	try{
-		data->setVal(VALOR_INVALIDO_QTD);
+		data->SetVal(VALOR_INVALIDO_QTD);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -250,9 +250,9 @@ void TUValidade::testarCenarioFalha_QTD(){
 	}
 }
 
-void TUValidade::testarCenarioFalha_SEPARADOR(){
+void TUValidade::TestarCenarioFalha_SEPARADOR(){
 	try{
-		data->setVal(VALOR_INVALIDO_SEPARADOR);
+		data->SetVal(VALOR_INVALIDO_SEPARADOR);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -260,9 +260,9 @@ void TUValidade::testarCenarioFalha_SEPARADOR(){
 	}
 }
 
-void TUValidade::testarCenarioFalha_MES(){
+void TUValidade::TestarCenarioFalha_MES(){
 	try{
-		data->setVal(VALOR_INVALIDO_MES);
+		data->SetVal(VALOR_INVALIDO_MES);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -270,9 +270,9 @@ void TUValidade::testarCenarioFalha_MES(){
 	}
 }
 
-void TUValidade::testarCenarioFalha_ANO(){
+void TUValidade::TestarCenarioFalha_ANO(){
 	try{
-		data->setVal(VALOR_INVALIDO_ANO);
+		data->SetVal(VALOR_INVALIDO_ANO);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -280,32 +280,32 @@ void TUValidade::testarCenarioFalha_ANO(){
 	}
 }
 
-int TUValidade::run(){
-	setUp();
-	testarCenarioSucesso();
-    testarCenarioFalha_QTD();
-    testarCenarioFalha_SEPARADOR();
-    testarCenarioFalha_MES();
-    testarCenarioFalha_ANO();
-    tearDown();
+int TUValidade::Run(){
+	SetUp();
+	TestarCenarioSucesso();
+    TestarCenarioFalha_QTD();
+    TestarCenarioFalha_SEPARADOR();
+    TestarCenarioFalha_MES();
+    TestarCenarioFalha_ANO();
+    TearDown();
 
     return estado;
 }
 
 // Testes para a classe Nome:
-void TUNome::setUp(){
+void TUNome::SetUp(){
 	nome = new Nome();
 	estado = SUCESSO;
 }
 
-void TUNome::tearDown(){
+void TUNome::TearDown(){
 	delete nome;
 }
 
-void TUNome::testarCenarioSucesso(){
+void TUNome::TestarCenarioSucesso(){
 	try{
-		nome->setNome(VALOR_VALIDO);
-		if(nome->getNome() != VALOR_VALIDO){
+		nome->SetNome(VALOR_VALIDO);
+		if(nome->GetNome() != VALOR_VALIDO){
 			estado = FALHA;
 		}
 	}
@@ -314,9 +314,9 @@ void TUNome::testarCenarioSucesso(){
 	}
 }
 
-void TUNome::testarCenarioFalha_TAM(){
+void TUNome::TestarCenarioFalha_TAM(){
 	try{
-		nome->setNome(VALOR_INVALIDO_TAM);
+		nome->SetNome(VALOR_INVALIDO_TAM);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -324,9 +324,9 @@ void TUNome::testarCenarioFalha_TAM(){
 	}
 }
 
-void TUNome::testarCenarioFalha_CARAC(){
+void TUNome::TestarCenarioFalha_CARAC(){
 	try{
-		nome->setNome(VALOR_INVALIDO_CARAC);
+		nome->SetNome(VALOR_INVALIDO_CARAC);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -334,9 +334,9 @@ void TUNome::testarCenarioFalha_CARAC(){
 	}
 }
 
-void TUNome::testarCenarioFalha_PONTO(){
+void TUNome::TestarCenarioFalha_PONTO(){
 	try{
-		nome->setNome(VALOR_INVALIDO_PONTO);
+		nome->SetNome(VALOR_INVALIDO_PONTO);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -344,9 +344,9 @@ void TUNome::testarCenarioFalha_PONTO(){
 	}
 }
 
-void TUNome::testarCenarioFalha_ESPACO(){
+void TUNome::TestarCenarioFalha_ESPACO(){
 	try{
-		nome->setNome(VALOR_INVALIDO_ESPACO);
+		nome->SetNome(VALOR_INVALIDO_ESPACO);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -354,32 +354,32 @@ void TUNome::testarCenarioFalha_ESPACO(){
 	}
 }
 
-int TUNome::run(){
-	setUp();
-	testarCenarioSucesso();
-	testarCenarioFalha_TAM();
-	testarCenarioFalha_CARAC();
-	testarCenarioFalha_PONTO();
-	testarCenarioFalha_ESPACO();
-    tearDown();
+int TUNome::Run(){
+	SetUp();
+	TestarCenarioSucesso();
+	TestarCenarioFalha_TAM();
+	TestarCenarioFalha_CARAC();
+	TestarCenarioFalha_PONTO();
+	TestarCenarioFalha_ESPACO();
+    TearDown();
 
     return estado;
 }
 
 // Testes para a classe Senha:
-void TUSenha::setUp(){
+void TUSenha::SetUp(){
 	senha = new Senha();
 	estado = SUCESSO;
 }
 
-void TUSenha::tearDown(){
+void TUSenha::TearDown(){
 	delete senha;
 }
 
-void TUSenha::testarCenarioSucesso(){
+void TUSenha::TestarCenarioSucesso(){
 	try{
-		senha->setSenha(VALOR_VALIDO);
-		if(senha->getSenha() != VALOR_VALIDO){
+		senha->SetSenha(VALOR_VALIDO);
+		if(senha->GetSenha() != VALOR_VALIDO){
 			estado = FALHA;
 		}
 	}
@@ -388,9 +388,9 @@ void TUSenha::testarCenarioSucesso(){
 	}
 }
 
-void TUSenha::testarCenarioFalha_TAM(){
+void TUSenha::TestarCenarioFalha_TAM(){
 	try{
-		senha->setSenha(VALOR_INVALIDO_TAM);
+		senha->SetSenha(VALOR_INVALIDO_TAM);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -398,9 +398,9 @@ void TUSenha::testarCenarioFalha_TAM(){
 	}
 }
 
-void TUSenha::testarCenarioFalha_CARAC(){
+void TUSenha::TestarCenarioFalha_CARAC(){
 	try{
-		senha->setSenha(VALOR_INVALIDO_CARAC);
+		senha->SetSenha(VALOR_INVALIDO_CARAC);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -408,9 +408,9 @@ void TUSenha::testarCenarioFalha_CARAC(){
 	}
 }
 
-void TUSenha::testarCenarioFalha_REPETIDO(){
+void TUSenha::TestarCenarioFalha_REPETIDO(){
 	try{
-		senha->setSenha(VALOR_INVALIDO_REPETIDO);
+		senha->SetSenha(VALOR_INVALIDO_REPETIDO);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -418,9 +418,9 @@ void TUSenha::testarCenarioFalha_REPETIDO(){
 	}
 }
 
-void TUSenha::testarCenarioFalha_FALTA(){
+void TUSenha::TestarCenarioFalha_FALTA(){
 	try{
-		senha->setSenha(VALOR_INVALIDO_FALTA);
+		senha->SetSenha(VALOR_INVALIDO_FALTA);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -428,14 +428,14 @@ void TUSenha::testarCenarioFalha_FALTA(){
 	}
 }
 
-int TUSenha::run(){
-	setUp();
-	testarCenarioSucesso();
-	testarCenarioFalha_TAM();
-	testarCenarioFalha_CARAC();
-	testarCenarioFalha_REPETIDO();
-	testarCenarioFalha_FALTA();
-    tearDown();
+int TUSenha::Run(){
+	SetUp();
+	TestarCenarioSucesso();
+	TestarCenarioFalha_TAM();
+	TestarCenarioFalha_CARAC();
+	TestarCenarioFalha_REPETIDO();
+	TestarCenarioFalha_FALTA();
+    TearDown();
 
     return estado;
 }

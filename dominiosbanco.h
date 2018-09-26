@@ -33,7 +33,7 @@ private:
 
         \param string Variável com a string a ser validada.
 	*/
-	void validar(string) throw (invalid_argument);
+	void Validar(string) throw (invalid_argument);
 
 public:
 	// Métodos de acesso
@@ -42,14 +42,14 @@ public:
 
         \param string Variável com a string a ser validada e setada.
 	*/
-	void setAgencia(string) throw (invalid_argument);
+	void SetAgencia(string) throw (invalid_argument);
 
 	/*! \fn void getAgencia()
         \brief Retorna a agencia armazenada.
 
         \return Retorna a variavel armazenda.
 	*/
-	string getAgencia() const {
+	string GetAgencia() const {
 		return agencia;
 	}
 };
@@ -80,7 +80,7 @@ private:
 
         \param string Variável com a string a ser validada.
 	*/
-	void validar(string) throw (invalid_argument);
+	void Validar(string) throw (invalid_argument);
 
 public:
 	// Métodos de acesso
@@ -89,14 +89,14 @@ public:
 
         \param string Variável com a string a ser validada e setada.
 	*/
-	void setBanco(string) throw (invalid_argument);
+	void SetBanco(string) throw (invalid_argument);
 
 	/*! \fn void getBanco()
         \brief Retorna o banco armazenado.
 
         \return Retorna a variavel armazenda.
 	*/
-	string getBanco() const {
+	string GetBanco() const {
 		return banco;
 	}
 };
@@ -126,7 +126,7 @@ private:
 
         \param string Variável com a string a ser validada.
 	*/
-	void validar(string) throw (invalid_argument);
+	void Validar(string) throw (invalid_argument);
 
 public:
 	// Métodos de acesso
@@ -135,14 +135,14 @@ public:
 
         \param string Variável com a string a ser validada e setada.
 	*/
-	void setConta(string) throw (invalid_argument);
+	void SetConta(string) throw (invalid_argument);
 
 	/*! \fn void getConta()
         \brief Retorna a conta armazenada.
 
         \return Retorna a variavel armazenda.
 	*/
-	string getConta() const {
+	string GetConta() const {
 		return conta;
 	}
 };
@@ -172,7 +172,7 @@ private:
 
         \param string Variável com a string a ser validada.
 	*/
-	void validar(string) throw (invalid_argument);
+	void Validar(string) throw (invalid_argument);
 
 public:
 	// Métodos de acesso
@@ -181,14 +181,14 @@ public:
 
         \param string Variável com a string a ser validada e setada.
 	*/
-	void setCartao(string) throw (invalid_argument);
+	void SetCartao(string) throw (invalid_argument);
 
 	/*! \fn void getCartao()
         \brief Retorna o cartao armazenado.
 
         \return Retorna a variavel armazenda.
 	*/
-	string getCartao() const {
+	string GetCartao() const {
 		return cartao;
 	}
 };
@@ -218,7 +218,7 @@ private:
 
         \param string Variável com a string a ser validada.
 	*/
-	void validar(string) throw (invalid_argument);
+	void Validar(string) throw (invalid_argument);
 
 public:
 	// Métodos de acesso
@@ -227,14 +227,14 @@ public:
 
         \param string Variável com a string a ser validada e setada.
 	*/
-	void setVal(string) throw (invalid_argument);
+	void SetVal(string) throw (invalid_argument);
 
 	/*! \fn void getVal()
         \brief Retorna a data de validade armazenada.
 
         \return Retorna a variavel armazenda.
 	*/
-	string getVal() const {
+	string GetVal() const {
 		return data;
 	}
 };
@@ -277,7 +277,7 @@ private:
 
         \param string Variável com a string a ser validada.
 	*/
-	void validar(string) throw (invalid_argument);
+	void Validar(string) throw (invalid_argument);
 
 public:
 	// Métodos de acesso
@@ -286,14 +286,14 @@ public:
 
         \param string Variável com a string a ser validada e setada.
 	*/
-	void setNome(string) throw (invalid_argument);
+	void SetNome(string) throw (invalid_argument);
 
 	/*! \fn void getNome()
         \brief Retorna o nome armazenado.
 
         \return Retorna a variavel armazenda.
 	*/
-	string getNome() const {
+	string GetNome() const {
 		return nome;
 	}
 };
@@ -347,7 +347,7 @@ private:
 
         \param string Variável com a string a ser validada.
 	*/
-	void validar(string) throw (invalid_argument);
+	void Validar(string) throw (invalid_argument);
 
 public:
 	// Métodos de acesso
@@ -356,14 +356,14 @@ public:
 
         \param string Variável com a string a ser validada e setada.
 	*/
-	void setSenha(string) throw (invalid_argument);
+	void SetSenha(string) throw (invalid_argument);
 
 	/*! \fn void getSenha()
         \brief Retorna a senha armazenada.
 
         \return Retorna a variavel armazenda.
 	*/
-	string getSenha() const {
+	string GetSenha() const {
 		return senha;
 	}
 };

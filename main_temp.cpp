@@ -10,7 +10,7 @@ int main(){
 
 	TUAgencia Tagencia;
 
-	switch(Tagencia.run()){
+	switch(Tagencia.Run()){
 		case TUAgencia::SUCESSO: cout << "Agecia: Sucessso" << endl;
 			break;
 		case TUAgencia::FALHA: cout << "Agencia: Falha" << endl;
@@ -19,7 +19,7 @@ int main(){
 
 	TUBanco Tbanco;
 
-	switch(Tbanco.run()){
+	switch(Tbanco.Run()){
 		case TUBanco::SUCESSO: cout << "Banco: Sucessso" << endl;
 			break;
 		case TUBanco::FALHA: cout << "Banco: Falha" << endl;
@@ -28,7 +28,7 @@ int main(){
 
 	TUConta Tconta;
 
-	switch(Tconta.run()){
+	switch(Tconta.Run()){
 		case TUConta::SUCESSO: cout << "Conta: Sucessso" << endl;
 			break;
 		case TUConta::FALHA: cout << "Conta: Falha" << endl;
@@ -37,7 +37,7 @@ int main(){
 
 	TUCartao Tcartao;
 
-	switch(Tcartao.run()){
+	switch(Tcartao.Run()){
 		case TUCartao::SUCESSO: cout << "Cartao: Sucessso" << endl;
 			break;
 		case TUCartao::FALHA: cout << "Cartao: Falha" << endl;
@@ -46,7 +46,7 @@ int main(){
 	
 	TUValidade Tvalidade;
 
-	switch(Tvalidade.run()){
+	switch(Tvalidade.Run()){
 		case TUValidade::SUCESSO: cout << "Validade: Sucessso" << endl;
 			break;
 		case TUValidade::FALHA: cout << "Validade: Falha" << endl;
@@ -100,7 +100,7 @@ int main(){
 
 	TUNome Tnome;
 
-	switch(Tnome.run()){
+	switch(Tnome.Run()){
 		case TUNome::SUCESSO: cout << "Nome: Sucessso" << endl;
 			break;
 		case TUNome::FALHA: cout << "Nome: Falha" << endl;
@@ -109,7 +109,7 @@ int main(){
 
 	TUSenha Tsenha;
 
-	switch(Tsenha.run()){
+	switch(Tsenha.Run()){
 		case TUSenha::SUCESSO: cout << "Senha: Sucessso" << endl;
 			break;
 		case TUSenha::FALHA: cout << "Senha: Falha" << endl;

@@ -28,11 +28,11 @@ private:
 
 	// Declaraçãoo de métodos:
 
-	void setUp();
-	void tearDown();
-	void testarCenarioSucesso();
-	void testarCenarioFalha_QTD();
-	void testarCenarioFalha_CARAC();
+	void SetUp();
+	void TearDown();
+	void TestarCenarioSucesso();
+	void TestarCenarioFalha_QTD();
+	void TestarCenarioFalha_CARAC();
 
 public:
 
@@ -41,7 +41,7 @@ public:
 	const static int SUCESSO = 0;
 	const static int FALHA = 1;
 
-	int run();
+	int Run();
 };
 
 // Testes da classe Banco:
@@ -65,11 +65,11 @@ private:
 
 	// Declaraçãoo de métodos:
 
-	void setUp();
-	void tearDown();
-	void testarCenarioSucesso();
-	void testarCenarioFalha_QTD();
-	void testarCenarioFalha_CARAC();
+	void SetUp();
+	void TearDown();
+	void TestarCenarioSucesso();
+	void TestarCenarioFalha_QTD();
+	void TestarCenarioFalha_CARAC();
 
 public:
 
@@ -78,7 +78,7 @@ public:
 	const static int SUCESSO = 0;
 	const static int FALHA = 1;
 
-	int run();
+	int Run();
 };
 
 // Testes da classe Banco:
@@ -102,11 +102,11 @@ private:
 
 	// Declaraçãoo de métodos:
 
-	void setUp();
-	void tearDown();
-	void testarCenarioSucesso();
-	void testarCenarioFalha_QTD();
-	void testarCenarioFalha_CARAC();
+	void SetUp();
+	void TearDown();
+	void TestarCenarioSucesso();
+	void TestarCenarioFalha_QTD();
+	void TestarCenarioFalha_CARAC();
 
 public:
 
@@ -115,7 +115,7 @@ public:
 	const static int SUCESSO = 0;
 	const static int FALHA = 1;
 
-	int run();
+	int Run();
 };
 
 // Testes da classe Cartao:
@@ -141,12 +141,12 @@ private:
 
 	// Declaraçãoo de métodos:
 
-	void setUp();
-	void tearDown();
-	void testarCenarioSucesso();
-	void testarCenarioFalha_QTD();
-	void testarCenarioFalha_CARAC();
-	void testarCenarioFalha_NUM();
+	void SetUp();
+	void TearDown();
+	void TestarCenarioSucesso();
+	void TestarCenarioFalha_QTD();
+	void TestarCenarioFalha_CARAC();
+	void TestarCenarioFalha_NUM();
 
 public:
 
@@ -155,7 +155,7 @@ public:
 	const static int SUCESSO = 0;
 	const static int FALHA = 1;
 
-	int run();
+	int Run();
 };
 
 // Testes da classe Cartao:
@@ -182,13 +182,13 @@ private:
 
 	// Declaraçãoo de métodos:
 
-	void setUp();
-	void tearDown();
-	void testarCenarioSucesso();
-	void testarCenarioFalha_QTD();
-	void testarCenarioFalha_MES();
-	void testarCenarioFalha_ANO();
-	void testarCenarioFalha_SEPARADOR();
+	void SetUp();
+	void TearDown();
+	void TestarCenarioSucesso();
+	void TestarCenarioFalha_QTD();
+	void TestarCenarioFalha_MES();
+	void TestarCenarioFalha_ANO();
+	void TestarCenarioFalha_SEPARADOR();
 
 public:
 
@@ -197,7 +197,7 @@ public:
 	const static int SUCESSO = 0;
 	const static int FALHA = 1;
 
-	int run();
+	int Run();
 };
 
 // Testes da classe Nome:
@@ -224,13 +224,13 @@ private:
 
 	// Declaraçãoo de métodos:
 
-	void setUp();
-	void tearDown();
-	void testarCenarioSucesso();
-	void testarCenarioFalha_TAM();
-	void testarCenarioFalha_CARAC();
-	void testarCenarioFalha_PONTO();
-	void testarCenarioFalha_ESPACO();
+	void SetUp();
+	void TearDown();
+	void TestarCenarioSucesso();
+	void TestarCenarioFalha_TAM();
+	void TestarCenarioFalha_CARAC();
+	void TestarCenarioFalha_PONTO();
+	void TestarCenarioFalha_ESPACO();
 
 public:
 
@@ -239,7 +239,7 @@ public:
 	const static int SUCESSO = 0;
 	const static int FALHA = 1;
 
-	int run();
+	int Run();
 };
 
 // Testes da classe Senha:
@@ -266,13 +266,13 @@ private:
 
 	// Declaraçãoo de métodos:
 
-	void setUp();
-	void tearDown();
-	void testarCenarioSucesso();
-	void testarCenarioFalha_TAM();
-	void testarCenarioFalha_CARAC();
-	void testarCenarioFalha_REPETIDO();
-	void testarCenarioFalha_FALTA();
+	void SetUp();
+	void TearDown();
+	void TestarCenarioSucesso();
+	void TestarCenarioFalha_TAM();
+	void TestarCenarioFalha_CARAC();
+	void TestarCenarioFalha_REPETIDO();
+	void TestarCenarioFalha_FALTA();
 
 public:
 
@@ -281,7 +281,7 @@ public:
 	const static int SUCESSO = 0;
 	const static int FALHA = 1;
 
-	int run();
+	int Run();
 };
 
 #endif
