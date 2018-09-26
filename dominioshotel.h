@@ -3,7 +3,6 @@
 
 #include <stdexcept>
 #include <string>
-#include <iostream>
 #include <cstdlib>
 
 using namespace std;
@@ -239,48 +238,4 @@ class TipoDeAcomodacao
         }
 };
 
-/*! \class Identificador
-		\brief Classe do tipo Identificador.
-		Classe que armazena o identificador e contém os métodos de manipulação desse valor.
-		A identificador tem o formato de string de 5 caracteres e contém apenas letras minúsculas.
-*/
-class Identificador
-{
-    private:
-
-        string identificador; /*!< string que armazena o identificador */
-
-        const static int N_CARAC = 5; /*!< Inteiro que armazena o tamanho máximo da string do identificador */
-        const static char LIMITE_SUP = 'z'; /*!< Caractere limite superior para string de acordo com a tabela ASCII */
-        const static char LIMITE_INF = 'a'; /*!< Caractere limite inferior para string de acordo com a tabela ASCII */
-
-        // Método de validação
-        /*! \fn void Validar(string)
-            \brief Valida uma string para verificar se esta está no formato adequado da classe.
-                Verifica se a string tem tamanho 5 e se é composta apenas por letras minúsculas
-
-            \param string contendo o identificador
-        */
-        void Validar(string) throw (invalid_argument);
-
-    public:
-
-        // Métodos de acesso
-
-        /*! \fn void SetIdentificador(string)
-            \brief Verifica se a string fornecida é válida e a seta no objeto
-
-            \param String contendo o identificador
-        */
-        void SetIdentificador(string) throw (invalid_argument);
-
-        /*! \fn void GetIdentificador(string)
-            \brief Retorna o valor do identidicador
-
-            \return string contendo o identificador
-        */
-        string GetIdentificador() const{
-            return identificador;
-        }
-};
 #endif // DOMINIOSHOTEL_H

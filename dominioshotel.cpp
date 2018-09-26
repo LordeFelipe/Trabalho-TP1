@@ -127,25 +127,3 @@ void TipoDeAcomodacao::SetTipoDeAcomodacao(string acomodacao) throw (invalid_arg
     Validar(acomodacao);
     this->acomodacao = acomodacao;
 }
-
-//Métodos do objeto Identificador
-void Identificador::Validar(string identificador) throw (invalid_argument){
-
-    // Lança exceção se o número de caracteres for diferente do esperado
-    if(identificador.length() != N_CARAC){
-        throw invalid_argument("Argumento invalido.");
-    }
-
-    // Lança exceção se os caracteres não forem todos minúsculos
-    for(int i = 0; i < identificador.length(); i++){
-        if(identificador[i] > LIMITE_SUP || identificador[i] < LIMITE_INF){
-            throw invalid_argument("Argumento invalido.");
-        }
-    }
-}
-
-void Identificador::SetIdentificador(string identificador) throw (invalid_argument){
-
-    Validar(identificador);
-    this->identificador = identificador;
-}

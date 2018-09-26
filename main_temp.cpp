@@ -2,7 +2,11 @@
 #include "dominiosbanco.h"
 #include "testesbanco.h"
 #include "dominioshotel.h"
-#include "testesdominioshotel.h"
+#include "testeshotel.h"
+#include "entidades.h"
+#include "testesentidades.h"
+#include "dominiosusuario.h"
+#include "testesusuario.h"
 
 using namespace std;
 
@@ -43,7 +47,7 @@ int main(){
 		case TUCartao::FALHA: cout << "Cartao: Falha" << endl;
 			break;
 	}
-	
+
 	TUValidade Tvalidade;
 
 	switch(Tvalidade.Run()){
@@ -89,9 +93,9 @@ int main(){
 	        break;
 	}
 
-	TUTipoDeAcomodacao Tacomodacao;
+	TUTipoDeAcomodacao Ttipoacomodacao;
 
-    switch(Tacomodacao.Run()){
+    switch(Ttipoacomodacao.Run()){
 	    case TUTipoDeAcomodacao::SUCESSO: cout << "Tipo de Acomodação: Sucesso" << endl;
 	        break;
 	    case TUTipoDeAcomodacao::FALHA: cout << "Tipo de Acomodação: Falha" << endl;
@@ -125,6 +129,15 @@ int main(){
 	        break;
 	}
 
+	TUAcomodacao Tacomodacao;
+
+    switch(Tidentificador.Run()){
+	    case TUAcomodacao::SUCESSO: cout << "Acomodação: Sucesso" << endl;
+	        break;
+	    case TUAcomodacao::FALHA: cout << "Acomodação: Falha" << endl;
+	        break;
+	}
+
 	return 0;
 }
-	
+
