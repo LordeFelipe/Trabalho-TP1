@@ -7,6 +7,7 @@
 #include "testesentidades.h"
 #include "dominiosusuario.h"
 #include "testesusuario.h"
+#include "Testeentidadesbancarias.h"
 
 using namespace std;
 
@@ -30,21 +31,21 @@ int main(){
 			break;
 	}
 
-	TUConta Tconta;
+	TUConta Tnumeroconta;
 
-	switch(Tconta.Run()){
-		case TUConta::SUCESSO: cout << "Conta: Sucessso" << endl;
+	switch(Tnumeroconta.Run()){
+		case TUConta::SUCESSO: cout << "Numero Conta: Sucessso" << endl;
 			break;
-		case TUConta::FALHA: cout << "Conta: Falha" << endl;
+		case TUConta::FALHA: cout << "Numero Conta: Falha" << endl;
 			break;
 	}
 
-	TUCartao Tcartao;
+	TUNumeroCartao Tnumerocartao;
 
-	switch(Tcartao.Run()){
-		case TUCartao::SUCESSO: cout << "Cartao: Sucessso" << endl;
+	switch(Tnumerocartao.Run()){
+		case TUNumeroCartao::SUCESSO: cout << "Nuemro Cartao: Sucessso" << endl;
 			break;
-		case TUCartao::FALHA: cout << "Cartao: Falha" << endl;
+		case TUNumeroCartao::FALHA: cout << "Numero Cartao: Falha" << endl;
 			break;
 	}
 
@@ -135,6 +136,24 @@ int main(){
 	    case TUAcomodacao::SUCESSO: cout << "Acomodação: Sucesso" << endl;
 	        break;
 	    case TUAcomodacao::FALHA: cout << "Acomodação: Falha" << endl;
+	        break;
+	}
+
+	TUCartao Tcartao;
+
+    switch(Tcartao.Run()){
+	    case TUCartao::SUCESSO: cout << "Entidade Cartao: Sucesso" << endl;
+	        break;
+	    case TUCartao::FALHA: cout << "Entidade Cartao: Falha" << endl;
+	        break;
+	}
+
+	TUContaCorrente Tconta;
+
+    switch(Tconta.Run()){
+	    case TUContaCorrente::SUCESSO: cout << "Entidade Conta: Sucesso" << endl;
+	        break;
+	    case TUContaCorrente::FALHA: cout << "Entidade Conta: Falha" << endl;
 	        break;
 	}
 

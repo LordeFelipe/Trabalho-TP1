@@ -107,7 +107,7 @@ int TUBanco::Run(){
 
 // Testes para a classe Conta:
 void TUConta::SetUp(){
-	conta = new Conta();
+	conta = new NumeroConta();
 	estado = SUCESSO;
 }
 
@@ -157,19 +157,19 @@ int TUConta::Run(){
 }
 
 // Testes para a classe Cartao:
-void TUCartao::SetUp(){
-	cartao = new Cartao();
+void TUNumeroCartao::SetUp(){
+	cartao = new NumeroCartao();
 	estado = SUCESSO;
 }
 
-void TUCartao::TearDown(){
+void TUNumeroCartao::TearDown(){
 	delete cartao;
 }
 
-void TUCartao::TestarCenarioSucesso(){
+void TUNumeroCartao::TestarCenarioSucesso(){
 	try{
-		cartao->SetCartao(VALOR_VALIDO);
-		if(cartao->GetCartao() != VALOR_VALIDO)
+		cartao->SetNumero(VALOR_VALIDO);
+		if(cartao->GetNumero() != VALOR_VALIDO)
 			estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -177,9 +177,9 @@ void TUCartao::TestarCenarioSucesso(){
 	}
 }
 
-void TUCartao::TestarCenarioFalha_QTD(){
+void TUNumeroCartao::TestarCenarioFalha_QTD(){
 	try{
-		cartao->SetCartao(VALOR_INVALIDO_QTD);
+		cartao->SetNumero(VALOR_INVALIDO_QTD);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -187,9 +187,9 @@ void TUCartao::TestarCenarioFalha_QTD(){
 	}
 }
 
-void TUCartao::TestarCenarioFalha_CARAC(){
+void TUNumeroCartao::TestarCenarioFalha_CARAC(){
 	try{
-		cartao->SetCartao(VALOR_INVALIDO_CARAC);
+		cartao->SetNumero(VALOR_INVALIDO_CARAC);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -197,9 +197,9 @@ void TUCartao::TestarCenarioFalha_CARAC(){
 	}
 }
 
-void TUCartao::TestarCenarioFalha_NUM(){
+void TUNumeroCartao::TestarCenarioFalha_NUM(){
 	try{
-		cartao->SetCartao(VALOR_INVALIDO_NUM);
+		cartao->SetNumero(VALOR_INVALIDO_NUM);
 		estado = FALHA;
 	}
 	catch(invalid_argument excecao){
@@ -207,7 +207,7 @@ void TUCartao::TestarCenarioFalha_NUM(){
 	}
 }
 
-int TUCartao::Run(){
+int TUNumeroCartao::Run(){
 	SetUp();
 	TestarCenarioSucesso();
     TestarCenarioFalha_QTD();

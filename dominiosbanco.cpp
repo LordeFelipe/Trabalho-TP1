@@ -47,8 +47,8 @@ void Banco::SetBanco(string banco) throw (invalid_argument){
 	this->banco = banco;
 }
 
-// Conta:
-void Conta::Validar(string conta) throw (invalid_argument){
+// NumeroConta:
+void NumeroConta::Validar(string conta) throw (invalid_argument){
 	// Lança exceção se a string tiver menos ou mais que 6 dígitos
 	if(conta.length() != N_CARAC){
 		throw invalid_argument("Número de caracteres invalido.");
@@ -64,13 +64,13 @@ void Conta::Validar(string conta) throw (invalid_argument){
 	}
 }
 
-void Conta::SetConta(string conta) throw (invalid_argument){
+void NumeroConta::SetConta(string conta) throw (invalid_argument){
 	Validar(conta);
-	this->conta = conta;
+	this->numero = conta;
 }
 
-// Cartao:
-void Cartao::Validar(string cartao) throw (invalid_argument){
+// NUmeroCartao:
+void NumeroCartao::Validar(string cartao) throw (invalid_argument){
 	// Lança exceção se a string tiver menos ou mais que 16 dígitos
 	if(cartao.length() != N_CARAC){
 		throw invalid_argument("Número de caracteres invalido.");
@@ -108,9 +108,9 @@ void Cartao::Validar(string cartao) throw (invalid_argument){
     }
 }
 
-void Cartao::SetCartao(string cartao) throw (invalid_argument){
+void NumeroCartao::SetNumero(string cartao) throw (invalid_argument){
 	Validar(cartao);
-	this->cartao = cartao;
+	this->numero = cartao;
 }
 
 // Validade:

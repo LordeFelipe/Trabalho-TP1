@@ -94,7 +94,7 @@ private:
 
 	// Ponteiro para o objeto a ser testado:
 
-	Conta *conta;
+	NumeroConta *conta;
 
 	// Estado do teste:
 
@@ -119,7 +119,7 @@ public:
 };
 
 // Testes da classe Cartao:
-class TUCartao {
+class TUNumeroCartao {
 
 private:
 
@@ -133,7 +133,7 @@ private:
 
 	// Ponteiro para o objeto a ser testado:
 
-	Cartao *cartao;
+	NumeroCartao *cartao;
 
 	// Estado do teste:
 
