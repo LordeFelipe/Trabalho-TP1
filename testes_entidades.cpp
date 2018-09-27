@@ -1,4 +1,4 @@
-#include "Testes_Entidades.h"
+#include "testes_entidades.h"
 
 //Métodos que testam a classe Acomodacao
 

@@ -1,8 +1,8 @@
 #ifndef ENTIDADES_H_
 #define ENTIDADES_H_
 
-#include "Dominios_Hotel.h"
-#include "Dominios_Usuario.h"
+#include "dominios_hotel.h"
+#include "dominios_usuario.h"
 
 class Acomodacao
 {

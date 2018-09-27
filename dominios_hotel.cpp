@@ -1,4 +1,4 @@
-#include "Dominios_Hotel.h"
+#include "dominios_hotel.h"
 
 // Implementação dos Metodos das Classes Relacionadas ao Hotel:
 

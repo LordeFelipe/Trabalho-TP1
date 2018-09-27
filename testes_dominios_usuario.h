@@ -1,7 +1,7 @@
 #ifndef TESTES_DOMINIOS_USUARIO_H_
 #define TESTES_DOMINIOS_USUARIO_H_
 
-#include "Dominios_Usuario.h"
+#include "dominios_usuario.h"
 
 //Testes referentes ao objeto Identificador
 class TUIdentificador

@@ -1,10 +1,10 @@
 #include <iostream>
-#include "Dominios_Hotel.h"
-#include "Dominios_Usuario.h"
-#include "Entidades.h"
-#include "Testes_Dominios_Hotel.h"
-#include "Testes_Dominios_Usuario.h"
-#include "Testes_Entidades.h"
+#include "dominios_hotel.h"
+#include "dominios_usuario.h"
+#include "entidades.h"
+#include "testes_dominios_hotel.h"
+#include "testes_dominios_usuario.h"
+#include "testes_entidades.h"
 
 using namespace std;
 

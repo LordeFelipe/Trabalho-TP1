@@ -1,7 +1,7 @@
 #ifndef TESTES_ENTIDADES_H_
 #define TESTES_ENTIDADES_H_
 
-#include "Entidades.h"
+#include "entidades.h"
 
 //Testes referentes ao tipo CapacidadeDeAcomodação
 class TUAcomodacao

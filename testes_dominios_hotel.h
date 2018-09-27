@@ -3,7 +3,7 @@
 
 #include <string>
 #include <stdexcept>
-#include "Dominios_Hotel.h"
+#include "dominios_hotel.h"
 
 using namespace std;
 

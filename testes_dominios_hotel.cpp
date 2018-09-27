@@ -1,4 +1,4 @@
-#include "Testes_Dominios_Hotel.h"
+#include "testes_dominios_hotel.h"
 
 
 //Métodos que testam a classe CapacidadeDeAcomodacao
