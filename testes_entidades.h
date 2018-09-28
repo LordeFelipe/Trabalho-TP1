@@ -97,4 +97,33 @@ class TUContaCorrente{
     int Run();
 };
 
+//Testes referentes a entidade Usuario
+class TUUsuario{
+
+    private:
+
+    Usuario* usuario;
+
+    const string VALOR_VALIDO_IDENTIFICADOR = "joaos";
+    const string VALOR_VALIDO_NOME = "Andre M. Valle";
+    const string VALOR_VALIDO_SENHA = "1aA#%!&$";
+
+    //Estado do Teste
+    int estado;
+
+    //Declaração dos métodos da entidade
+    void SetUp();
+    void TearDown();
+    void TestarCenarioSucessoIdentificador();
+    void TestarCenarioSucessoNome();
+    void TestarCenarioSucessoSenha();
+
+    public:
+
+    const static int SUCESSO = 0;
+    const static int FALHA = 1;
+
+    int Run();
+};
+
 #endif // TESTES_ENTIDADES_H_

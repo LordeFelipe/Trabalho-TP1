@@ -266,3 +266,70 @@ int TUContaCorrente::Run(){
     TearDown();
     return estado;
 }
+
+//Métodos que testam a classe Usuario
+
+void TUUsuario::SetUp(){
+
+    //Criação do objeto e definição do estado inicial do teste para sucesso
+    usuario = new Usuario();
+    estado = SUCESSO;
+}
+
+void TUUsuario::TearDown(){
+    delete usuario;
+}
+
+void TUUsuario::TestarCenarioSucessoIdentificador(){
+    try{
+        //É setado um valor válido para o identificador
+        Identificador identificador;
+        identificador.SetIdentificador(VALOR_VALIDO_SENHA);
+        usuario->SetIdentificador(identificador);
+
+        if (usuario->GetIdentificador().GetIdentificador() != identificador.GetIdentificador())
+            estado = FALHA;
+    }
+    catch(invalid_argument excecao){
+        estado = FALHA;
+    }
+}
+
+void TUUsuario::TestarCenarioSucessoNome(){
+    try{
+        //É setado um valor válido para a validade
+        Nome nome;
+        nome.SetNome(VALOR_VALIDO_NOME);
+        usuario->SetNome(nome);
+
+        if (usuario->GetNome().GetNome() != nome.GetNome())
+            estado = FALHA;
+    }
+    catch(invalid_argument excecao){
+        estado = FALHA;
+    }
+}
+
+void TUUsuario::TestarCenarioSucessoSenha(){
+    try{
+        //É setado um valor válido para a senha
+        Senha senha;
+        senha.SetSenha(VALOR_VALIDO_SENHA);
+        usuario->SetSenha(senha);
+
+        if (usuario->GetSenha().GetSenha() != senha.GetSenha())
+            estado = FALHA;
+    }
+    catch(invalid_argument excecao){
+        estado = FALHA;
+    }
+}
+
+int TUUsuario::Run(){
+    SetUp();
+    TestarCenarioSucessoIdentificador();
+    TestarCenarioSucessoNome();
+    TestarCenarioSucessoSenha();
+    TearDown();
+    return estado;
+}

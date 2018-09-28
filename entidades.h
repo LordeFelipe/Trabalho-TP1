@@ -247,7 +247,7 @@ class Cartao{
 /*! \class ContaCorrente
         \brief Classe que define a entitade do tipo ContaCorrente.
 
-        Classe que armazena as caracteristicas necessárias para defini a entidade da cnota corrente.
+        Classe que armazena as caracteristicas necessárias para definir a entidade da conta corrente.
         Contém um objeto para o tipo NumeroConta, outro para a Agencia e outro para o Banco.
 */
 class ContaCorrente{
@@ -319,6 +319,84 @@ class ContaCorrente{
         */
         Banco GetBanco() const {
             return banco;
+        }
+};
+
+/*! \class Usuario
+        \brief Classe que define a entitade do tipo Usuario.
+
+        Classe que armazena as caracteristicas necessárias para definir a entidade do usuário.
+        Contém um objeto para os tipo Nome, Identificador e Senha.
+*/
+class Usuario{
+
+    private:
+
+        // Elementos que compoem a classe?
+        Nome nome; /*!< Objeto da classe Nome. Armazena o nome do cliente. */
+        Identificador identificador; /*!< Objeto da classe Identificador. Armazena o identificador de usuário. */
+        Senha senha; /*!< Objeto da classe Senha. Armazena a senha do usuário. */
+
+    public:
+
+        // Metodos de acesso ao nome:
+
+        /*! \fn void SetNome(const Nome &nome)
+            \brief Seta o objeto passado como o nome do usuário.
+
+            \param nome Objeto do tipo Nome a ser setado.
+        */
+        void SetNome(const Nome &nome){
+            this->nome = nome;
+        }
+
+        /*! \fn Nome GetNome()
+            \brief Retorna o objeto do nome do usuário.
+
+            \return Objeto do tipo Nome.
+        */
+        Nome GetNome() const {
+            return nome;
+        }
+
+        // Metodos de acesso a agencia da conta:
+
+        /*! \fn void Identificador(const Identificador &identificador)
+            \brief Seta o objeto passado como o identificador do usuário.
+
+            \param identificador Objeto do tipo Identificador a ser setado.
+        */
+        void SetIdentificador(const Identificador &identificador){
+            this->identificador = identificador;
+        }
+
+        /*! \fn Identificador GetIdentificador()
+            \brief Retorna o objeto do identificador de usuário armazenado.
+
+            \return Objeto do tipo Identificador.
+        */
+        Identificador GetIdentificador() const {
+            return identificador;
+        }
+
+        // Metodos de acesso à senha:
+
+        /*! \fn void SetSenha(const Senha &senha)
+            \brief Seta o objeto passado como a senha do usuário.
+
+            \param banco Objeto do tipo Senha a ser setado.
+        */
+        void SetSenha(const Senha &senha){
+            this->senha = senha;
+        }
+
+        /*! \fn Senha GetSenha()
+            \brief Retorna o objeto da senha armazenada.
+
+            \return Objeto do tipo Senha.
+        */
+        Senha GetSenha() const {
+            return senha;
         }
 };
 

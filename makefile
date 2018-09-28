@@ -2,5 +2,5 @@
 
 all: main
 
-main: main.cpp Dominios_Usuario.cpp Dominios_Hotel.cpp Entidades.cpp Testes_Dominios_Usuario.cpp Testes_Dominios_Hotel.cpp Testes_Entidades.cpp
-	g++ -o main main.cpp Dominios_Usuario.cpp Dominios_Hotel.cpp Entidades.cpp Testes_Dominios_Usuario.cpp Testes_Dominios_Hotel.cpp Testes_Entidades.cpp
+main: main.cpp dominios_usuario.cpp dominios_hotel.cpp entidades.cpp testes_dominios_usuario.cpp testes_dominios_hotel.cpp testes_entidades.cpp
+	g++ -o main main.cpp dominios_usuario.cpp dominios_hotel.cpp entidades.cpp testes_dominios_usuario.cpp testes_dominios_hotel.cpp testes_entidades.cpp
