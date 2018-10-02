@@ -1,0 +1,6 @@
+Alunos:	Felipe Lima Vaz 	17/0057852
+	André Macedo Prado Vale 17/0005950
+
+Padrão de Codificação: 	Google
+			https://google.github.io/styleguide/cppguide.html
+
