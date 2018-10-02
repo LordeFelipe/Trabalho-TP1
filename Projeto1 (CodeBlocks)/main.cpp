@@ -130,9 +130,9 @@ int main(){
 	TUAcomodacao Tacomodacao;
 
     switch(Tidentificador.Run()){
-	    case TUAcomodacao::SUCESSO: cout << "Acomodação: Sucesso" << endl;
+	    case TUAcomodacao::SUCESSO: cout << "Entidade Acomodação: Sucesso" << endl;
 	        break;
-	    case TUAcomodacao::FALHA: cout << "Acomodação: Falha" << endl;
+	    case TUAcomodacao::FALHA: cout << "Entidade Acomodação: Falha" << endl;
 	        break;
 	}
 
@@ -151,6 +151,15 @@ int main(){
 	    case TUContaCorrente::SUCESSO: cout << "Entidade Conta: Sucesso" << endl;
 	        break;
 	    case TUContaCorrente::FALHA: cout << "Entidade Conta: Falha" << endl;
+	        break;
+	}
+
+	TUUsuario Tusuario;
+
+    switch(Tusuario.Run()){
+	    case TUUsuario::SUCESSO: cout << "Entidade Usuário: Sucesso" << endl;
+	        break;
+	    case TUUsuario::FALHA: cout << "Entidade Usuário: Falha" << endl;
 	        break;
 	}
 
