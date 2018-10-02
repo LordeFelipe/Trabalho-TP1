@@ -11,6 +11,7 @@ using namespace std;
 
 /*! \class CapacidadeDeAcomodacao
 		\brief Classe do tipo CapacidadeDeAcomodacao.
+
 		Classe que armazena a capacidade de acomodação de uma moradia e contém os métodos de manipulação desse valor.
 		A capacidade tem o formato de inteiro que tem seus possíveis valores no intervalo [1,9].
 */
@@ -56,6 +57,7 @@ class CapacidadeDeAcomodacao
 
 /*! \class Diaria
 		\brief Classe do tipo Diaria.
+
 		Classe que armazena o valor da diaria e contém os métodos de manipulação desse valor.
 		A diaria tem o formato de inteiro que tem seus possíveis valores no intervalo [1,10000].
 */
@@ -101,6 +103,7 @@ class Diaria
 
 /*! \class Data
 		\brief Classe do tipo Data.
+
 		Classe que armazena uma data e contém os métodos de manipulação desse valor.
 		A  data tem o formato de uma string de tamanho 11 no formato dia/mes/ano onde
 		o dia tem 2 caracteres, o mês 3 e o ano 4.
@@ -156,6 +159,7 @@ class Data
 
 /*! \class Estado
 		\brief Classe do tipo Estado
+
 		Classe que armazena um estado e contém os métodos de manipulação desse valor.
 		O estado tem o formato de string de 2 caracteres cujos possíveis valores são as siglas dos estados brasileiros
 */
@@ -198,6 +202,7 @@ class Estado
 
 /*! \class TipoDeAcomodacao
 		\brief Classe do tipo TipoDeAcomodacao
+        
 		Classe que armazena o tipo de acomodação e contém os métodos de manipulação desse valor.
 		A capacidade tem o formato de string e tem como seus possíveis valores as seguintes
 		strings: "Flat", "Casa" ou "Apartamento".
