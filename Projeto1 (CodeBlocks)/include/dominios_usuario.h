@@ -10,6 +10,7 @@ using namespace std;
 
 /*! \class Identificador
 		\brief Classe do tipo Identificador.
+
 		Classe que armazena o identificador e contém os métodos de manipulação desse valor.
 		A identificador tem o formato de string de 5 caracteres e contém apenas letras minúsculas.
 */

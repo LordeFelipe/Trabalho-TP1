@@ -284,7 +284,7 @@ void TUUsuario::TestarCenarioSucessoIdentificador(){
     try{
         //É setado um valor válido para o identificador
         Identificador identificador;
-        identificador.SetIdentificador(VALOR_VALIDO_SENHA);
+        identificador.SetIdentificador(VALOR_VALIDO_IDENTIFICADOR);
         usuario->SetIdentificador(identificador);
 
         if (usuario->GetIdentificador().GetIdentificador() != identificador.GetIdentificador())
