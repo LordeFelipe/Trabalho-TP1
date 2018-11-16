@@ -152,9 +152,23 @@ class Data
 
             \return string contendo a data
         */
-        string GetData() const{
+        string GetData(){
             return data;
         }
+
+        /*! \fn int ConverterMes(const Data &data)
+            \brief Converte mês armazenado na data para um inteiro.
+
+            \return Inteiro de 1 a 12 representado o mês armazenado na data.
+        */
+        int ConverterMes() const;
+
+        /*! \fn int CmpData(const Data &data1, const Data &Data2)
+            \brief Compara duas datas para saber qual é maior ou menor.
+
+            \return 1, se Data(this) > Data, -1, se Data(this) < Data ou 0 se Data(this) = Data.
+        */
+        int CmpData(const Data &data);
 };
 
 /*! \class Estado

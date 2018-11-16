@@ -3,189 +3,9 @@
 
 #include "dominios_hotel.h"
 #include "dominios_usuario.h"
+#include <list>
+#include <iterator>
 
-/*! \class Acomodacao
-        \brief Classe que define a entitade do tipo Acomodacao.
-
-        Classe que armazena as informações necessárias para definir uma acomodação
-        Contém um objeto para os tipos Identificador, TipoDeAcomodacao, CapacidadeDeAcomodacao,
-        Data, Nome, Estado e Diaria.
-*/
-class Acomodacao
-{
-    private:
-
-        // Elementos que compoem a classe?
-        Identificador identificador; /*!< Objeto da classe Identificador. Armazena um identificador para a acomodação. */
-        TipoDeAcomodacao tipo_de_acomodacao; /*!< Objeto da classe TipoDeAcomodacao. Armazena qual é o tipo da acomodação. */
-        CapacidadeDeAcomodacao capacidade; /*!< Objeto da classe CapacidadeDeAcomodacao. Armazena qual é a capacidade da acomodação. */
-        Data data_inicio; /*!< Objeto da classe Data. Armazena qual é a data de início da permanência. */
-        Data data_termino; /*!< Objeto da classe Data. Armazena qual é a data de término da permanência. */
-        Nome cidade; /*!< Objeto da classe Nome. Armazena qual é o nome da cidade da acomodação. */
-        Estado estado; /*!< Objeto da classe Estado. Armazena qual é o estado brasileiro da acaomodação. */
-        Diaria diaria; /*!< Objeto da classe Diaria. Armazena qual é o valor da diária da acomodação. */
-
-    public:
-
-        // Métodos de acesso ao identificador
-
-        /*! \fn void SetIdentificador(const Identificador &identificador)
-            \brief Seta o objeto passado como o identificador.
-
-            \param identificador Objeto do tipo Identificador a ser setado.
-        */
-         void SetIdentificador(const Identificador &identificador){
-            this->identificador = identificador;
-        }
-
-        /*! \fn Identificador GetIdentificador()
-            \brief Retorna o objeto do identificador armazenado.
-
-            \return Objeto do tipo Identificador.
-        */
-        Identificador GetIdentificador(){
-            return identificador;
-        }
-
-        // Métodos de acesso ao tipo de acomodacao
-        /*! \fn void SetTipoDeAcomodacao(const TipoDeAcomodacao &tipo_de_acomodacao)
-            \brief Seta o objeto passado como o tipo de acomodacao.
-
-            \param tipo_de_acomodacao Objeto do tipo TipoDeAcomodacao a ser setado.
-        */
-        void SetTipoDeAcomodacao(const TipoDeAcomodacao &tipo_de_acomodacao){
-            this->tipo_de_acomodacao = tipo_de_acomodacao;
-        }
-
-        /*! \fn TipoDeAcomodacao GetTipoDeAcomodacao()
-            \brief Retorna o objeto do tipo de acomodacao armazenado.
-
-            \return Objeto do tipo TipoDeAcomodacao.
-        */
-        TipoDeAcomodacao GetTipoDeAcomodacao(){
-            return tipo_de_acomodacao;
-        }
-
-        // Métodos de acesso à capacidade de acomodação
-
-        /*! \fn void SetCapacidaDeAcomodacao(const CapacidadeDeAcomodacao &capacidade)
-            \brief Seta o objeto passado como a capacidade de acomodacao.
-
-            \param capacidade Objeto do tipo CapacidadeDeAcomodacao a ser setado.
-        */
-        void SetCapacidaDeAcomodacao(const CapacidadeDeAcomodacao &capacidade){
-            this->capacidade = capacidade;
-        }
-
-        /*! \fn CapacidadeDeAcomodacao GetCapacidadeDeAcomodacao()
-            \brief Retorna o objeto com a capacidade de acomodacao armazenada.
-
-            \return Objeto do tipo CapacidadeDeAcomodacao.
-        */
-        CapacidadeDeAcomodacao GetCapacidadeDeAcomodacao(){
-            return capacidade;
-        }
-
-        // Métodos de acesso à data de início
-
-        /*! \fn void SetDataInicio(const Data &data_inicio)
-            \brief Seta o objeto passado como a data de inicio.
-
-            \param data_inicio Objeto do tipo Data a ser setado.
-        */
-        void SetDataInicio(const Data &data_inicio){
-            this->data_inicio = data_inicio;
-        }
-
-        /*! \fn Data GetDataInicio()
-            \brief Retorna o objeto com a data de inicio armazenada.
-
-            \return Objeto do tipo Data
-        */
-        Data GetDataInicio(){
-            return data_inicio;
-        }
-
-        // Métodos de acesso à data de término
-
-        /*! \fn void SetDataTermino(const Data &data_termino)
-            \brief Seta o objeto passado como a data de término.
-
-            \param data_termino Objeto do tipo Data a ser setado.
-        */
-        void SetDataTermino(const Data &data_termino){
-            this->data_termino = data_termino;
-        }
-
-        /*! \fn Data GetDataTermino()
-            \brief Retorna o objeto com a data de término armazenada.
-
-            \return Objeto do tipo Data
-        */
-        Data GetDataTermino(){
-            return data_termino;
-        }
-
-        // Métodos de acesso à cidade
-
-        /*! \fn void SetCidade(const Nome &cidade)
-            \brief Seta o objeto passado como o nome da cidade.
-
-            \param cidade Objeto do tipo Nome a ser setado.
-        */
-        void SetCidade(const Nome &cidade){
-            this->cidade = cidade;
-        }
-
-        /*! \fn Nome GetCidade()
-            \brief Retorna o objeto com o nome da cidade armazenado.
-
-            \return Objeto do tipo Nome
-        */
-        Nome GetCidade(){
-            return cidade;
-        }
-
-        // Métodos de acesso ao estado
-
-        /*! \fn void SetEstado(const Estado &estado)
-            \brief Seta o objeto passado como o estado.
-
-            \param estado Objeto do tipo Estado a ser setado.
-        */
-        void SetEstado(const Estado &estado){
-            this->estado = estado;
-        }
-
-        /*! \fn Estado GetEstado()
-            \brief Retorna o objeto com o estado armazenado.
-
-            \return Objeto do tipo Estado
-        */
-        Estado GetEstado(){
-            return estado;
-        }
-
-        // Métodos de acesso à diária
-
-        /*! \fn void SetDiaria(const Diaria &diaria)
-            \brief Seta o objeto passado como a diária.
-
-            \param diaria Objeto do tipo Diaria a ser setado.
-        */
-        void SetDiaria(const Diaria &diaria){
-            this->diaria = diaria;
-        }
-
-        /*! \fn GetDiaria()
-            \brief Retorna o objeto com a diaria armazenada.
-
-            \return Objeto do tipo Diaria
-        */
-        Diaria GetDiaria(){
-            return diaria;
-        }
-};
 
 /*! \class Cartao
         \brief Classe que define a entitade do tipo Cartao.
@@ -336,6 +156,8 @@ class Usuario{
         Nome nome; /*!< Objeto da classe Nome. Armazena o nome do cliente. */
         Identificador identificador; /*!< Objeto da classe Identificador. Armazena o identificador de usuário. */
         Senha senha; /*!< Objeto da classe Senha. Armazena a senha do usuário. */
+        Cartao cartao; /*!< Objeto da entidade Cartao. Armazena as informações do cartão de crédito do usuário. */
+        ContaCorrente conta; /*!< Objeto da entidade ContaCorrente. Armazena as informações da conta corrente do usuário. */
 
     public:
 
@@ -397,6 +219,285 @@ class Usuario{
         */
         Senha GetSenha() const {
             return senha;
+        }
+
+        // Metodos de acesso ao cartão:
+
+        /*! \fn void SetCartao(const Cartao &cartao)
+            \brief Seta o objeto passado como o cartão do usuário.
+
+            \param cartao Objeto do tipo Cartao a ser setado.
+        */
+        void SetCartao(const Cartao &cartao){
+            this->cartao = cartao;
+        }
+
+        /*! \fn Cartao GetCartao()
+            \brief Retorna o objeto do cartao armazenado.
+
+            \return Objeto do tipo Cartao.
+        */
+        Cartao GetCartao() const {
+            return cartao;
+        }
+
+        // Metodos de acesso à conta corrente:
+
+        /*! \fn void SetConta(const ContaCorrente &conta)
+            \brief Seta o objeto passado como a conta corrente do usuário.
+
+            \param conta Objeto do tipo ContaCorrente a ser setado.
+        */
+        void SetConta(const ContaCorrente &conta){
+            this->conta = conta;
+        }
+
+        /*! \fn ContaCorrente GetConta()
+            \brief Retorna o objeto da conta armazenada.
+
+            \return Objeto do tipo ContaCorrente.
+        */
+        ContaCorrente GetConta() const {
+            return conta;
+        }
+};
+
+/*! \class Reserva
+        \brief Classe que define a reserva de uma acomodação
+
+        Essa classe armazena as informacões sobre a reserva de uma acomodação.
+        Nela se inclui a data da reserva, se está disponível ou não, e o usuário que efetuou a reserva (se houver).
+        Contém objetos para a data de início e fim da reserva, e um ponteiro para o usuario da reserva.
+*/
+class Reserva
+{
+    private:
+
+        //Elementos que compõem a classe
+        Data data_inicio; /*!< Objeto da classe Data. Armazena qual é a data de início da reserva ou disponibilidade. */
+        Data data_termino; /*!< Objeto da classe Data. Armazena qual é a data de término da reserva ou disponibilidade. */
+        Usuario *usuario = NULL; /*!< Ponteiro para o usuário que efetuou a reserva. Começa como NULL indicando que não há reserva efetuada. */
+
+        // Método de Validação
+        void Validar(Data &data_inicio, Data &data_termino) throw (invalid_argument);
+
+        public:
+
+        // Métodos de acesso às datas de inicio e termino
+
+        /*! \fn void SetDatas(const Data &data_inicio, const Data &data_termino)
+            \brief Seta os objeto passados como a data de inicio e de termino.
+
+            \param data_inicio Objeto do tipo Data a ser setado como data de inicio.
+            \param data_termino Objeto do tipo Data a ser setado como data de termino.
+        */
+        void SetDatas(const Data &data_inicio, const Data &data_termino);
+
+
+        /*! \fn Data GetDataInicio()
+            \brief Retorna o objeto com a data de inicio armazenada.
+
+            \return Objeto do tipo Data
+        */
+        Data GetDataInicio(){
+            return data_inicio;
+        }
+
+        /*! \fn Data GetDataTermino()
+            \brief Retorna o objeto com a data de término armazenada.
+
+            \return Objeto do tipo Data
+        */
+        Data GetDataTermino(){
+            return data_termino;
+        }
+
+        // Métodos de acesso ao ponteiro do usuario
+        
+        /*! \fn void SetUsuario(const Usuario *usuario)
+            \brief Seta o ponteiro do objeto passado como o usuario filiado a reserva.
+
+            \param usuario Ponteiro para um objeto do tipo Usuario.
+        */
+        void SetUsuario(Usuario *usuario){
+            this->usuario = usuario;
+        }
+
+        /*! \fn Usuario* GetUsuario()
+            \brief Retorna o ponteiro do usuario filiado a reserva armazenado.
+
+            \return Ponteiro do objeto Usuario.
+        */
+        Usuario* GetUsuario(){
+            return usuario;
+        }
+};
+
+/*! \class Acomodacao
+        \brief Classe que define a entitade do tipo Acomodacao.
+
+        Classe que armazena as informações necessárias para definir uma acomodação
+        Contém um objeto para os tipos Identificador, TipoDeAcomodacao, CapacidadeDeAcomodacao,
+        Data, Nome, Estado e Diaria.
+*/
+class Acomodacao
+{
+    private:
+
+        // Elementos que compoem a classe
+        Identificador identificador; /*!< Objeto da classe Identificador. Armazena um identificador para a acomodação. */
+        TipoDeAcomodacao tipo_de_acomodacao; /*!< Objeto da classe TipoDeAcomodacao. Armazena qual é o tipo da acomodação. */
+        CapacidadeDeAcomodacao capacidade; /*!< Objeto da classe CapacidadeDeAcomodacao. Armazena qual é a capacidade da acomodação. */
+        Nome cidade; /*!< Objeto da classe Nome. Armazena qual é o nome da cidade da acomodação. */
+        Estado estado; /*!< Objeto da classe Estado. Armazena qual é o estado brasileiro da acaomodação. */
+        Diaria diaria; /*!< Objeto da classe Diaria. Armazena qual é o valor da diária da acomodação. */
+        std::list<Reserva> reserva; /*!< Lista com objetos da classe Reserva indicando os períodos de disponibilidade disponíveis e de reservas efetuadas. */
+
+    public:
+
+        // Métodos de acesso ao identificador
+
+        /*! \fn void SetIdentificador(const Identificador &identificador)
+            \brief Seta o objeto passado como o identificador.
+
+            \param identificador Objeto do tipo Identificador a ser setado.
+        */
+         void SetIdentificador(const Identificador &identificador){
+            this->identificador = identificador;
+        }
+
+        /*! \fn Identificador GetIdentificador()
+            \brief Retorna o objeto do identificador armazenado.
+
+            \return Objeto do tipo Identificador.
+        */
+        Identificador GetIdentificador(){
+            return identificador;
+        }
+
+        // Métodos de acesso ao tipo de acomodacao
+        /*! \fn void SetTipoDeAcomodacao(const TipoDeAcomodacao &tipo_de_acomodacao)
+            \brief Seta o objeto passado como o tipo de acomodacao.
+
+            \param tipo_de_acomodacao Objeto do tipo TipoDeAcomodacao a ser setado.
+        */
+        void SetTipoDeAcomodacao(const TipoDeAcomodacao &tipo_de_acomodacao){
+            this->tipo_de_acomodacao = tipo_de_acomodacao;
+        }
+
+        /*! \fn TipoDeAcomodacao GetTipoDeAcomodacao()
+            \brief Retorna o objeto do tipo de acomodacao armazenado.
+
+            \return Objeto do tipo TipoDeAcomodacao.
+        */
+        TipoDeAcomodacao GetTipoDeAcomodacao(){
+            return tipo_de_acomodacao;
+        }
+
+        // Métodos de acesso à capacidade de acomodação
+
+        /*! \fn void SetCapacidaDeAcomodacao(const CapacidadeDeAcomodacao &capacidade)
+            \brief Seta o objeto passado como a capacidade de acomodacao.
+
+            \param capacidade Objeto do tipo CapacidadeDeAcomodacao a ser setado.
+        */
+        void SetCapacidaDeAcomodacao(const CapacidadeDeAcomodacao &capacidade){
+            this->capacidade = capacidade;
+        }
+
+        /*! \fn CapacidadeDeAcomodacao GetCapacidadeDeAcomodacao()
+            \brief Retorna o objeto com a capacidade de acomodacao armazenada.
+
+            \return Objeto do tipo CapacidadeDeAcomodacao.
+        */
+        CapacidadeDeAcomodacao GetCapacidadeDeAcomodacao(){
+            return capacidade;
+        }
+
+        // Métodos de acesso à cidade
+
+        /*! \fn void SetCidade(const Nome &cidade)
+            \brief Seta o objeto passado como o nome da cidade.
+
+            \param cidade Objeto do tipo Nome a ser setado.
+        */
+        void SetCidade(const Nome &cidade){
+            this->cidade = cidade;
+        }
+
+        /*! \fn Nome GetCidade()
+            \brief Retorna o objeto com o nome da cidade armazenado.
+
+            \return Objeto do tipo Nome
+        */
+        Nome GetCidade(){
+            return cidade;
+        }
+
+        // Métodos de acesso ao estado
+
+        /*! \fn void SetEstado(const Estado &estado)
+            \brief Seta o objeto passado como o estado.
+
+            \param estado Objeto do tipo Estado a ser setado.
+        */
+        void SetEstado(const Estado &estado){
+            this->estado = estado;
+        }
+
+        /*! \fn Estado GetEstado()
+            \brief Retorna o objeto com o estado armazenado.
+
+            \return Objeto do tipo Estado
+        */
+        Estado GetEstado(){
+            return estado;
+        }
+
+        // Métodos de acesso à diária
+
+        /*! \fn void SetDiaria(const Diaria &diaria)
+            \brief Seta o objeto passado como a diária.
+
+            \param diaria Objeto do tipo Diaria a ser setado.
+        */
+        void SetDiaria(const Diaria &diaria){
+            this->diaria = diaria;
+        }
+
+        /*! \fn GetDiaria()
+            \brief Retorna o objeto com a diaria armazenada.
+
+            \return Objeto do tipo Diaria
+        */
+        Diaria GetDiaria(){
+            return diaria;
+        }
+
+        // Métodos de acesso à lista de reservas
+
+        /*! \fn void AddDisponibilidade(const Reserva &reserva) throw (invalid_argument)
+            \brief Adiciona a disponibilidade na lista de reservas.
+
+            \param reserva Objeto do tipo Reserva a ser adicionado.
+        */
+        void AddDisponibilidade(Reserva &reserva) throw (invalid_argument);
+
+        /*! \fn void FazReserva(const std::list<Reserva>::iterator &reserva, const Usuario *usuario);
+            \brief Reserva uma acomodação da lista de reservas para um usuario.
+
+            \param reserva Elemento da lista com a reserva a ser feita.
+            \param usuario Ponteiro para o usuario a ser vinculado a reserva.
+        */
+        void FazReserva(const std::list<Reserva>::iterator &reserva, Usuario *usuario) throw (invalid_argument);
+
+        /*! \fn GetReserva()
+            \brief Retorna a lista de reservas.
+
+            \return Objeto do tipo std::list<Reserva>
+        */
+        std::list<Reserva> GetReserva(){
+            return reserva;
         }
 };
 

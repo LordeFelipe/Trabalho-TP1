@@ -1,4 +1,6 @@
 #include "dominios_hotel.h"
+#include <string>
+#include <string.h>
 
 // Implementação dos Metodos das Classes Relacionadas ao Hotel:
 
@@ -93,6 +95,90 @@ void Data::SetData(string data) throw (invalid_argument){
     Validar(data);
     this->data = data;
 }
+
+int Data::ConverterMes() const{
+    
+    char mes[4];
+    this->data.copy(mes,3,3);
+
+    // Verificar qual é o mês e retornar o inteiro correspondente
+    if(strcmp(mes,"jan") == 0){
+        return 1;
+    }
+    else if(strcmp(mes,"fev") == 0){
+        return 2;
+    }
+    else if(strcmp(mes,"mar") == 0){
+        return 3;
+    }
+    else if(strcmp(mes,"abr") == 0){
+        return 4;
+    }
+    else if(strcmp(mes,"mai") == 0){
+        return 5;
+    }
+    else if(strcmp(mes,"jun") == 0){
+        return 6;
+    }
+    else if(strcmp(mes,"jul") == 0){
+        return 7;
+    }
+    else if(strcmp(mes,"ago") == 0){
+        return 8;
+    }
+    else if(strcmp(mes,"set") == 0){
+        return 9;
+    }
+    else if(strcmp(mes,"out") == 0){
+        return 10;
+    }
+    else if(strcmp(mes,"nov") == 0){
+        return 11;
+    }
+    else if(strcmp(mes,"dez") == 0){
+        return 12;
+    }
+    else
+        return 0;
+
+}
+
+int Data::CmpData(const Data &data){
+
+    // Verificar qual ano é maior
+    char ano1[5];
+    char ano2[5];
+    this->data.copy(ano1, 4, 7);
+    data.data.copy(ano2, 4, 7);
+
+    if(strcmp(ano1,ano2) > 0)
+        return 1;
+    if(strcmp(ano1,ano2) < 0)
+        return -1;
+
+    // Verificar qual mês é maior
+    int mes1 = this->ConverterMes();
+    int mes2 = data.ConverterMes();
+
+    if(mes1 > mes2)
+        return 1;
+    if(mes1 < mes2)
+        return -1;
+
+    // Verificar qual dia é maior
+    char dia1[5];
+    char dia2[5];
+    this->data.copy(dia1, 2, 0);
+    data.data.copy(dia2, 2, 0);
+
+    if(strcmp(dia1,dia2) > 0)
+        return 1;
+    else if(strcmp(dia1,dia2) < 0)
+        return -1;
+    else
+        return 0;
+     
+ }
 
 //Métodos do objeto Estado
 void Estado::Validar(string estado) throw (invalid_argument){
