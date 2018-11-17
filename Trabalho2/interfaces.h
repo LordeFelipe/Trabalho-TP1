@@ -44,6 +44,23 @@ public:
     virtual ~ILNAutenticacao(){}
 };
 
+class IServUsuario{
+public:
+    virtual Usuario* BuscarUsuario(Identificador identificador, Senha senha) = 0;
+    virtual void AdicionarUsuario(Usuario &usuario) = 0;
+    virtual void RemoverUsuario(Usuario &usuario) throw (invalid_argument) = 0;
+
+
+};
+
+class IServAcomodacao{
+public:
+    virtual Acomodacao* BuscarAcomodacao(Identificador identificador) = 0;
+    virtual void AdicionarAcomodacao(Acomodacao &acomodacao) = 0;
+    virtual void RemoverAcomodacao(Acomodacao &acomodacao) throw (invalid_argument) = 0;
+
+
+};
 
 
 #endif // INTERFACES_H_INCLUDED

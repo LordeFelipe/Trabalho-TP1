@@ -5,8 +5,11 @@
 #include "dominios_usuario.h"
 #include "entidades.h"
 #include "interfaces.h"
+#include <list>
+#include <iterator>
 
 using namespace std;
+
 
 //Classe controladora do serviço de autenticação
 class CntrIUAutenticacao:public IUAutenticacao {
@@ -45,4 +48,29 @@ public:
        void executar();
 };
 
+class CntrServUsuario:public IServUsuario{
+
+private:
+    std::list<Usuario*> ListaUsuario;
+
+public:
+    Usuario* BuscarUsuario(Identificador identificador, Senha senha);
+    void AdicionarUsuario(Usuario &usuario);
+    void RemoverUsuario(Usuario &usuario) throw (invalid_argument);
+
+
+};
+
+class CntrServAcomodacao:public IServAcomodacao{
+
+private:
+    std::list<Acomodacao*> ListaAcomodacao;
+
+public:
+    Acomodacao* BuscarAcomodacao(Identificador identificador);
+    void AdicionarAcomodacao(Acomodacao &acomodacao);
+    void RemoverAcomodacao(Acomodacao &acomodacao) throw (invalid_argument);
+
+
+};
 #endif
