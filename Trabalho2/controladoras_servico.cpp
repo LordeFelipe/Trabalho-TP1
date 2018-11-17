@@ -79,3 +79,43 @@ void CntrServAcomodacao::RemoverAcomodacao(Acomodacao &acomodacao) throw (invali
     }
 
 }
+
+void CntrServAcomodacao::CadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva){
+    list<Reserva> listReserva = acomodacao->GetReserva();
+
+    listReserva.push_front(reserva);
+}
+
+list<Reserva>::iterator CntrServAcomodacao::BuscarReserva(Acomodacao *acomodacao, Reserva &reserva){
+    list<Reserva> listReserva = acomodacao->GetReserva();
+    list<Reserva>::iterator it;
+
+    for(it = listReserva.begin(); it != listReserva.end(); ++it){
+        if(it->GetDataInicio().GetData() == reserva.GetDataInicio().GetData()){
+            if(it->GetDataTermino().GetData() == reserva.GetDataTermino().GetData()){
+                if(it->GetUsuario() == reserva.GetUsuario()){
+                    return it;
+                }
+            }
+        }
+    }
+
+    // Lista vazia ou reserva não encontrada
+    return listReserva.end();
+}
+
+void CntrServAcomodacao::DecadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva) throw (invalid_argument){
+    list<Reserva>::iterator local = this->BuscarReserva(acomodacao, reserva);
+
+    if(local == acomodacao->GetReserva().end()){
+        throw invalid_argument("Disponibilidade Inexstente");
+        return;
+    }
+    
+    if(local->GetUsuario() != NULL){
+        throw invalid_argument("Acomodacao alugada para esse periodo");
+        return;
+    }
+
+    acomodacao->GetReserva().erase(local);
+}

@@ -156,8 +156,8 @@ class Usuario{
         Nome nome; /*!< Objeto da classe Nome. Armazena o nome do cliente. */
         Identificador identificador; /*!< Objeto da classe Identificador. Armazena o identificador de usuário. */
         Senha senha; /*!< Objeto da classe Senha. Armazena a senha do usuário. */
-        Cartao cartao; /*!< Objeto da entidade Cartao. Armazena as informações do cartão de crédito do usuário. */
-        ContaCorrente conta; /*!< Objeto da entidade ContaCorrente. Armazena as informações da conta corrente do usuário. */
+        Cartao *cartao = NULL; /*!< Objeto da entidade Cartao. Armazena as informações do cartão de crédito do usuário. */
+        ContaCorrente *conta = NULL; /*!< Objeto da entidade ContaCorrente. Armazena as informações da conta corrente do usuário. */
 
     public:
 
@@ -228,7 +228,7 @@ class Usuario{
 
             \param cartao Objeto do tipo Cartao a ser setado.
         */
-        void SetCartao(const Cartao &cartao){
+        void SetCartao(Cartao *cartao){
             this->cartao = cartao;
         }
 
@@ -237,9 +237,11 @@ class Usuario{
 
             \return Objeto do tipo Cartao.
         */
-        Cartao GetCartao() const {
+        Cartao* GetCartao() const {
             return cartao;
         }
+
+        bool VerificarCartao();
 
         // Metodos de acesso à conta corrente:
 
@@ -248,7 +250,7 @@ class Usuario{
 
             \param conta Objeto do tipo ContaCorrente a ser setado.
         */
-        void SetConta(const ContaCorrente &conta){
+        void SetConta(ContaCorrente *conta){
             this->conta = conta;
         }
 
@@ -257,9 +259,11 @@ class Usuario{
 
             \return Objeto do tipo ContaCorrente.
         */
-        ContaCorrente GetConta() const {
+        ContaCorrente* GetConta() const {
             return conta;
         }
+
+        bool VerificarConta();
 };
 
 /*! \class Reserva
@@ -331,6 +335,7 @@ class Reserva
         Usuario* GetUsuario(){
             return usuario;
         }
+
 };
 
 /*! \class Acomodacao

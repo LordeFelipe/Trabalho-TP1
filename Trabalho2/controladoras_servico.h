@@ -32,6 +32,9 @@ public:
     Acomodacao* BuscarAcomodacao(Identificador identificador);
     void AdicionarAcomodacao(Acomodacao &acomodacao);
     void RemoverAcomodacao(Acomodacao &acomodacao) throw (invalid_argument);
+    void CadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva);
+    list<Reserva>::iterator BuscarReserva(Acomodacao *acomodacao, Reserva &reserva);
+    void DecadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva) throw (invalid_argument);
 
 
 };

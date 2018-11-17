@@ -1,5 +1,24 @@
 #include "entidades.h"
 
+
+// Implementação de metodos das classes relacionadas ao usuario:
+
+bool Usuario::VerificarCartao(){
+    if(this->GetCartao() == NULL){
+        return false;
+    }
+    else
+        return true;
+}
+
+bool Usuario::VerificarConta(){
+    if(this->GetConta() == NULL){
+        return false;
+    }
+    else
+        return true;
+}
+
 // Implementação dos Metodos das Classes Relacionadas à Reserva:
 
 void Reserva::Validar(Data &data_inicio, Data &data_termino) throw (invalid_argument){
