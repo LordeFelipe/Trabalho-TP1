@@ -13,10 +13,10 @@ using namespace std;
 class CntrServUsuario:public IServUsuario{
 
 private:
-    std::list<Usuario*> ListaUsuario;
+    std::list<Usuario> ListaUsuario;
 
 public:
-    Usuario* BuscarUsuario(Identificador identificador, Senha senha);
+    list<Usuario>::iterator BuscarUsuario(Identificador identificador, Senha senha);
     bool AdicionarUsuario(Identificador identificador, Senha senha);
     void RemoverUsuario(Usuario &usuario) throw (invalid_argument);
     Usuario* AutenticarUsuario(Identificador &id, Senha &senha);

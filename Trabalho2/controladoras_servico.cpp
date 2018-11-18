@@ -2,27 +2,27 @@
 
 //Métodos da classe CntrServUsuario----------------------------------------
 
-Usuario* CntrServUsuario::BuscarUsuario(Identificador identificador, Senha senha){
-    list<Usuario*>::iterator it;
+list<Usuario>::iterator CntrServUsuario::BuscarUsuario(Identificador identificador, Senha senha){
+    list<Usuario>::iterator it;
     Identificador identificador_aux;
     Senha senha_aux;
 
     if(!this->ListaUsuario.empty()){
         for(it = this->ListaUsuario.begin(); it != this->ListaUsuario.end(); ++it){
 
-            identificador_aux = (*it)->GetIdentificador();
-            senha_aux = (*it)->GetSenha();
+            identificador_aux = it->GetIdentificador();
+            senha_aux = it->GetSenha();
 
             if(identificador_aux.GetIdentificador() == identificador.GetIdentificador()){
                 if(senha_aux.GetSenha() == senha.GetSenha()){
                     // O retorno aqui é o endereço do usuário que foi encontrado
-                    return *it;
+                    return it;
                 }
             }
         }
     }
     // Lista está vazia ou não achou o usuário
-    return NULL;
+    return this->ListaUsuario.end();
 }
 
 
@@ -32,19 +32,19 @@ bool CntrServUsuario::AdicionarUsuario(Identificador identificador, Senha senha)
     usuario.SetIdentificador(identificador);
     usuario.SetSenha(senha);
     //Caso seja ecnontrado um usuário igual ao q se deseja registrar, retorna false
-    Usuario* usuario_repetido = this->BuscarUsuario(identificador, senha);
-    if(usuario_repetido != NULL){
+    list<Usuario>::iterator usuario_repetido = this->BuscarUsuario(identificador, senha);
+    if(usuario_repetido != this->ListaUsuario.end()){
         return false;
     }
 
-    this->ListaUsuario.push_front(&usuario);
+    this->ListaUsuario.push_front(usuario);
     return true;
 }
 
 void CntrServUsuario::RemoverUsuario(Usuario &usuario) throw (invalid_argument){
-    Usuario* usuario_aux = BuscarUsuario(usuario.GetIdentificador(), usuario.GetSenha());
-    if(usuario_aux != NULL){
-        this->ListaUsuario.remove(usuario_aux);
+    list<Usuario>::iterator usuario_aux = BuscarUsuario(usuario.GetIdentificador(), usuario.GetSenha());
+    if(usuario_aux != this->ListaUsuario.end()){
+        this->ListaUsuario.erase(usuario_aux);
     }
     else{
         throw invalid_argument("Usuário inexistente.");
@@ -54,7 +54,14 @@ void CntrServUsuario::RemoverUsuario(Usuario &usuario) throw (invalid_argument){
 }
 
 Usuario* CntrServUsuario::AutenticarUsuario(Identificador &id, Senha &senha){
-    return this->BuscarUsuario(id, senha);
+    list<Usuario>::iterator usuario = this->BuscarUsuario(id, senha);
+
+    if(usuario == this->ListaUsuario.end()){
+        return NULL;
+    }
+    else{
+        return &(*usuario);
+    }
 }
 //Métodos da classe CntrServAcomodacao----------------------------------------
 

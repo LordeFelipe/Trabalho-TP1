@@ -33,7 +33,7 @@ public:
 
 class IServUsuario{
 public:
-    virtual Usuario* BuscarUsuario(Identificador identificador, Senha senha) = 0;
+    virtual list<Usuario>::iterator BuscarUsuario(Identificador identificador, Senha senha) = 0;
     virtual bool AdicionarUsuario(Identificador identificador, Senha senha) = 0;
     virtual void RemoverUsuario(Usuario &usuario) throw (invalid_argument) = 0;
     virtual Usuario* AutenticarUsuario(Identificador &id, Senha &senha) = 0;
