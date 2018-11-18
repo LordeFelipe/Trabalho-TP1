@@ -31,15 +31,16 @@ class CntrAprUsuario:public IAprUsuario {
 
 private:
     // Referencia para o servidor
-    IAprUsuario *cntr_apr_usuario;
+    IServUsuario *cntr_serv_usuario;
 public:
     bool CadastrarUsuario(CntrServUsuario* cntr_serv_usu) throw(runtime_error);
     Usuario* AutenticarUsuario(CntrServUsuario* cntr_serv_usu) throw(runtime_error);
-    void SetCntrAprUsuario(IAprUsuario*);
+    void SetCntrAprUsuario(IServUsuario*);
 };
 
-void inline CntrAprUsuario::SetCntrAprUsuario(IAprUsuario *cntr_apr_usuario){
-    this->cntr_apr_usuario = cntr_apr_usuario;
+void inline CntrAprUsuario::SetCntrAprUsuario(IServUsuario *cntr_serv_usuario){
+    this->cntr_serv_usuario = cntr_serv_usuario;
 }
+
 
 #endif
