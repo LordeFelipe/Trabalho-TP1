@@ -14,8 +14,8 @@ void CntrNavegacaoInicial::apresentarOpcoes(){
 
 void CntrNavegacaoInicial::executar(){
         unsigned int escolha;
-        CntrServUsuario* cntr_serv_usu;
-        CntrAprUsuario* cntr_apr_usu;
+        CntrServUsuario* cntr_serv_usu = new CntrServUsuario;
+        CntrAprUsuario* cntr_apr_usu = new CntrAprUsuario;
         Usuario* usuario;
 
         while (true) {

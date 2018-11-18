@@ -32,7 +32,7 @@ bool CntrServUsuario::AdicionarUsuario(Identificador identificador, Senha senha)
     usuario.SetIdentificador(identificador);
     usuario.SetSenha(senha);
     //Caso seja ecnontrado um usuário igual ao q se deseja registrar, retorna false
-    Usuario* usuario_repetido = BuscarUsuario(identificador, senha);
+    Usuario* usuario_repetido = this->BuscarUsuario(identificador, senha);
     if(usuario_repetido != NULL){
         return false;
     }
