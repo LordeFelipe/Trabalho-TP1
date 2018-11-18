@@ -42,6 +42,10 @@ void CntrServUsuario::RemoverUsuario(Usuario &usuario) throw (invalid_argument){
 
 }
 
+Usuario* CntrServUsuario::AutenticarUsuario(Identificador &id, Senha &senha){
+    return this->BuscarUsuario(id, senha);
+}
+
 //Métodos da classe CntrServAcomodacao----------------------------------------
 
 Acomodacao* CntrServAcomodacao::BuscarAcomodacao(Identificador identificador){
