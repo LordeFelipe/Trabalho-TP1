@@ -33,14 +33,13 @@ private:
     // Referencia para o servidor
     IServUsuario *cntr_serv_usuario;
 public:
-    bool CadastrarUsuario(CntrServUsuario* cntr_serv_usu) throw(runtime_error);
-    Usuario* AutenticarUsuario(CntrServUsuario* cntr_serv_usu) throw(runtime_error);
+    bool CadastrarUsuario() throw(runtime_error);
+    Usuario* AutenticarUsuario() throw(runtime_error);
     void SetCntrAprUsuario(IServUsuario*);
 };
 
 void inline CntrAprUsuario::SetCntrAprUsuario(IServUsuario *cntr_serv_usuario){
     this->cntr_serv_usuario = cntr_serv_usuario;
 }
-
 
 #endif

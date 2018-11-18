@@ -35,6 +35,8 @@ public:
     void CadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva);
     list<Reserva>::iterator BuscarReserva(Acomodacao *acomodacao, Reserva &reserva);
     void DecadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva) throw (invalid_argument);
+
+
 };
 
 #endif

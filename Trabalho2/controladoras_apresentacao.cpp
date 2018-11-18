@@ -14,8 +14,14 @@ void CntrNavegacaoInicial::apresentarOpcoes(){
 
 void CntrNavegacaoInicial::executar(){
         unsigned int escolha;
-        CntrServUsuario* cntr_serv_usu = new CntrServUsuario;
-        CntrAprUsuario* cntr_apr_usu = new CntrAprUsuario;
+
+        IAprUsuario* cntr_apr_usu;
+        IServUsuario* cntr_serv_usu;
+
+        cntr_apr_usu = new CntrAprUsuario();
+        cntr_serv_usu = new CntrServUsuario();
+
+        cntr_apr_usu->SetCntrAprUsuario(cntr_serv_usu);
         Usuario* usuario;
 
         while (true) {
@@ -26,10 +32,10 @@ void CntrNavegacaoInicial::executar(){
                     cin >> escolha;
                     switch (escolha) {
                         case OPCAO_REGISTRAR_USUARIO:
-                            cntr_apr_usu->CadastrarUsuario(cntr_serv_usu);
+                            cntr_apr_usu->CadastrarUsuario();
                             break;
                         case OPCAO_LOGAR_USUARIO:
-                            usuario = cntr_apr_usu->AutenticarUsuario(cntr_serv_usu);
+                            usuario = cntr_apr_usu->AutenticarUsuario();
 
                             //Caso seja um sucesso a autenticação
                             if(usuario != NULL){
@@ -46,7 +52,7 @@ void CntrNavegacaoInicial::executar(){
 
 //Métodos da classe de apresentação de usuário---------------------------------------
 
-bool CntrAprUsuario::CadastrarUsuario(CntrServUsuario* cntr_serv_usu) throw(runtime_error){
+bool CntrAprUsuario::CadastrarUsuario() throw(runtime_error){
 
     bool resultado;
     Identificador identificador;
@@ -71,7 +77,7 @@ bool CntrAprUsuario::CadastrarUsuario(CntrServUsuario* cntr_serv_usu) throw(runt
     }
 
     //Informar resultado da autenticação
-    resultado = cntr_serv_usu->AdicionarUsuario(identificador, senha);
+    resultado = this->cntr_serv_usuario->AdicionarUsuario(identificador, senha);
 
     if(resultado == false){
         cout << endl << "Erro: Usuário já existe" << endl;
@@ -83,7 +89,7 @@ bool CntrAprUsuario::CadastrarUsuario(CntrServUsuario* cntr_serv_usu) throw(runt
     }
 }
 
-Usuario* CntrAprUsuario::AutenticarUsuario(CntrServUsuario* cntr_serv_usu) throw(runtime_error){
+Usuario* CntrAprUsuario::AutenticarUsuario() throw(runtime_error){
 
     Usuario* usuario;
     Identificador identificador;
@@ -108,7 +114,7 @@ Usuario* CntrAprUsuario::AutenticarUsuario(CntrServUsuario* cntr_serv_usu) throw
     }
 
     // Solicitar autenticação.
-    usuario = cntr_serv_usu->AutenticarUsuario(identificador, senha);
+    usuario = this->cntr_serv_usuario->AutenticarUsuario(identificador, senha);
 
     // Informar resultado da autenticação.
     if(usuario == NULL){
