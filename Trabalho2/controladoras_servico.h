@@ -13,35 +13,28 @@ using namespace std;
 class CntrServUsuario:public IServUsuario{
 
 private:
-
     std::list<Usuario*> ListaUsuario;
 
 public:
-
     Usuario* BuscarUsuario(Identificador identificador, Senha senha);
-    void AdicionarUsuario(Usuario &usuario);
+    bool AdicionarUsuario(Identificador identificador, Senha senha);
     void RemoverUsuario(Usuario &usuario) throw (invalid_argument);
     Usuario* AutenticarUsuario(Identificador &id, Senha &senha);
-
 
 };
 
 class CntrServAcomodacao:public IServAcomodacao{
 
 private:
-
     std::list<Acomodacao*> ListaAcomodacao;
 
 public:
-
     Acomodacao* BuscarAcomodacao(Identificador identificador);
     void AdicionarAcomodacao(Acomodacao &acomodacao);
     void RemoverAcomodacao(Acomodacao &acomodacao) throw (invalid_argument);
-    list<Reserva>::iterator BuscarReserva(Acomodacao *acomodacao, Reserva &reserva);
     void CadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva);
+    list<Reserva>::iterator BuscarReserva(Acomodacao *acomodacao, Reserva &reserva);
     void DecadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva) throw (invalid_argument);
-
-
 };
 
 #endif

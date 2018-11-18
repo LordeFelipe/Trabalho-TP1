@@ -26,8 +26,19 @@ Usuario* CntrServUsuario::BuscarUsuario(Identificador identificador, Senha senha
 }
 
 
-void CntrServUsuario::AdicionarUsuario(Usuario &usuario){
+bool CntrServUsuario::AdicionarUsuario(Identificador identificador, Senha senha){
+
+    Usuario usuario;
+    usuario.SetIdentificador(identificador);
+    usuario.SetSenha(senha);
+    //Caso seja ecnontrado um usuário igual ao q se deseja registrar, retorna false
+    Usuario* usuario_repetido = BuscarUsuario(identificador, senha);
+    if(usuario_repetido != NULL){
+        return false;
+    }
+
     this->ListaUsuario.push_front(&usuario);
+    return true;
 }
 
 void CntrServUsuario::RemoverUsuario(Usuario &usuario) throw (invalid_argument){
@@ -45,7 +56,6 @@ void CntrServUsuario::RemoverUsuario(Usuario &usuario) throw (invalid_argument){
 Usuario* CntrServUsuario::AutenticarUsuario(Identificador &id, Senha &senha){
     return this->BuscarUsuario(id, senha);
 }
-
 //Métodos da classe CntrServAcomodacao----------------------------------------
 
 Acomodacao* CntrServAcomodacao::BuscarAcomodacao(Identificador identificador){
@@ -59,7 +69,7 @@ Acomodacao* CntrServAcomodacao::BuscarAcomodacao(Identificador identificador){
 
             if(identificador_aux.GetIdentificador() == identificador.GetIdentificador()){
                 return *it;
-                
+
             }
         }
     }
@@ -115,7 +125,7 @@ void CntrServAcomodacao::DecadastrarDisponibilidade(Acomodacao *acomodacao, Rese
         throw invalid_argument("Disponibilidade Inexstente");
         return;
     }
-    
+
     if(local->GetUsuario() != NULL){
         throw invalid_argument("Acomodacao alugada para esse periodo");
         return;
