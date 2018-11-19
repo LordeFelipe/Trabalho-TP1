@@ -12,8 +12,8 @@
 
 using namespace std;
 
-//Classe Controladora na navegação-------------------------------------
-class CntrNavegacaoInicial:public INavegacao{
+//Classe Controladora na navegação inicial-------------------------------------
+class CntrNavegacaoInicial:public INavegacaoInicial{
         //Constantes para identificar a opção escolhida.
         static const unsigned int NUMERO_OPCOES = 2;
         static const unsigned int OPCAO_ENCERRAR = 0;
@@ -23,7 +23,7 @@ class CntrNavegacaoInicial:public INavegacao{
         void apresentarOpcoes();
 public:
        CntrNavegacaoInicial(){}
-       void executar();
+       void executar(IAprUsuario* cntr_apr_usu, IServUsuario* cntr_serv_usu);
 };
 
 //Classe controladora da apresentação do usuário--------------------------
@@ -35,11 +35,58 @@ private:
 public:
     bool CadastrarUsuario() throw(runtime_error);
     Usuario* AutenticarUsuario() throw(runtime_error);
+    bool CadastrarConta(Usuario *usuario) throw(runtime_error);
+    bool CadastrarCartao(Usuario *usuario) throw(runtime_error);
     void SetCntrAprUsuario(IServUsuario*);
 };
 
 void inline CntrAprUsuario::SetCntrAprUsuario(IServUsuario *cntr_serv_usuario){
     this->cntr_serv_usuario = cntr_serv_usuario;
 }
+
+//Classe Controladora na navegação principal-------------------------------------
+class CntrNavegacaoPrincipal:public INavegacaoPrincipal{
+        //Constantes para identificar a opção escolhida.
+        static const unsigned int NUMERO_OPCOES = 3;
+        static const unsigned int OPCAO_DESLOGAR = 0;
+        static const unsigned int OPCAO_ACOMODACAO = 1;
+        static const unsigned int OPCAO_RESERVA = 2;
+        static const unsigned int OPCAO_EXCLUIR_USUARIO = 3;
+
+        void apresentarOpcoes();
+public:
+       CntrNavegacaoPrincipal(){}
+       void executar(IAprUsuario* cntr_apr_usu, IServUsuario* cntr_serv_usu, Usuario* usuario);
+};
+
+//Classe Controladora na navegação da Acomodacao-------------------------------------
+class CntrNavegacaoAcomodacao:public INavegacaoAcomodacao{
+        //Constantes para identificar a opção escolhida.
+        static const unsigned int NUMERO_OPCOES = 4;
+        static const unsigned int OPCAO_VOLTAR = 0;
+        static const unsigned int OPCAO_CADASTRAR_ACOMODACAO = 1;
+        static const unsigned int OPCAO_DECADASTRAR_ACOMODACAO = 2;
+        static const unsigned int OPCAO_CADASTRAR_DISPONIBILIDADE = 3;
+        static const unsigned int OPCAO_DECADASTRAR_DISPONIBILIDADE = 4;
+
+        void apresentarOpcoes();
+public:
+       CntrNavegacaoAcomodacao(){}
+       void executar(IAprUsuario* cntr_apr_usu, IServUsuario* cntr_serv_usu, Usuario* usuario);
+};
+
+//Classe Controladora na navegação das Reservas-------------------------------------
+class CntrNavegacaoReserva:public INavegacaoReserva{
+        //Constantes para identificar a opção escolhida.
+        static const unsigned int NUMERO_OPCOES = 2;
+        static const unsigned int OPCAO_VOLTAR = 0;
+        static const unsigned int OPCAO_FAZER_RESERVA = 1;
+        static const unsigned int OPCAO_DESFAZER_RESERVA = 2;
+
+        void apresentarOpcoes();
+public:
+       CntrNavegacaoReserva(){}
+       void executar(IAprUsuario* cntr_apr_usu, IServUsuario* cntr_serv_usu, Usuario* usuario);
+};
 
 #endif

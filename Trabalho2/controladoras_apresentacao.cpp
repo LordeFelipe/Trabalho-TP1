@@ -12,16 +12,11 @@ void CntrNavegacaoInicial::apresentarOpcoes(){
     cout << "2 - Logar no Sistema." << endl;
 }
 
-void CntrNavegacaoInicial::executar(){
-        unsigned int escolha;
+void CntrNavegacaoInicial::executar(IAprUsuario* cntr_apr_usu, IServUsuario* cntr_serv_usu){
+        CntrNavegacaoPrincipal cntrPrinc;
+        
+        int escolha;
 
-        IAprUsuario* cntr_apr_usu;
-        IServUsuario* cntr_serv_usu;
-
-        cntr_apr_usu = new CntrAprUsuario();
-        cntr_serv_usu = new CntrServUsuario();
-
-        cntr_apr_usu->SetCntrAprUsuario(cntr_serv_usu);
         Usuario* usuario;
 
         while (true) {
@@ -33,14 +28,18 @@ void CntrNavegacaoInicial::executar(){
                     switch (escolha) {
                         case OPCAO_REGISTRAR_USUARIO:
                             cntr_apr_usu->CadastrarUsuario();
+                            cout << "\n";
                             break;
                         case OPCAO_LOGAR_USUARIO:
                             usuario = cntr_apr_usu->AutenticarUsuario();
 
                             //Caso seja um sucesso a autenticação
                             if(usuario != NULL){
-                                cout << "Esse trabalho eh um lixo";
+                                cout << "\nUsuario Autenticado com Sucesso.\n" << endl;
                                 //Chama a próxima interface de texto
+                                cntrPrinc.executar(cntr_apr_usu, cntr_serv_usu, usuario);
+                                usuario = NULL;
+                                cout << "\n";
                             }
                             break;
                         case OPCAO_ENCERRAR :
@@ -57,27 +56,34 @@ bool CntrAprUsuario::CadastrarUsuario() throw(runtime_error){
     bool resultado;
     Identificador identificador;
     Senha senha;
-    string entrada_id, entrada_senha;
+    Nome nome;
+    string entrada_id, entrada_senha, entrada_nome;
 
     // Solicitar dados
     while(true){
         try{
-            cout << "Digite seu Identificador:";
+            cout << "Crie um identificador com 5 digitos contendo apenas letras minusculas." << endl;
+            cout << "Digite seu Identificador: ";
             cin >> entrada_id;
             identificador.SetIdentificador(entrada_id);
-            cout << "Digite sua Senha:";
+            cout << "Crie uma senha com 8 digitos contendo ao menos uma letra minuscula, uma maiscula, um numero e um digito (! # $ % &)." << endl;
+            cout << "Digite sua Senha: ";
             cin >> entrada_senha;
             senha.SetSenha(entrada_senha);
+            cout << "Crie um nome com 15 digitos." << endl;
+            cout << "Digite seu Nome: ";
+            cin >> entrada_nome;
+            nome.SetNome(entrada_nome);
             break;
         }
         catch (const invalid_argument &exp){
-            cout << endl << "Dado em formato incorreto." << endl;
+            cout << endl << "Dado em formato incorreto.\n" << endl;
             return false;
         }
     }
 
     //Informar resultado da autenticação
-    resultado = this->cntr_serv_usuario->AdicionarUsuario(identificador, senha);
+    resultado = this->cntr_serv_usuario->AdicionarUsuario(identificador, senha, nome);
 
     if(resultado == false){
         cout << endl << "Erro: Usuário já existe" << endl;
@@ -109,7 +115,7 @@ Usuario* CntrAprUsuario::AutenticarUsuario() throw(runtime_error){
             break;
         }
         catch (const invalid_argument &exp) {
-            cout << endl << "Dado em formato incorreto." << endl;
+            cout << endl << "Dado em formato incorreto.\n" << endl;
         }
     }
 
@@ -121,4 +127,212 @@ Usuario* CntrAprUsuario::AutenticarUsuario() throw(runtime_error){
         cout << endl << "Falha na autenticacao." << endl;
     }
     return usuario;
+}
+
+bool CntrAprUsuario::CadastrarConta(Usuario *usuario) throw(runtime_error){
+
+    bool resultado;
+    NumeroConta numero;
+    Agencia agencia;
+    Banco banco;
+    string entrada_num, entrada_agencia, entrada_banco;
+
+    // Solicitar dados
+    while(true){
+        try{
+            cout << "Digite o numero da conta corrente com 6 digitos." << endl;
+            cout << "Digite o Numero da sua Conta: ";
+            cin >> entrada_num;
+            numero.SetConta(entrada_num);
+            cout << "Crie o numero da sua agencia com 5 digitos." << endl;
+            cout << "Digite sua Agencia: ";
+            cin >> entrada_agencia;
+            agencia.SetAgencia(entrada_agencia);
+            cout << "Crie o numero do seu banco com 3 digitos." << endl;
+            cout << "Digite seu Banco: ";
+            cin >> entrada_banco;
+            banco.SetBanco(entrada_banco);
+            break;
+        }
+        catch (const invalid_argument &exp){
+            cout << endl << "Dado em formato incorreto.\n" << endl;
+            return false;
+        }
+    }
+
+    //Criar Conta
+    ContaCorrente conta;
+    conta.SetAgencia(agencia);
+    conta.SetBanco(banco);
+    conta.SetNumero(numero);
+
+    //Informar resultado da criacao
+    resultado = this->cntr_serv_usuario->AdicionarConta(usuario, conta);
+
+    if(resultado == false){
+        cout << endl << "Nao foi possivel cadastrar a conta.\n" << endl;
+        return false;
+    }
+    else{
+        cout << endl << "Conta Cadastrada com Sucesso.\n" << endl;
+        return true;
+    }
+}
+
+bool CntrAprUsuario::CadastrarCartao(Usuario *usuario) throw(runtime_error){
+
+    bool resultado;
+    NumeroCartao numero;
+    Validade val;
+    string entrada_num, entrada_val;
+
+    // Solicitar dados
+    while(true){
+        try{
+            cout << "Digite um numero valido de cartao com 16 digitos." << endl;
+            cout << "Digite o Numero do seu Cartao: ";
+            cin >> entrada_num;
+            numero.SetNumero(entrada_num);
+            cout << "Digite a validade do seu cartao no formato MM/AA." << endl;
+            cout << "Digite a Validade do Cartao: ";
+            cin >> entrada_val;
+            val.SetVal(entrada_val);
+            break;
+        }
+        catch (const invalid_argument &exp){
+            cout << endl << "Dado em formato incorreto.\n" << endl;
+            return false;
+        }
+    }
+
+    //Criar Conta
+    Cartao cartao;
+    cartao.SetValidade(val);
+    cartao.SetNumero(numero);
+
+    //Informar resultado da criacao
+    resultado = this->cntr_serv_usuario->AdicionarCartao(usuario, cartao);
+
+    if(resultado == false){
+        cout << endl << "Nao foi possivel cadastrar o cartao.\n" << endl;
+        return false;
+    }
+    else{
+        cout << endl << "Cartao Cadastrado com Sucesso.\n" << endl;
+        return true;
+    }
+}
+
+void CntrNavegacaoPrincipal::apresentarOpcoes(){
+    cout << "--- Servicos disponiveis ---" << endl << endl;
+    cout << "0 - Deslogar." << endl;
+    cout << "1 - Opcoes de Acomodacoes." << endl;
+    cout << "2 - Opcoes de Reserva." << endl;
+    cout << "3 - Excluir Usuario." << endl;
+}
+
+void CntrNavegacaoPrincipal::executar(IAprUsuario* cntr_apr_usu, IServUsuario* cntr_serv_usu, Usuario* usuario){
+        int escolha;
+
+        CntrNavegacaoAcomodacao cntrAco;
+        CntrNavegacaoReserva cntrRes;
+
+        while (true) {
+                escolha = -1;
+                while(escolha == -1 || escolha > NUMERO_OPCOES){
+                    apresentarOpcoes();
+                    cout << "Escolha a opcao : ";
+                    cin >> escolha;
+                    switch (escolha) {
+                        case OPCAO_ACOMODACAO:
+                            if(usuario->GetConta() == NULL){
+                                cout << "\nConta Corrente nao encontrada. Cadastre uma agora.\n" << endl;
+                                cntr_apr_usu->CadastrarConta(usuario);
+                            }
+                            if(usuario->GetConta() != NULL){
+                                cout << "\n";
+                                cntrAco.executar(cntr_apr_usu, cntr_serv_usu, usuario);
+                            }
+                            break;
+                        case OPCAO_RESERVA:
+                            if(usuario->GetCartao() == NULL){
+                                cout << "\nCartao nao encontrado. Cadastre um agora.\n" << endl;
+                                cntr_apr_usu->CadastrarCartao(usuario);
+                            }
+                            if(usuario->GetCartao() != NULL){
+                                cout << "\n";
+                                cntrRes.executar(cntr_apr_usu, cntr_serv_usu, usuario);
+                            }
+                            break;
+                        case OPCAO_EXCLUIR_USUARIO:
+                            break;
+                        case OPCAO_DESLOGAR :
+                            return;
+                    }
+                }
+        }
+}
+
+void CntrNavegacaoAcomodacao::apresentarOpcoes(){
+    cout << "--- Servicos disponiveis ---" << endl << endl;
+    cout << "0 - Voltar ao Menu Principal." << endl;
+    cout << "1 - Cadastrar Acomodacao." << endl;
+    cout << "2 - Decadastar Acomodacao." << endl;
+    cout << "3 - Cadastar Disponibilidade." << endl;
+    cout << "4 - Decadastar Disponibilidade." << endl;
+}
+
+void CntrNavegacaoAcomodacao::executar(IAprUsuario* cntr_apr_usu, IServUsuario* cntr_serv_usu, Usuario* usuario){
+        int escolha;
+
+        while (true) {
+                escolha = -1;
+                while(escolha == -1 || escolha > NUMERO_OPCOES){
+                    apresentarOpcoes();
+                    cout << "Escolha a opcao : ";
+                    cin >> escolha;
+                    switch (escolha) {
+                        case OPCAO_CADASTRAR_ACOMODACAO:
+                            break;
+                        case OPCAO_DECADASTRAR_ACOMODACAO:
+                            break;
+                        case OPCAO_CADASTRAR_DISPONIBILIDADE:
+                            break;
+                        case OPCAO_DECADASTRAR_DISPONIBILIDADE:
+                            break;
+                        case OPCAO_VOLTAR :
+                            cout << "\n";  
+                            return;
+                    }
+                }
+        }
+}
+
+void CntrNavegacaoReserva::apresentarOpcoes(){
+    cout << "--- Servicos disponiveis ---" << endl << endl;
+    cout << "0 - Voltar ao Menu Principal." << endl;
+    cout << "1 - Fazer Reserva." << endl;
+    cout << "2 - Cancelar Reserva." << endl;
+}
+
+void CntrNavegacaoReserva::executar(IAprUsuario* cntr_apr_usu, IServUsuario* cntr_serv_usu, Usuario* usuario){
+        int escolha;
+
+        while (true) {
+                escolha = -1;
+                while(escolha == -1 || escolha > NUMERO_OPCOES){
+                    apresentarOpcoes();
+                    cout << "Escolha a opcao : ";
+                    cin >> escolha;
+                    switch (escolha) {
+                        case OPCAO_FAZER_RESERVA:
+                            break;
+                        case OPCAO_DESFAZER_RESERVA:
+                            break;
+                        case OPCAO_VOLTAR :
+                            cout << "\n";
+                            return;
+                    }
+                }
+        }
 }

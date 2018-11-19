@@ -2,7 +2,7 @@
 
 //Métodos da classe CntrServUsuario----------------------------------------
 
-list<Usuario>::iterator CntrServUsuario::BuscarUsuario(Identificador identificador, Senha senha){
+list<Usuario>::iterator CntrServUsuario::BuscarUsuario(Identificador identificador){
     list<Usuario>::iterator it;
     Identificador identificador_aux;
     Senha senha_aux;
@@ -14,10 +14,8 @@ list<Usuario>::iterator CntrServUsuario::BuscarUsuario(Identificador identificad
             senha_aux = it->GetSenha();
 
             if(identificador_aux.GetIdentificador() == identificador.GetIdentificador()){
-                if(senha_aux.GetSenha() == senha.GetSenha()){
-                    // O retorno aqui é o endereço do usuário que foi encontrado
-                    return it;
-                }
+                // O retorno aqui é o endereço do usuário que foi encontrado
+                return it;
             }
         }
     }
@@ -26,13 +24,14 @@ list<Usuario>::iterator CntrServUsuario::BuscarUsuario(Identificador identificad
 }
 
 
-bool CntrServUsuario::AdicionarUsuario(Identificador identificador, Senha senha){
+bool CntrServUsuario::AdicionarUsuario(Identificador identificador, Senha senha, Nome nome){
 
     Usuario usuario;
     usuario.SetIdentificador(identificador);
     usuario.SetSenha(senha);
+    usuario.SetNome(nome);
     //Caso seja ecnontrado um usuário igual ao q se deseja registrar, retorna false
-    list<Usuario>::iterator usuario_repetido = this->BuscarUsuario(identificador, senha);
+    list<Usuario>::iterator usuario_repetido = this->BuscarUsuario(identificador);
     if(usuario_repetido != this->ListaUsuario.end()){
         return false;
     }
@@ -41,8 +40,30 @@ bool CntrServUsuario::AdicionarUsuario(Identificador identificador, Senha senha)
     return true;
 }
 
+bool CntrServUsuario::AdicionarConta(Usuario *usuario, ContaCorrente conta){
+
+    list<Usuario>::iterator it = this->BuscarUsuario(usuario->GetIdentificador());
+    if(it == this->ListaUsuario.end()){
+        return false;
+    }
+
+    it->SetConta(&conta);
+    return true;
+}
+
+bool CntrServUsuario::AdicionarCartao(Usuario *usuario, Cartao cartao){
+
+    list<Usuario>::iterator it = this->BuscarUsuario(usuario->GetIdentificador());
+    if(it == this->ListaUsuario.end()){
+        return false;
+    }
+
+    it->SetCartao(&cartao);
+    return true;
+}
+
 void CntrServUsuario::RemoverUsuario(Usuario &usuario) throw (invalid_argument){
-    list<Usuario>::iterator usuario_aux = BuscarUsuario(usuario.GetIdentificador(), usuario.GetSenha());
+    list<Usuario>::iterator usuario_aux = BuscarUsuario(usuario.GetIdentificador());
     if(usuario_aux != this->ListaUsuario.end()){
         this->ListaUsuario.erase(usuario_aux);
     }
@@ -54,9 +75,12 @@ void CntrServUsuario::RemoverUsuario(Usuario &usuario) throw (invalid_argument){
 }
 
 Usuario* CntrServUsuario::AutenticarUsuario(Identificador &id, Senha &senha){
-    list<Usuario>::iterator usuario = this->BuscarUsuario(id, senha);
+    list<Usuario>::iterator usuario = this->BuscarUsuario(id);
 
     if(usuario == this->ListaUsuario.end()){
+        return NULL;
+    }
+    else if(usuario->GetSenha().GetSenha() != senha.GetSenha()){
         return NULL;
     }
     else{

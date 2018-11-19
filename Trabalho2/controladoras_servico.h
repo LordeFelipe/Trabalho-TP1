@@ -16,9 +16,11 @@ private:
     std::list<Usuario> ListaUsuario;
 
 public:
-    list<Usuario>::iterator BuscarUsuario(Identificador identificador, Senha senha);
-    bool AdicionarUsuario(Identificador identificador, Senha senha);
+    list<Usuario>::iterator BuscarUsuario(Identificador identificador);
+    bool AdicionarUsuario(Identificador identificador, Senha senha, Nome nome);
     void RemoverUsuario(Usuario &usuario) throw (invalid_argument);
+    bool AdicionarConta(Usuario *usuario, ContaCorrente conta);
+    bool AdicionarCartao(Usuario *usuario, Cartao cartao);
     Usuario* AutenticarUsuario(Identificador &id, Senha &senha);
 
 };
