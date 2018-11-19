@@ -3,52 +3,6 @@
 #include <iostream>
 using namespace std;
 
-//Métodos da classe CntrNavegacaoInicial----------------------------------------
-
-void CntrNavegacaoInicial::apresentarOpcoes(){
-    cout << "--- Servicos disponiveis ---" << endl << endl;
-    cout << "0 - Encerrar." << endl;
-    cout << "1 - Registrar Usuário." << endl;
-    cout << "2 - Logar no Sistema." << endl;
-}
-
-void CntrNavegacaoInicial::executar(IAprUsuario* cntr_apr_usu, IServUsuario* cntr_serv_usu){
-        CntrNavegacaoPrincipal cntrPrinc;
-        
-        int escolha;
-
-        Usuario* usuario;
-
-        while (true) {
-                escolha = -1;
-                while(escolha == -1 || escolha > NUMERO_OPCOES){
-                    apresentarOpcoes();
-                    cout << "Escolha a opcao : ";
-                    cin >> escolha;
-                    switch (escolha) {
-                        case OPCAO_REGISTRAR_USUARIO:
-                            cntr_apr_usu->CadastrarUsuario();
-                            cout << "\n";
-                            break;
-                        case OPCAO_LOGAR_USUARIO:
-                            usuario = cntr_apr_usu->AutenticarUsuario();
-
-                            //Caso seja um sucesso a autenticação
-                            if(usuario != NULL){
-                                cout << "\nUsuario Autenticado com Sucesso.\n" << endl;
-                                //Chama a próxima interface de texto
-                                cntrPrinc.executar(cntr_apr_usu, cntr_serv_usu, usuario);
-                                usuario = NULL;
-                                cout << "\n";
-                            }
-                            break;
-                        case OPCAO_ENCERRAR :
-                            return;
-                    }
-                }
-        }
-}
-
 //Métodos da classe de apresentação de usuário---------------------------------------
 
 bool CntrAprUsuario::CadastrarUsuario() throw(runtime_error){
@@ -223,6 +177,122 @@ bool CntrAprUsuario::CadastrarCartao(Usuario *usuario) throw(runtime_error){
     }
 }
 
+//Métodos da classe de apresentação da acomodacao-------------------------------------
+
+bool CntrAprAcomodacao::CadastrarAcomodacao() throw(runtime_error){
+
+    bool resultado;
+    Identificador identificador;
+    TipoDeAcomodacao tipo; 
+    CapacidadeDeAcomodacao capacidade; 
+    Nome cidade;
+    Estado estado; 
+    Diaria diaria;
+    string entrada_id, entrada_tipo, entrada_cidade, entrada_estado;
+    int entrada_cap;
+    float entrada_diaria;
+
+    // Solicitar dados
+    while(true){
+        try{
+            cout << "Crie um identificador com 5 digitos contendo apenas letras minusculas." << endl;
+            cout << "Digite o Identificador: ";
+            cin >> entrada_id;
+            identificador.SetIdentificador(entrada_id);
+            cout << "Digite o Tipo de Acomodacao (Apartamento, Casa ou Flat)." << endl;
+            cin >> entrada_tipo;
+            tipo.SetTipoDeAcomodacao(entrada_tipo);
+            cout << "Digite sua Cidade com 15 digitos." << endl;
+            cin >> entrada_cidade;
+            cidade.SetNome(entrada_cidade);
+            cout << "Digite seu Estado (AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE ou TO)." << endl;
+            cin >> entrada_estado;
+            estado.SetEstado(entrada_estado);
+            cout << "Digite a Diaria da Acomodacao (Valor de 1 a 10000 Reais)." << endl;
+            cin >> entrada_diaria;
+            diaria.SetDiaria(entrada_diaria);
+            cout << "Digite a Capacidade da Acomodacao (Valor inteiro de 1 a 9)." << endl;
+            cin >> entrada_cap;
+            capacidade.SetCapacidadeDeAcomodacao(entrada_cap);
+            break;
+        }
+        catch (const invalid_argument &exp){
+            cout << endl << "Dado em formato incorreto.\n" << endl;
+            return false;
+        }
+    }
+
+    //Criar Objeto para a Acomodacao
+    Acomodacao acomodacao;
+    acomodacao.SetCapacidaDeAcomodacao(capacidade);
+    acomodacao.SetCidade(cidade);
+    acomodacao.SetDiaria(diaria);
+    acomodacao.SetEstado(estado);
+    acomodacao.SetIdentificador(identificador);
+    acomodacao.SetTipoDeAcomodacao(tipo);
+
+    //Informar resultado da inserção
+    resultado = this->cntr_serv_acomodacao->AdicionarAcomodacao(acomodacao);
+
+    if(resultado == false){
+        cout << endl << "Erro: Acomodacao com esse identificador já existe" << endl;
+        return false;
+    }
+    else{
+        cout << endl << "Acomodacao registrada com sucesso" << endl;
+        return true;
+    }
+}
+
+
+//Métodos da classe CntrNavegacaoInicial----------------------------------------------
+
+void CntrNavegacaoInicial::apresentarOpcoes(){
+    cout << "--- Servicos disponiveis ---" << endl << endl;
+    cout << "0 - Encerrar." << endl;
+    cout << "1 - Registrar Usuário." << endl;
+    cout << "2 - Logar no Sistema." << endl;
+}
+
+void CntrNavegacaoInicial::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* cntr_apr_aco){
+        CntrNavegacaoPrincipal cntrPrinc;
+        
+        unsigned int escolha;
+
+        Usuario* usuario;
+
+        while (true) {
+                escolha = -1;
+                while(escolha == -1 || escolha > NUMERO_OPCOES){
+                    apresentarOpcoes();
+                    cout << "Escolha a opcao : ";
+                    cin >> escolha;
+                    switch (escolha) {
+                        case OPCAO_REGISTRAR_USUARIO:
+                            cntr_apr_usu->CadastrarUsuario();
+                            cout << "\n";
+                            break;
+                        case OPCAO_LOGAR_USUARIO:
+                            usuario = cntr_apr_usu->AutenticarUsuario();
+
+                            //Caso seja um sucesso a autenticação
+                            if(usuario != NULL){
+                                cout << "\nUsuario Autenticado com Sucesso.\n" << endl;
+                                //Chama a próxima interface de texto
+                                cntrPrinc.executar(cntr_apr_usu, cntr_apr_aco, usuario);
+                                usuario = NULL;
+                                cout << "\n";
+                            }
+                            break;
+                        case OPCAO_ENCERRAR :
+                            return;
+                    }
+                }
+        }
+}
+
+//Métodos da classe CntrNavegacaoPrincipal--------------------------------------------
+
 void CntrNavegacaoPrincipal::apresentarOpcoes(){
     cout << "--- Servicos disponiveis ---" << endl << endl;
     cout << "0 - Deslogar." << endl;
@@ -231,8 +301,8 @@ void CntrNavegacaoPrincipal::apresentarOpcoes(){
     cout << "3 - Excluir Usuario." << endl;
 }
 
-void CntrNavegacaoPrincipal::executar(IAprUsuario* cntr_apr_usu, IServUsuario* cntr_serv_usu, Usuario* usuario){
-        int escolha;
+void CntrNavegacaoPrincipal::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* cntr_apr_aco, Usuario* usuario){
+        unsigned int escolha;
 
         CntrNavegacaoAcomodacao cntrAco;
         CntrNavegacaoReserva cntrRes;
@@ -251,7 +321,7 @@ void CntrNavegacaoPrincipal::executar(IAprUsuario* cntr_apr_usu, IServUsuario* c
                             }
                             if(usuario->GetConta() != NULL){
                                 cout << "\n";
-                                cntrAco.executar(cntr_apr_usu, cntr_serv_usu, usuario);
+                                cntrAco.executar(cntr_apr_usu, cntr_apr_aco, usuario);
                             }
                             break;
                         case OPCAO_RESERVA:
@@ -261,7 +331,7 @@ void CntrNavegacaoPrincipal::executar(IAprUsuario* cntr_apr_usu, IServUsuario* c
                             }
                             if(usuario->GetCartao() != NULL){
                                 cout << "\n";
-                                cntrRes.executar(cntr_apr_usu, cntr_serv_usu, usuario);
+                                cntrRes.executar(cntr_apr_usu, cntr_apr_aco, usuario);
                             }
                             break;
                         case OPCAO_EXCLUIR_USUARIO:
@@ -273,6 +343,8 @@ void CntrNavegacaoPrincipal::executar(IAprUsuario* cntr_apr_usu, IServUsuario* c
         }
 }
 
+//Métodos da classe CntrNavegacaoAcomodacao--------------------------------------------
+
 void CntrNavegacaoAcomodacao::apresentarOpcoes(){
     cout << "--- Servicos disponiveis ---" << endl << endl;
     cout << "0 - Voltar ao Menu Principal." << endl;
@@ -282,8 +354,8 @@ void CntrNavegacaoAcomodacao::apresentarOpcoes(){
     cout << "4 - Decadastar Disponibilidade." << endl;
 }
 
-void CntrNavegacaoAcomodacao::executar(IAprUsuario* cntr_apr_usu, IServUsuario* cntr_serv_usu, Usuario* usuario){
-        int escolha;
+void CntrNavegacaoAcomodacao::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* cntr_apr_aco, Usuario* usuario){
+        unsigned int escolha;
 
         while (true) {
                 escolha = -1;
@@ -293,6 +365,8 @@ void CntrNavegacaoAcomodacao::executar(IAprUsuario* cntr_apr_usu, IServUsuario* 
                     cin >> escolha;
                     switch (escolha) {
                         case OPCAO_CADASTRAR_ACOMODACAO:
+                            cntr_apr_aco->CadastrarAcomodacao();
+                            cout << "\n";
                             break;
                         case OPCAO_DECADASTRAR_ACOMODACAO:
                             break;
@@ -308,6 +382,8 @@ void CntrNavegacaoAcomodacao::executar(IAprUsuario* cntr_apr_usu, IServUsuario* 
         }
 }
 
+//Métodos da classe CntrNavegacaoReserva------------------------------------------------
+
 void CntrNavegacaoReserva::apresentarOpcoes(){
     cout << "--- Servicos disponiveis ---" << endl << endl;
     cout << "0 - Voltar ao Menu Principal." << endl;
@@ -315,8 +391,8 @@ void CntrNavegacaoReserva::apresentarOpcoes(){
     cout << "2 - Cancelar Reserva." << endl;
 }
 
-void CntrNavegacaoReserva::executar(IAprUsuario* cntr_apr_usu, IServUsuario* cntr_serv_usu, Usuario* usuario){
-        int escolha;
+void CntrNavegacaoReserva::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* cntr_apr_aco, Usuario* usuario){
+        unsigned int escolha;
 
         while (true) {
                 escolha = -1;

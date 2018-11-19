@@ -89,34 +89,39 @@ Usuario* CntrServUsuario::AutenticarUsuario(Identificador &id, Senha &senha){
 }
 //Métodos da classe CntrServAcomodacao----------------------------------------
 
-Acomodacao* CntrServAcomodacao::BuscarAcomodacao(Identificador identificador){
-    list<Acomodacao*>::iterator it;
+list<Acomodacao>::iterator CntrServAcomodacao::BuscarAcomodacao(Identificador identificador){
+    list<Acomodacao>::iterator it;
     Identificador identificador_aux;
 
     if(!this->ListaAcomodacao.empty()){
         for(it = this->ListaAcomodacao.begin(); it != this->ListaAcomodacao.end(); ++it){
 
-            identificador_aux = (*it)->GetIdentificador();
+            identificador_aux = it->GetIdentificador();
 
             if(identificador_aux.GetIdentificador() == identificador.GetIdentificador()){
-                return *it;
+                return it;
 
             }
         }
     }
     // Lista está vazia ou não achou o usuário
-    return NULL;
+    return this->ListaAcomodacao.end();
 }
 
 
-void CntrServAcomodacao::AdicionarAcomodacao(Acomodacao &acomodacao){
-    this->ListaAcomodacao.push_front(&acomodacao);
+bool CntrServAcomodacao::AdicionarAcomodacao(Acomodacao &acomodacao){
+    if(this->BuscarAcomodacao(acomodacao.GetIdentificador()) == this->ListaAcomodacao.end()){
+        this->ListaAcomodacao.push_front(acomodacao);
+        return true;
+    }
+    else 
+        return false;
 }
 
 void CntrServAcomodacao::RemoverAcomodacao(Acomodacao &acomodacao) throw (invalid_argument){
-    Acomodacao* acomodacao_aux = BuscarAcomodacao(acomodacao.GetIdentificador());
-    if(acomodacao_aux != NULL){
-        this->ListaAcomodacao.remove(acomodacao_aux);
+    list<Acomodacao>::iterator acomodacao_aux = BuscarAcomodacao(acomodacao.GetIdentificador());
+    if(acomodacao_aux != this->ListaAcomodacao.end()){
+        this->ListaAcomodacao.erase(acomodacao_aux);
     }
     else{
         throw invalid_argument("Usuário inexistente.");

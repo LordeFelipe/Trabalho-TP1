@@ -28,11 +28,11 @@ public:
 class CntrServAcomodacao:public IServAcomodacao{
 
 private:
-    std::list<Acomodacao*> ListaAcomodacao;
+    std::list<Acomodacao> ListaAcomodacao;
 
 public:
-    Acomodacao* BuscarAcomodacao(Identificador identificador);
-    void AdicionarAcomodacao(Acomodacao &acomodacao);
+    list<Acomodacao>::iterator BuscarAcomodacao(Identificador identificador);
+    bool AdicionarAcomodacao(Acomodacao &acomodacao);
     void RemoverAcomodacao(Acomodacao &acomodacao) throw (invalid_argument);
     void CadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva);
     list<Reserva>::iterator BuscarReserva(Acomodacao *acomodacao, Reserva &reserva);

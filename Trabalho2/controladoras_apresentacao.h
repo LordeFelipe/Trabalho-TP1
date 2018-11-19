@@ -12,20 +12,6 @@
 
 using namespace std;
 
-//Classe Controladora na navegação inicial-------------------------------------
-class CntrNavegacaoInicial:public INavegacaoInicial{
-        //Constantes para identificar a opção escolhida.
-        static const unsigned int NUMERO_OPCOES = 2;
-        static const unsigned int OPCAO_ENCERRAR = 0;
-        static const unsigned int OPCAO_REGISTRAR_USUARIO = 1;
-        static const unsigned int OPCAO_LOGAR_USUARIO = 2;
-
-        void apresentarOpcoes();
-public:
-       CntrNavegacaoInicial(){}
-       void executar(IAprUsuario* cntr_apr_usu, IServUsuario* cntr_serv_usu);
-};
-
 //Classe controladora da apresentação do usuário--------------------------
 class CntrAprUsuario:public IAprUsuario {
 
@@ -44,6 +30,35 @@ void inline CntrAprUsuario::SetCntrAprUsuario(IServUsuario *cntr_serv_usuario){
     this->cntr_serv_usuario = cntr_serv_usuario;
 }
 
+//Classe controladora da apresentação da acomodacao--------------------------
+class CntrAprAcomodacao:public IAprAcomodacao {
+
+private:
+    // Referencia para o servidor
+    IServAcomodacao *cntr_serv_acomodacao;
+public:
+    bool CadastrarAcomodacao() throw(runtime_error);
+    void SetCntrAprAcomodacao(IServAcomodacao *cntr_serv_acomodacao);
+};
+
+void inline CntrAprAcomodacao::SetCntrAprAcomodacao(IServAcomodacao *cntr_serv_acomodacao){
+    this->cntr_serv_acomodacao = cntr_serv_acomodacao;
+}
+
+//Classe Controladora na navegação inicial-------------------------------------
+class CntrNavegacaoInicial:public INavegacaoInicial{
+        //Constantes para identificar a opção escolhida.
+        static const unsigned int NUMERO_OPCOES = 2;
+        static const unsigned int OPCAO_ENCERRAR = 0;
+        static const unsigned int OPCAO_REGISTRAR_USUARIO = 1;
+        static const unsigned int OPCAO_LOGAR_USUARIO = 2;
+
+        void apresentarOpcoes();
+public:
+       CntrNavegacaoInicial(){}
+       void executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* cntr_apr_aco);
+};
+
 //Classe Controladora na navegação principal-------------------------------------
 class CntrNavegacaoPrincipal:public INavegacaoPrincipal{
         //Constantes para identificar a opção escolhida.
@@ -56,7 +71,7 @@ class CntrNavegacaoPrincipal:public INavegacaoPrincipal{
         void apresentarOpcoes();
 public:
        CntrNavegacaoPrincipal(){}
-       void executar(IAprUsuario* cntr_apr_usu, IServUsuario* cntr_serv_usu, Usuario* usuario);
+       void executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* cntr_apr_aco, Usuario* usuario);
 };
 
 //Classe Controladora na navegação da Acomodacao-------------------------------------
@@ -72,7 +87,7 @@ class CntrNavegacaoAcomodacao:public INavegacaoAcomodacao{
         void apresentarOpcoes();
 public:
        CntrNavegacaoAcomodacao(){}
-       void executar(IAprUsuario* cntr_apr_usu, IServUsuario* cntr_serv_usu, Usuario* usuario);
+       void executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* cntr_apr_aco, Usuario* usuario);
 };
 
 //Classe Controladora na navegação das Reservas-------------------------------------
@@ -86,7 +101,7 @@ class CntrNavegacaoReserva:public INavegacaoReserva{
         void apresentarOpcoes();
 public:
        CntrNavegacaoReserva(){}
-       void executar(IAprUsuario* cntr_apr_usu, IServUsuario* cntr_serv_usu, Usuario* usuario);
+       void executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* cntr_apr_aco, Usuario* usuario);
 };
 
 #endif
