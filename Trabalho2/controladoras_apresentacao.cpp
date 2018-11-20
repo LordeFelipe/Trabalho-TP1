@@ -246,6 +246,80 @@ bool CntrAprAcomodacao::CadastrarAcomodacao(Usuario* usuario) throw(runtime_erro
     }
 }
 
+bool CntrAprAcomodacao::DecadastarAcomodacao(Usuario* usuario) throw(runtime_error){
+
+    int max = this->cntr_serv_acomodacao->ApresentarListaAcomodacaoDoUsuario(usuario);
+    
+    if(max < 0){
+        return false;
+    }
+
+    int selecionar = -1;
+
+    while(selecionar < 0 || selecionar > max){
+        cout << "Digite o número da acomodacao que voce deseja decadastrar:" << endl;
+        cin >> selecionar;
+    }
+
+    Acomodacao* acomodacao = this->cntr_serv_acomodacao->AcharAcomodacaoSelecionada(usuario, selecionar);
+
+    this->cntr_serv_acomodacao->RemoverAcomodacao(acomodacao);
+
+    cout << "\nAcomodacao Decadastrada com Sucesso." << endl;
+
+    return true;
+
+}
+
+bool CntrAprAcomodacao::CadastrarDisponibilidade(Usuario* usuario) throw(runtime_error){
+    
+    int max = this->cntr_serv_acomodacao->ApresentarListaAcomodacaoDoUsuario(usuario);
+    
+    if(max < 0){
+        return false;
+    }
+
+    int selecionar = -1;
+
+    while(selecionar < 0 || selecionar > max){
+        cout << "Digite o número da acomodacao que voce deseja adicionar uma disponibilidade:" << endl;
+        cin >> selecionar;
+    }
+
+    Acomodacao* acomodacao = this->cntr_serv_acomodacao->AcharAcomodacaoSelecionada(usuario, selecionar);
+
+    Data inicio, fim;
+    string entrada_inicio, entrada_fim;
+
+    while(true){
+        try{
+            cout << "Digite as datas de disponibilidade no formato DD/MMM/AAAA." << endl;
+            cout << "MMM é: jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov ou dez." << endl;
+            cout << "Digite a data de inicio da disponibilidade: ";
+            cin >> entrada_inicio;
+            inicio.SetData(entrada_inicio);
+            cout << "Digite a data de termino da disponibilidade: ";
+            cin >> entrada_fim;
+            fim.SetData(entrada_fim);
+            break;
+        }
+        catch (const invalid_argument &exp){
+            cout << endl << "Dado em formato incorreto.\n" << endl;
+            return false;
+        }
+    }
+
+    Reserva reserva;
+    reserva.SetDatas(inicio, fim);
+
+    this->cntr_serv_acomodacao->CadastrarDisponibilidade(acomodacao, reserva);
+
+    cout << "\nDisponibilidade Cadastrada com Sucesso." << endl;
+
+    return true;
+
+}
+
 
 //Métodos da classe CntrNavegacaoInicial----------------------------------------------
 
@@ -371,9 +445,12 @@ void CntrNavegacaoAcomodacao::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao
                             cout << "\n";
                             break;
                         case OPCAO_DECADASTRAR_ACOMODACAO:
+                            cntr_apr_aco->DecadastarAcomodacao(usuario);
+                            cout << "\n";
                             break;
                         case OPCAO_CADASTRAR_DISPONIBILIDADE:
                             cntr_apr_aco->CadastrarDisponibilidade(usuario);
+                            cout << "\n";
                             break;
                         case OPCAO_DECADASTRAR_DISPONIBILIDADE:
                             break;
@@ -414,10 +491,4 @@ void CntrNavegacaoReserva::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* c
                     }
                 }
         }
-}
-
-bool CntrAprAcomodacao::CadastrarDisponibilidade(Usuario* usuario) throw(runtime_error){
-
-    this->cntr_serv_acomodacao->ApresentarListaAcomodacaoDoUsuario(usuario);
-
 }

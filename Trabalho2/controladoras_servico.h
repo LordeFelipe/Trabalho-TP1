@@ -33,8 +33,9 @@ private:
 public:
     list<Acomodacao>::iterator BuscarAcomodacao(Identificador identificador);
     bool AdicionarAcomodacao(Acomodacao &acomodacao);
-    void ApresentarListaAcomodacaoDoUsuario(Usuario* usuario);
-    void RemoverAcomodacao(Acomodacao &acomodacao) throw (invalid_argument);
+    int ApresentarListaAcomodacaoDoUsuario(Usuario* usuario);
+    Acomodacao* AcharAcomodacaoSelecionada(Usuario* usuario, const int selecionado);
+    void RemoverAcomodacao(Acomodacao *acomodacao) throw (invalid_argument);
     void CadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva);
     list<Reserva>::iterator BuscarReserva(Acomodacao *acomodacao, Reserva &reserva);
     void DecadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva) throw (invalid_argument);

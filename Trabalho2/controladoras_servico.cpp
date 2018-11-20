@@ -120,8 +120,8 @@ bool CntrServAcomodacao::AdicionarAcomodacao(Acomodacao &acomodacao){
         return false;
 }
 
-void CntrServAcomodacao::RemoverAcomodacao(Acomodacao &acomodacao) throw (invalid_argument){
-    list<Acomodacao>::iterator acomodacao_aux = BuscarAcomodacao(acomodacao.GetIdentificador());
+void CntrServAcomodacao::RemoverAcomodacao(Acomodacao *acomodacao) throw (invalid_argument){
+    list<Acomodacao>::iterator acomodacao_aux = BuscarAcomodacao(acomodacao->GetIdentificador());
     if(acomodacao_aux != this->ListaAcomodacao.end()){
         this->ListaAcomodacao.erase(acomodacao_aux);
     }
@@ -172,17 +172,48 @@ void CntrServAcomodacao::DecadastrarDisponibilidade(Acomodacao *acomodacao, Rese
     acomodacao->GetReserva().erase(local);
 }
 
-void CntrServAcomodacao::ApresentarListaAcomodacaoDoUsuario(Usuario* usuario){
+int CntrServAcomodacao::ApresentarListaAcomodacaoDoUsuario(Usuario* usuario){
     list<Acomodacao>::iterator it;
+    int max = -1;
+    if(!this->ListaAcomodacao.empty()){
+        cout <<"\nAcomodaces Disponiveis:" << endl;
+        for(it = this->ListaAcomodacao.begin(); it != this->ListaAcomodacao.end(); ++it){
+            if(it->GetUsuario() == usuario){
+                max++;
+                cout << "------------------------------" << endl;
+                cout << "Opcao (" << max << "):" << endl;
+                cout << "Identificador: " << it->GetIdentificador().GetIdentificador() << endl;
+                cout << "Tipo de Acomodação: " << it->GetTipoDeAcomodacao().GetTipoDeAcomodacao() << endl;
+                cout << "Capacidade de Acomodacao: " << it->GetCapacidadeDeAcomodacao().GetCapacidadeDeAcomodacao() << endl;
+                cout << "Cidade: " << it->GetCidade().GetNome() << endl;
+                cout << "Estado: " << it->GetEstado().GetEstado() << endl;
+                cout << "Valor da diária: " << it->GetDiaria().GetDiaria() << endl << endl;
+            }
+
+        }
+        cout << "------------------------------" << endl;
+    }
+    // Lista está vazia ou não achou o usuário
+    else{
+        cout << "Não há acomodações cadastradas." << endl;
+    }
+
+    return max;
+
+}
+
+Acomodacao* CntrServAcomodacao::AcharAcomodacaoSelecionada(Usuario* usuario, const int selecionado){
+    list<Acomodacao>::iterator it;
+    int i = 0;
     if(!this->ListaAcomodacao.empty()){
         for(it = this->ListaAcomodacao.begin(); it != this->ListaAcomodacao.end(); ++it){
             if(it->GetUsuario() == usuario){
-                cout << "Identificador:" << it->GetIdentificador().GetIdentificador() << endl;
-                cout << "Tipo de Acomodação:" << it->GetTipoDeAcomodacao().GetTipoDeAcomodacao() << endl;
-                cout << "Capacidade de Acomodacao:" << it->GetCapacidadeDeAcomodacao().GetCapacidadeDeAcomodacao() << endl;
-                cout << "Cidade:" << it->GetCidade().GetNome() << endl;
-                cout << "Estado:" << it->GetEstado().GetEstado() << endl;
-                cout << "Valor da diária:" << it->GetDiaria().GetDiaria() << endl << endl;
+                if(i == selecionado){
+                    return &(*it);
+                }
+                else{
+                    i++;
+                }
             }
 
         }
@@ -190,8 +221,8 @@ void CntrServAcomodacao::ApresentarListaAcomodacaoDoUsuario(Usuario* usuario){
     else{
         cout << "Não há acomodações cadastradas" << endl;
     }
-    // Lista está vazia ou não achou o usuário
-    return;
+    // Lista está vazia ou não achou a acomodacao
+    return NULL;
 
 
 }

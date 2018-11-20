@@ -49,6 +49,7 @@ public:
 
     // Métodos que solicitam serviços relacionados à acomodação da camada de serviço
     virtual bool CadastrarAcomodacao(Usuario* usuario) throw(runtime_error) = 0;
+    virtual bool DecadastarAcomodacao(Usuario* usuario) throw(runtime_error) = 0;
     virtual bool CadastrarDisponibilidade(Usuario* usuario) throw(runtime_error) = 0;
     // Método por meio do qual é estabelecida ligação (link) com a controladora na camada de serviço.
     virtual void SetCntrAprAcomodacao(IServAcomodacao*) = 0;
@@ -63,8 +64,9 @@ public:
     // Métodos que realizam um serviço relacionado à acomodação para a camada de apresentação
     virtual list<Acomodacao>::iterator BuscarAcomodacao(Identificador identificador) = 0;
     virtual bool AdicionarAcomodacao(Acomodacao &acomodacao) = 0;
-    virtual void RemoverAcomodacao(Acomodacao &acomodacao) throw (invalid_argument) = 0;
-    virtual void ApresentarListaAcomodacaoDoUsuario(Usuario* usuario) = 0;
+    virtual void RemoverAcomodacao(Acomodacao *acomodacao) throw (invalid_argument) = 0;
+    virtual int ApresentarListaAcomodacaoDoUsuario(Usuario* usuario) = 0;
+    virtual Acomodacao* AcharAcomodacaoSelecionada(Usuario* usuario, const int selecionado) = 0;
     virtual void CadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva) = 0;
     virtual list<Reserva>::iterator BuscarReserva(Acomodacao *acomodacao, Reserva &reserva) = 0;
     virtual void DecadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva) throw (invalid_argument) = 0;

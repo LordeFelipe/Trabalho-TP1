@@ -39,6 +39,7 @@ private:
 public:
     bool CadastrarAcomodacao(Usuario* usuario) throw(runtime_error);
     void SetCntrAprAcomodacao(IServAcomodacao *cntr_serv_acomodacao);
+    bool DecadastarAcomodacao(Usuario* usuario) throw(runtime_error);
     bool CadastrarDisponibilidade(Usuario* usuario) throw(runtime_error);
 };
 
