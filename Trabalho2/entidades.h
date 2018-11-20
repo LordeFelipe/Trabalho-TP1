@@ -356,6 +356,7 @@ class Acomodacao
         Nome cidade; /*!< Objeto da classe Nome. Armazena qual é o nome da cidade da acomodação. */
         Estado estado; /*!< Objeto da classe Estado. Armazena qual é o estado brasileiro da acaomodação. */
         Diaria diaria; /*!< Objeto da classe Diaria. Armazena qual é o valor da diária da acomodação. */
+        Usuario* usuario; /*!< Objeto da classe Usuario. Armazena quem é o dono dessa acomodação. */
         std::list<Reserva> reserva; /*!< Lista com objetos da classe Reserva indicando os períodos de disponibilidade disponíveis e de reservas efetuadas. */
 
     public:
@@ -503,6 +504,25 @@ class Acomodacao
         */
         std::list<Reserva> GetReserva(){
             return reserva;
+        }
+
+        /*! \fn SetUsuario(Usuario* usuario)
+            \brief Adiciona um usuário à acomodação
+
+            \param usuario ponteiro para o dono da acomodação
+        */
+        void SetUsuario(Usuario* usuario){
+            this->usuario = usuario;
+        }
+
+        /*! \fn GetUsuario()
+            \brief Retorna o dono da acomodacao
+
+            \return Objeto do tipo *Usuario
+        */
+
+        Usuario* GetUsuario(){
+            return usuario; 
         }
 };
 

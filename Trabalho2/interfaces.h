@@ -15,7 +15,7 @@ class IAprUsuario{
 
 public:
 
-    // Método por meio do qual é solicitado o serviço.
+    // Métodos que solicitam serviços relacionados ao usuário da camada de serviço
     virtual bool CadastrarUsuario() throw(runtime_error) = 0;
     virtual Usuario* AutenticarUsuario() throw(runtime_error) = 0;
     virtual bool CadastrarConta(Usuario *usuario) = 0;
@@ -29,12 +29,15 @@ public:
 
 class IServUsuario{
 public:
+
+    // Métodos que realizam um serviço relacionado ao usuário para a camada de apresentação
     virtual list<Usuario>::iterator BuscarUsuario(Identificador identificador) = 0;
     virtual bool AdicionarUsuario(Identificador identificador, Senha senha, Nome nome) = 0;
     virtual void RemoverUsuario(Usuario &usuario) throw (invalid_argument) = 0;
     virtual Usuario* AutenticarUsuario(Identificador &id, Senha &senha) = 0;
     virtual bool AdicionarConta(Usuario *usuario, ContaCorrente conta) = 0;
     virtual bool AdicionarCartao(Usuario *usuario, Cartao cartao) = 0;
+    // Método destrutor virtual.
     virtual ~IServUsuario(){}
 };
 
@@ -44,8 +47,9 @@ class IAprAcomodacao{
 
 public:
 
-    // Método por meio do qual é solicitado o serviço.
-    virtual bool CadastrarAcomodacao() throw(runtime_error) = 0;
+    // Métodos que solicitam serviços relacionados à acomodação da camada de serviço
+    virtual bool CadastrarAcomodacao(Usuario* usuario) throw(runtime_error) = 0;
+    virtual bool CadastrarDisponibilidade(Usuario* usuario) throw(runtime_error) = 0;
     // Método por meio do qual é estabelecida ligação (link) com a controladora na camada de serviço.
     virtual void SetCntrAprAcomodacao(IServAcomodacao*) = 0;
     // Método destrutor virtual.
@@ -55,9 +59,15 @@ public:
 
 class IServAcomodacao{
 public:
+
+    // Métodos que realizam um serviço relacionado à acomodação para a camada de apresentação
     virtual list<Acomodacao>::iterator BuscarAcomodacao(Identificador identificador) = 0;
     virtual bool AdicionarAcomodacao(Acomodacao &acomodacao) = 0;
     virtual void RemoverAcomodacao(Acomodacao &acomodacao) throw (invalid_argument) = 0;
+    virtual void ApresentarListaAcomodacaoDoUsuario(Usuario* usuario) = 0;
+    virtual void CadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva) = 0;
+    virtual list<Reserva>::iterator BuscarReserva(Acomodacao *acomodacao, Reserva &reserva) = 0;
+    virtual void DecadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva) throw (invalid_argument) = 0;
     virtual ~IServAcomodacao(){}
 };
 

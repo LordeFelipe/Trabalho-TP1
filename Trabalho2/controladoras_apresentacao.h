@@ -37,8 +37,9 @@ private:
     // Referencia para o servidor
     IServAcomodacao *cntr_serv_acomodacao;
 public:
-    bool CadastrarAcomodacao() throw(runtime_error);
+    bool CadastrarAcomodacao(Usuario* usuario) throw(runtime_error);
     void SetCntrAprAcomodacao(IServAcomodacao *cntr_serv_acomodacao);
+    bool CadastrarDisponibilidade(Usuario* usuario) throw(runtime_error);
 };
 
 void inline CntrAprAcomodacao::SetCntrAprAcomodacao(IServAcomodacao *cntr_serv_acomodacao){

@@ -179,14 +179,14 @@ bool CntrAprUsuario::CadastrarCartao(Usuario *usuario) throw(runtime_error){
 
 //Métodos da classe de apresentação da acomodacao-------------------------------------
 
-bool CntrAprAcomodacao::CadastrarAcomodacao() throw(runtime_error){
+bool CntrAprAcomodacao::CadastrarAcomodacao(Usuario* usuario) throw(runtime_error){
 
     bool resultado;
     Identificador identificador;
-    TipoDeAcomodacao tipo; 
-    CapacidadeDeAcomodacao capacidade; 
+    TipoDeAcomodacao tipo;
+    CapacidadeDeAcomodacao capacidade;
     Nome cidade;
-    Estado estado; 
+    Estado estado;
     Diaria diaria;
     string entrada_id, entrada_tipo, entrada_cidade, entrada_estado;
     int entrada_cap;
@@ -224,12 +224,14 @@ bool CntrAprAcomodacao::CadastrarAcomodacao() throw(runtime_error){
 
     //Criar Objeto para a Acomodacao
     Acomodacao acomodacao;
+    acomodacao.SetUsuario(usuario);
     acomodacao.SetCapacidaDeAcomodacao(capacidade);
     acomodacao.SetCidade(cidade);
     acomodacao.SetDiaria(diaria);
     acomodacao.SetEstado(estado);
     acomodacao.SetIdentificador(identificador);
     acomodacao.SetTipoDeAcomodacao(tipo);
+
 
     //Informar resultado da inserção
     resultado = this->cntr_serv_acomodacao->AdicionarAcomodacao(acomodacao);
@@ -256,7 +258,7 @@ void CntrNavegacaoInicial::apresentarOpcoes(){
 
 void CntrNavegacaoInicial::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* cntr_apr_aco){
         CntrNavegacaoPrincipal cntrPrinc;
-        
+
         unsigned int escolha;
 
         Usuario* usuario;
@@ -365,17 +367,18 @@ void CntrNavegacaoAcomodacao::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao
                     cin >> escolha;
                     switch (escolha) {
                         case OPCAO_CADASTRAR_ACOMODACAO:
-                            cntr_apr_aco->CadastrarAcomodacao();
+                            cntr_apr_aco->CadastrarAcomodacao(usuario);
                             cout << "\n";
                             break;
                         case OPCAO_DECADASTRAR_ACOMODACAO:
                             break;
                         case OPCAO_CADASTRAR_DISPONIBILIDADE:
+                            cntr_apr_aco->CadastrarDisponibilidade(usuario);
                             break;
                         case OPCAO_DECADASTRAR_DISPONIBILIDADE:
                             break;
                         case OPCAO_VOLTAR :
-                            cout << "\n";  
+                            cout << "\n";
                             return;
                     }
                 }
@@ -411,4 +414,10 @@ void CntrNavegacaoReserva::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* c
                     }
                 }
         }
+}
+
+bool CntrAprAcomodacao::CadastrarDisponibilidade(Usuario* usuario) throw(runtime_error){
+
+    this->cntr_serv_acomodacao->ApresentarListaAcomodacaoDoUsuario(usuario);
+
 }

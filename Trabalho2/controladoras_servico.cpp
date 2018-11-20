@@ -1,4 +1,6 @@
 #include "controladoras_servico.h"
+#include <iostream>
+using namespace std;
 
 //Métodos da classe CntrServUsuario----------------------------------------
 
@@ -114,7 +116,7 @@ bool CntrServAcomodacao::AdicionarAcomodacao(Acomodacao &acomodacao){
         this->ListaAcomodacao.push_front(acomodacao);
         return true;
     }
-    else 
+    else
         return false;
 }
 
@@ -168,4 +170,28 @@ void CntrServAcomodacao::DecadastrarDisponibilidade(Acomodacao *acomodacao, Rese
     }
 
     acomodacao->GetReserva().erase(local);
+}
+
+void CntrServAcomodacao::ApresentarListaAcomodacaoDoUsuario(Usuario* usuario){
+    list<Acomodacao>::iterator it;
+    if(!this->ListaAcomodacao.empty()){
+        for(it = this->ListaAcomodacao.begin(); it != this->ListaAcomodacao.end(); ++it){
+            if(it->GetUsuario() == usuario){
+                cout << "Identificador:" << it->GetIdentificador().GetIdentificador() << endl;
+                cout << "Tipo de Acomodação:" << it->GetTipoDeAcomodacao().GetTipoDeAcomodacao() << endl;
+                cout << "Capacidade de Acomodacao:" << it->GetCapacidadeDeAcomodacao().GetCapacidadeDeAcomodacao() << endl;
+                cout << "Cidade:" << it->GetCidade().GetNome() << endl;
+                cout << "Estado:" << it->GetEstado().GetEstado() << endl;
+                cout << "Valor da diária:" << it->GetDiaria().GetDiaria() << endl << endl;
+            }
+
+        }
+    }
+    else{
+        cout << "Não há acomodações cadastradas" << endl;
+    }
+    // Lista está vazia ou não achou o usuário
+    return;
+
+
 }
