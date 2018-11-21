@@ -150,6 +150,8 @@ int Data::CmpData(const Data &data){
     char ano2[5];
     this->data.copy(ano1, 4, 7);
     data.data.copy(ano2, 4, 7);
+    ano1[4] = '\0';
+    ano2[4] = '\0';
 
     if(strcmp(ano1,ano2) > 0)
         return 1;
@@ -170,6 +172,8 @@ int Data::CmpData(const Data &data){
     char dia2[5];
     this->data.copy(dia1, 2, 0);
     data.data.copy(dia2, 2, 0);
+    dia1[4] = '\0';
+    dia2[4] = '\0';
 
     if(strcmp(dia1,dia2) > 0)
         return 1;

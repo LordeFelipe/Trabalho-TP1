@@ -39,10 +39,11 @@ void Reserva::SetDatas(const Data &data_inicio, const Data &data_termino){
 bool Acomodacao::AddDisponibilidade(Reserva &reserva) throw (invalid_argument){
     list<Reserva>::iterator it, local;
     Data inicio,termino;
+    unsigned int i = 0;
 
     // Percorrer lista de reservas para encontrar aonde armazenar
     if(!this->reserva->empty()){
-        for(it = this->reserva->begin(); it != this->reserva->end(); ++it){
+        for(it = this->reserva->begin(); i < this->reserva->size(); ++it,i++){
 
             inicio = reserva.GetDataInicio();
             termino = reserva.GetDataTermino();
@@ -64,7 +65,7 @@ bool Acomodacao::AddDisponibilidade(Reserva &reserva) throw (invalid_argument){
             }
         }
 
-        this->reserva->push_front(reserva);
+        this->reserva->insert(it,reserva);
     }
     else{
         this->reserva->push_front(reserva);
