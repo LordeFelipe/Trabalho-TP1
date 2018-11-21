@@ -1,6 +1,7 @@
 
 #include "controladoras_apresentacao.h"
 #include <iostream>
+
 using namespace std;
 
 //Métodos da classe de apresentação de usuário---------------------------------------
@@ -26,7 +27,8 @@ bool CntrAprUsuario::CadastrarUsuario() throw(runtime_error){
             senha.SetSenha(entrada_senha);
             cout << "Crie um nome com 15 digitos." << endl;
             cout << "Digite seu Nome: ";
-            cin >> entrada_nome;
+            cin.ignore();
+            getline(cin,entrada_nome);
             nome.SetNome(entrada_nome);
             break;
         }
@@ -203,7 +205,8 @@ bool CntrAprAcomodacao::CadastrarAcomodacao(Usuario* usuario) throw(runtime_erro
             cin >> entrada_tipo;
             tipo.SetTipoDeAcomodacao(entrada_tipo);
             cout << "Digite sua Cidade com 15 digitos." << endl;
-            cin >> entrada_cidade;
+            cin.ignore();
+            getline(cin,entrada_cidade);
             cidade.SetNome(entrada_cidade);
             cout << "Digite seu Estado (AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE ou TO)." << endl;
             cin >> entrada_estado;
@@ -246,7 +249,7 @@ bool CntrAprAcomodacao::CadastrarAcomodacao(Usuario* usuario) throw(runtime_erro
     }
 }
 
-bool CntrAprAcomodacao::DecadastarAcomodacao(Usuario* usuario) throw(runtime_error){
+bool CntrAprAcomodacao::DescadastrarAcomodacao(Usuario* usuario) throw(runtime_error){
 
     int max = this->cntr_serv_acomodacao->ApresentarListaAcomodacaoDoUsuario(usuario);
     
@@ -257,15 +260,19 @@ bool CntrAprAcomodacao::DecadastarAcomodacao(Usuario* usuario) throw(runtime_err
     int selecionar = -1;
 
     while(selecionar < 0 || selecionar > max){
-        cout << "Digite o número da acomodacao que voce deseja decadastrar:" << endl;
+        cout << "Digite o número da acomodacao que voce deseja descadastrar:" << endl;
         cin >> selecionar;
     }
 
-    Acomodacao* acomodacao = this->cntr_serv_acomodacao->AcharAcomodacaoSelecionada(usuario, selecionar);
+    Acomodacao* acomodacao = this->cntr_serv_acomodacao->AcharAcomodacaoUsuarioSelecionada(usuario, selecionar);
+
+    if(this->cntr_serv_acomodacao->VerificarReservas(acomodacao) == false){
+        cout << "\nNao e possivel descadastrar acomodacoes com reservas ativas." << endl;
+    }
 
     this->cntr_serv_acomodacao->RemoverAcomodacao(acomodacao);
 
-    cout << "\nAcomodacao Decadastrada com Sucesso." << endl;
+    cout << "\nAcomodacao Descadastrada com Sucesso." << endl;
 
     return true;
 
@@ -286,7 +293,7 @@ bool CntrAprAcomodacao::CadastrarDisponibilidade(Usuario* usuario) throw(runtime
         cin >> selecionar;
     }
 
-    Acomodacao* acomodacao = this->cntr_serv_acomodacao->AcharAcomodacaoSelecionada(usuario, selecionar);
+    Acomodacao* acomodacao = this->cntr_serv_acomodacao->AcharAcomodacaoUsuarioSelecionada(usuario, selecionar);
 
     Data inicio, fim;
     string entrada_inicio, entrada_fim;
@@ -311,10 +318,51 @@ bool CntrAprAcomodacao::CadastrarDisponibilidade(Usuario* usuario) throw(runtime
 
     Reserva reserva;
     reserva.SetDatas(inicio, fim);
+    reserva.SetUsuario(NULL);
 
     this->cntr_serv_acomodacao->CadastrarDisponibilidade(acomodacao, reserva);
 
     cout << "\nDisponibilidade Cadastrada com Sucesso." << endl;
+
+    return true;
+
+}
+
+bool CntrAprAcomodacao::DescadastrarDisponibilidade(Usuario *usuario) throw(runtime_error){
+
+    int max = this->cntr_serv_acomodacao->ApresentarListaAcomodacaoDoUsuario(usuario);
+    
+    if(max < 0){
+        return false;
+    }
+
+    int selecionar = -1;
+
+    while(selecionar < 0 || selecionar > max){
+        cout << "Digite o número da acomodacao que voce deseja descadastrar uma disponibilidade:" << endl;
+        cin >> selecionar;
+    }
+
+    Acomodacao* acomodacao = this->cntr_serv_acomodacao->AcharAcomodacaoUsuarioSelecionada(usuario, selecionar);
+
+    max = this->cntr_serv_acomodacao->ApresentarListaDisponibiliades(acomodacao);
+
+    if(max < 0){
+        return false;
+    }
+
+    selecionar = -1;
+
+    while(selecionar < 0 || selecionar > max){
+        cout << "Digite o número da disponibilidade que voce deseja descadastrar:" << endl;
+        cin >> selecionar;
+    }
+
+    Reserva *reserva = this->cntr_serv_acomodacao->AcharDisponibilidadeSelecionada(acomodacao, selecionar);
+
+    this->cntr_serv_acomodacao->DescadastrarDisponibilidade(acomodacao, reserva);
+
+    cout << "\nDisponibilidade Descadastrada com Sucesso." << endl;
 
     return true;
 
@@ -425,9 +473,9 @@ void CntrNavegacaoAcomodacao::apresentarOpcoes(){
     cout << "--- Servicos disponiveis ---" << endl << endl;
     cout << "0 - Voltar ao Menu Principal." << endl;
     cout << "1 - Cadastrar Acomodacao." << endl;
-    cout << "2 - Decadastar Acomodacao." << endl;
-    cout << "3 - Cadastar Disponibilidade." << endl;
-    cout << "4 - Decadastar Disponibilidade." << endl;
+    cout << "2 - Descadastrar Acomodacao." << endl;
+    cout << "3 - Cadastrar Disponibilidade." << endl;
+    cout << "4 - Descadastrar Disponibilidade." << endl;
 }
 
 void CntrNavegacaoAcomodacao::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* cntr_apr_aco, Usuario* usuario){
@@ -444,15 +492,17 @@ void CntrNavegacaoAcomodacao::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao
                             cntr_apr_aco->CadastrarAcomodacao(usuario);
                             cout << "\n";
                             break;
-                        case OPCAO_DECADASTRAR_ACOMODACAO:
-                            cntr_apr_aco->DecadastarAcomodacao(usuario);
+                        case OPCAO_DESCADASTRAR_ACOMODACAO:
+                            cntr_apr_aco->DescadastrarAcomodacao(usuario);
                             cout << "\n";
                             break;
                         case OPCAO_CADASTRAR_DISPONIBILIDADE:
                             cntr_apr_aco->CadastrarDisponibilidade(usuario);
                             cout << "\n";
                             break;
-                        case OPCAO_DECADASTRAR_DISPONIBILIDADE:
+                        case OPCAO_DESCADASTRAR_DISPONIBILIDADE:
+                        cntr_apr_aco->DescadastrarDisponibilidade(usuario);
+                        cout << "\n";
                             break;
                         case OPCAO_VOLTAR :
                             cout << "\n";

@@ -487,7 +487,7 @@ class Acomodacao
 
             \param reserva Objeto do tipo Reserva a ser adicionado.
         */
-        void AddDisponibilidade(Reserva &reserva) throw (invalid_argument);
+        bool AddDisponibilidade(Reserva &reserva) throw (invalid_argument);
 
         /*! \fn void FazReserva(const std::list<Reserva>::iterator &reserva, const Usuario *usuario);
             \brief Reserva uma acomodação da lista de reservas para um usuario.

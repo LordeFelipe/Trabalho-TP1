@@ -39,8 +39,9 @@ private:
 public:
     bool CadastrarAcomodacao(Usuario* usuario) throw(runtime_error);
     void SetCntrAprAcomodacao(IServAcomodacao *cntr_serv_acomodacao);
-    bool DecadastarAcomodacao(Usuario* usuario) throw(runtime_error);
+    bool DescadastrarAcomodacao(Usuario* usuario) throw(runtime_error);
     bool CadastrarDisponibilidade(Usuario* usuario) throw(runtime_error);
+    bool DescadastrarDisponibilidade(Usuario *usuario) throw(runtime_error);
 };
 
 void inline CntrAprAcomodacao::SetCntrAprAcomodacao(IServAcomodacao *cntr_serv_acomodacao){
@@ -82,9 +83,9 @@ class CntrNavegacaoAcomodacao:public INavegacaoAcomodacao{
         static const unsigned int NUMERO_OPCOES = 4;
         static const unsigned int OPCAO_VOLTAR = 0;
         static const unsigned int OPCAO_CADASTRAR_ACOMODACAO = 1;
-        static const unsigned int OPCAO_DECADASTRAR_ACOMODACAO = 2;
+        static const unsigned int OPCAO_DESCADASTRAR_ACOMODACAO = 2;
         static const unsigned int OPCAO_CADASTRAR_DISPONIBILIDADE = 3;
-        static const unsigned int OPCAO_DECADASTRAR_DISPONIBILIDADE = 4;
+        static const unsigned int OPCAO_DESCADASTRAR_DISPONIBILIDADE = 4;
 
         void apresentarOpcoes();
 public:

@@ -36,7 +36,7 @@ void Reserva::SetDatas(const Data &data_inicio, const Data &data_termino){
 
 // Implementação dos Metodos das Classes Relacionadas à Acomodação:
 
-void Acomodacao::AddDisponibilidade(Reserva &reserva) throw (invalid_argument){
+bool Acomodacao::AddDisponibilidade(Reserva &reserva) throw (invalid_argument){
     list<Reserva>::iterator it, local;
     Data inicio,termino;
 
@@ -60,7 +60,7 @@ void Acomodacao::AddDisponibilidade(Reserva &reserva) throw (invalid_argument){
             // Lançar exceção se periodo for invalido
             else{
                 throw invalid_argument("Periodo Invalido.");
-		        return;
+		        return false;
             }
         }
 
@@ -69,6 +69,8 @@ void Acomodacao::AddDisponibilidade(Reserva &reserva) throw (invalid_argument){
     else{
         this->reserva.push_front(reserva);
     }
+
+    return true;
 }
 
  void Acomodacao::FazReserva(const std::list<Reserva>::iterator &reserva, Usuario *usuario) throw (invalid_argument){
