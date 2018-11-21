@@ -123,27 +123,41 @@ bool CntrServAcomodacao::AdicionarAcomodacao(Acomodacao &acomodacao){
         return false;
 }
 
-void CntrServAcomodacao::RemoverAcomodacao(Acomodacao *acomodacao) throw (invalid_argument){
+bool CntrServAcomodacao::RemoverAcomodacao(Acomodacao *acomodacao) throw (invalid_argument){
     list<Acomodacao>::iterator acomodacao_aux = BuscarAcomodacao(acomodacao->GetIdentificador());
-    if(acomodacao_aux != this->ListaAcomodacao.end()){
-        this->ListaAcomodacao.erase(acomodacao_aux);
+    if(acomodacao_aux == this->ListaAcomodacao.end()){
+        throw invalid_argument("Usuário inexistente.");
+        return false;
+    }
+    if(this->VerificarReservas(acomodacao) == false){
+        return false;
     }
     else{
-        throw invalid_argument("Usuário inexistente.");
-        return;
+        acomodacao_aux->GetReserva()->clear();
+        acomodacao_aux->ExcluirListaReserva();
+        this->ListaAcomodacao.erase(acomodacao_aux);
     }
+
+    return true;
 
 }
 
-void CntrServAcomodacao::CadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva){
-    acomodacao->AddDisponibilidade(reserva);
+bool CntrServAcomodacao::CadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva){
+    try{
+        acomodacao->AddDisponibilidade(reserva);
+    }
+    catch (const invalid_argument &exp){
+        return false;
+    }
+
+    return true;
 }
 
 list<Reserva>::iterator CntrServAcomodacao::BuscarReserva(Acomodacao *acomodacao, Reserva *reserva){
-    list<Reserva> listReserva = acomodacao->GetReserva();
+    list<Reserva> *listReserva = acomodacao->GetReserva();
     list<Reserva>::iterator it;
     int i = 0;
-    for(it = listReserva.begin(); i < listReserva.size(); ++it,i++){
+    for(it = listReserva->begin(); i < listReserva->size(); ++it,i++){
         if(it->GetDataInicio().GetData() == reserva->GetDataInicio().GetData()){
             if(it->GetDataTermino().GetData() == reserva->GetDataTermino().GetData()){
                 if(it->GetUsuario() == reserva->GetUsuario()){
@@ -154,29 +168,31 @@ list<Reserva>::iterator CntrServAcomodacao::BuscarReserva(Acomodacao *acomodacao
     }
 
     // Lista vazia ou reserva não encontrada
-    return listReserva.end();
+    return listReserva->end();
 }
 
-void CntrServAcomodacao::DescadastrarDisponibilidade(Acomodacao *acomodacao, Reserva *reserva) throw (invalid_argument){
+bool CntrServAcomodacao::DescadastrarDisponibilidade(Acomodacao *acomodacao, Reserva *reserva) throw (invalid_argument){
     list<Reserva>::iterator local = this->BuscarReserva(acomodacao, reserva);
 
-    if(local == acomodacao->GetReserva().end()){
+    if(local == acomodacao->GetReserva()->end()){
         throw invalid_argument("Disponibilidade Inexstente");
-        return;
+        return false;
     }
 
     if(local->GetUsuario() != NULL){
         throw invalid_argument("Acomodacao alugada para esse periodo");
-        return;
+        return false;
     }
 
-    acomodacao->GetReserva().erase(local);
+    acomodacao->GetReserva()->erase(local);
+
+    return true;
 }
 
 bool CntrServAcomodacao::VerificarReservas(Acomodacao *acomodacao){
     list<Reserva>::iterator it;
     int i = 0;
-    for(it = acomodacao->GetReserva().begin(); i < acomodacao->GetReserva().size(); ++it, i++){
+    for(it = acomodacao->GetReserva()->begin(); i < acomodacao->GetReserva()->size(); ++it, i++){
         if(it->GetUsuario() != NULL){
             return false;
         }
@@ -245,10 +261,10 @@ int CntrServAcomodacao::ApresentarListaDisponibiliades(Acomodacao *acomodacao){
     list<Reserva>::iterator it;
     int max = -1;
     int i=0;
-    cout << acomodacao->GetReserva().size() << endl;
-    if(!acomodacao->GetReserva().empty()){
+    cout << acomodacao->GetReserva()->size() << endl;
+    if(!acomodacao->GetReserva()->empty()){
         cout <<"\nDisponibilidades Livres Cadastradas:" << endl;
-        for(it = acomodacao->GetReserva().begin(); i < acomodacao->GetReserva().size(); ++it, i++){
+        for(it = acomodacao->GetReserva()->begin(); i < acomodacao->GetReserva()->size(); ++it, i++){
             if(it->GetUsuario() == NULL){
                 max++;
                 cout << "------------------------------" << endl;
@@ -272,9 +288,9 @@ int CntrServAcomodacao::ApresentarListaDisponibiliades(Acomodacao *acomodacao){
 Reserva* CntrServAcomodacao::AcharDisponibilidadeSelecionada(Acomodacao *acomodacao, const int selecionado){
     list<Reserva>::iterator it;
     int i = 0;
-    int j = 0;
-    if(!acomodacao->GetReserva().empty()){
-        for(it = acomodacao->GetReserva().begin(); j < acomodacao->GetReserva().size(); ++it, j++){
+    unsigned int j = 0;
+    if(!acomodacao->GetReserva()->empty()){
+        for(it = acomodacao->GetReserva()->begin(); j < acomodacao->GetReserva()->size(); ++it, j++){
             if(it->GetUsuario() == NULL){
                 if(i == selecionado){
                     return &(*it);

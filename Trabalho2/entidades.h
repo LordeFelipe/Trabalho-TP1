@@ -357,7 +357,7 @@ class Acomodacao
         Estado estado; /*!< Objeto da classe Estado. Armazena qual é o estado brasileiro da acaomodação. */
         Diaria diaria; /*!< Objeto da classe Diaria. Armazena qual é o valor da diária da acomodação. */
         Usuario* usuario; /*!< Objeto da classe Usuario. Armazena quem é o dono dessa acomodação. */
-        std::list<Reserva> reserva; /*!< Lista com objetos da classe Reserva indicando os períodos de disponibilidade disponíveis e de reservas efetuadas. */
+        std::list<Reserva> *reserva; /*!< Lista com objetos da classe Reserva indicando os períodos de disponibilidade disponíveis e de reservas efetuadas. */
 
     public:
 
@@ -502,7 +502,7 @@ class Acomodacao
 
             \return Objeto do tipo std::list<Reserva>
         */
-        std::list<Reserva> GetReserva(){
+        std::list<Reserva> *GetReserva(){
             return reserva;
         }
 
@@ -523,6 +523,14 @@ class Acomodacao
 
         Usuario* GetUsuario(){
             return usuario; 
+        }
+
+        void IniciarReserva(){
+            this->reserva = new list<Reserva>; 
+        }
+
+        void ExcluirListaReserva(){
+            delete this->reserva;
         }
 };
 

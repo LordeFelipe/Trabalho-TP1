@@ -41,8 +41,8 @@ bool Acomodacao::AddDisponibilidade(Reserva &reserva) throw (invalid_argument){
     Data inicio,termino;
 
     // Percorrer lista de reservas para encontrar aonde armazenar
-    if(!this->reserva.empty()){
-        for(it = this->reserva.begin(); it != this->reserva.end(); ++it){
+    if(!this->reserva->empty()){
+        for(it = this->reserva->begin(); it != this->reserva->end(); ++it){
 
             inicio = reserva.GetDataInicio();
             termino = reserva.GetDataTermino();
@@ -64,10 +64,10 @@ bool Acomodacao::AddDisponibilidade(Reserva &reserva) throw (invalid_argument){
             }
         }
 
-        this->reserva.insert(local,reserva);
+        this->reserva->push_front(reserva);
     }
     else{
-        this->reserva.push_front(reserva);
+        this->reserva->push_front(reserva);
     }
 
     return true;

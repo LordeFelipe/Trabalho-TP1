@@ -234,6 +234,7 @@ bool CntrAprAcomodacao::CadastrarAcomodacao(Usuario* usuario) throw(runtime_erro
     acomodacao.SetEstado(estado);
     acomodacao.SetIdentificador(identificador);
     acomodacao.SetTipoDeAcomodacao(tipo);
+    acomodacao.IniciarReserva();
 
 
     //Informar resultado da inserção
@@ -268,13 +269,19 @@ bool CntrAprAcomodacao::DescadastrarAcomodacao(Usuario* usuario) throw(runtime_e
 
     if(this->cntr_serv_acomodacao->VerificarReservas(acomodacao) == false){
         cout << "\nNao e possivel descadastrar acomodacoes com reservas ativas." << endl;
+        return false;
     }
 
-    this->cntr_serv_acomodacao->RemoverAcomodacao(acomodacao);
+    bool resultado = this->cntr_serv_acomodacao->RemoverAcomodacao(acomodacao);
 
-    cout << "\nAcomodacao Descadastrada com Sucesso." << endl;
-
-    return true;
+    if(resultado == true){
+        cout << "\nAcomodacao Descadastrada com Sucesso." << endl;
+        return true;
+    }
+    else{
+        cout << "\nVerifique se nao ha reservas feitas antes de descadastrar essa acomodacao." << endl;
+        return false;
+    }
 
 }
 
@@ -320,9 +327,14 @@ bool CntrAprAcomodacao::CadastrarDisponibilidade(Usuario* usuario) throw(runtime
     reserva.SetDatas(inicio, fim);
     reserva.SetUsuario(NULL);
 
-    this->cntr_serv_acomodacao->CadastrarDisponibilidade(acomodacao, reserva);
+    bool resultado = this->cntr_serv_acomodacao->CadastrarDisponibilidade(acomodacao, reserva);
 
-    cout << "\nDisponibilidade Cadastrada com Sucesso." << endl;
+    if(resultado == true){
+        cout << "\nDisponibilidade Cadastrada com Sucesso." << endl;
+    }
+    else{
+        cout << "\nPeriodo de disponibilidade conflita com outro existente." << endl;
+    }
 
     return true;
 
@@ -360,9 +372,13 @@ bool CntrAprAcomodacao::DescadastrarDisponibilidade(Usuario *usuario) throw(runt
 
     Reserva *reserva = this->cntr_serv_acomodacao->AcharDisponibilidadeSelecionada(acomodacao, selecionar);
 
-    this->cntr_serv_acomodacao->DescadastrarDisponibilidade(acomodacao, reserva);
+    bool resultado = this->cntr_serv_acomodacao->DescadastrarDisponibilidade(acomodacao, reserva);
 
-    cout << "\nDisponibilidade Descadastrada com Sucesso." << endl;
+    if(resultado == true){
+        cout << "\nDisponibilidade Descadastrada com Sucesso." << endl;
+    }
+    else   
+        cout << "\nDisponibilidade Inexistente ou Reservada." << endl;
 
     return true;
 
