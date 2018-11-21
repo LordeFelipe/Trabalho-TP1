@@ -52,6 +52,7 @@ public:
     virtual bool DescadastrarAcomodacao(Usuario* usuario) throw(runtime_error) = 0;
     virtual bool CadastrarDisponibilidade(Usuario* usuario) throw(runtime_error) = 0;
     virtual bool DescadastrarDisponibilidade(Usuario *usuario) throw(runtime_error) = 0;
+    virtual bool CadastrarReserva(Usuario* usuario) throw(runtime_error) = 0;
     // Método por meio do qual é estabelecida ligação (link) com a controladora na camada de serviço.
     virtual void SetCntrAprAcomodacao(IServAcomodacao*) = 0;
     // Método destrutor virtual.
@@ -65,15 +66,18 @@ public:
     // Métodos que realizam um serviço relacionado à acomodação para a camada de apresentação
     virtual list<Acomodacao>::iterator BuscarAcomodacao(Identificador identificador) = 0;
     virtual bool AdicionarAcomodacao(Acomodacao &acomodacao) = 0;
-    virtual void RemoverAcomodacao(Acomodacao *acomodacao) throw (invalid_argument) = 0;
+    virtual bool RemoverAcomodacao(Acomodacao *acomodacao) throw (invalid_argument) = 0;
     virtual int ApresentarListaAcomodacaoDoUsuario(Usuario* usuario) = 0;
     virtual Acomodacao* AcharAcomodacaoUsuarioSelecionada(Usuario* usuario, const int selecionado) = 0;
-    virtual void CadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva) = 0;
+    virtual bool CadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva) = 0;
     virtual list<Reserva>::iterator BuscarReserva(Acomodacao *acomodacao, Reserva *reserva) = 0;
     virtual bool VerificarReservas(Acomodacao *acomodacao) = 0;
-    virtual void DescadastrarDisponibilidade(Acomodacao *acomodacao, Reserva *reserva) throw (invalid_argument) = 0;
+    virtual bool DescadastrarDisponibilidade(Acomodacao *acomodacao, Reserva *reserva) throw (invalid_argument) = 0;
     virtual int ApresentarListaDisponibiliades(Acomodacao *acomodacao) = 0;
     virtual Reserva* AcharDisponibilidadeSelecionada(Acomodacao *acomodacao, const int selecionado) = 0;
+    virtual bool CadastrarReserva(Reserva* reserva, Usuario* usuario) = 0;
+    virtual int ApresentarListaAcomodacoes() = 0;
+    virtual Acomodacao* AcharAcomodacaoSelecionada(const int selecionado) = 0;
     virtual ~IServAcomodacao(){}
 };
 

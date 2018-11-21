@@ -234,6 +234,7 @@ bool CntrAprAcomodacao::CadastrarAcomodacao(Usuario* usuario) throw(runtime_erro
     acomodacao.SetEstado(estado);
     acomodacao.SetIdentificador(identificador);
     acomodacao.SetTipoDeAcomodacao(tipo);
+    acomodacao.IniciarReserva();
 
 
     //Informar resultado da inserção
@@ -268,13 +269,19 @@ bool CntrAprAcomodacao::DescadastrarAcomodacao(Usuario* usuario) throw(runtime_e
 
     if(this->cntr_serv_acomodacao->VerificarReservas(acomodacao) == false){
         cout << "\nNao e possivel descadastrar acomodacoes com reservas ativas." << endl;
+        return false;
     }
 
-    this->cntr_serv_acomodacao->RemoverAcomodacao(acomodacao);
+    bool resultado = this->cntr_serv_acomodacao->RemoverAcomodacao(acomodacao);
 
-    cout << "\nAcomodacao Descadastrada com Sucesso." << endl;
-
-    return true;
+    if(resultado == true){
+        cout << "\nAcomodacao Descadastrada com Sucesso." << endl;
+        return true;
+    }
+    else{
+        cout << "\nVerifique se nao ha reservas feitas antes de descadastrar essa acomodacao." << endl;
+        return false;
+    }
 
 }
 
@@ -320,9 +327,14 @@ bool CntrAprAcomodacao::CadastrarDisponibilidade(Usuario* usuario) throw(runtime
     reserva.SetDatas(inicio, fim);
     reserva.SetUsuario(NULL);
 
-    this->cntr_serv_acomodacao->CadastrarDisponibilidade(acomodacao, reserva);
+    bool resultado = this->cntr_serv_acomodacao->CadastrarDisponibilidade(acomodacao, reserva);
 
-    cout << "\nDisponibilidade Cadastrada com Sucesso." << endl;
+    if(resultado == true){
+        cout << "\nDisponibilidade Cadastrada com Sucesso." << endl;
+    }
+    else{
+        cout << "\nPeriodo de disponibilidade conflita com outro existente." << endl;
+    }
 
     return true;
 
@@ -330,7 +342,7 @@ bool CntrAprAcomodacao::CadastrarDisponibilidade(Usuario* usuario) throw(runtime
 
 bool CntrAprAcomodacao::DescadastrarDisponibilidade(Usuario *usuario) throw(runtime_error){
 
-    int max = this->cntr_serv_acomodacao->ApresentarListaAcomodacaoDoUsuario(usuario);
+    int max = this->cntr_serv_acomodacao->ApresentarListaAcomodacoes();
     
     if(max < 0){
         return false;
@@ -360,12 +372,65 @@ bool CntrAprAcomodacao::DescadastrarDisponibilidade(Usuario *usuario) throw(runt
 
     Reserva *reserva = this->cntr_serv_acomodacao->AcharDisponibilidadeSelecionada(acomodacao, selecionar);
 
-    this->cntr_serv_acomodacao->DescadastrarDisponibilidade(acomodacao, reserva);
+    bool resultado = this->cntr_serv_acomodacao->DescadastrarDisponibilidade(acomodacao, reserva);
 
-    cout << "\nDisponibilidade Descadastrada com Sucesso." << endl;
+    if(resultado == true){
+        cout << "\nDisponibilidade Descadastrada com Sucesso." << endl;
+    }
+    else   
+        cout << "\nDisponibilidade Inexistente ou Reservada." << endl;
 
     return true;
 
+}
+
+bool CntrAprAcomodacao::CadastrarReserva(Usuario* usuario) throw(runtime_error){
+
+    int max = this->cntr_serv_acomodacao->ApresentarListaAcomodacoes();
+    
+    if(max < 0){
+        return false;
+    }
+
+    int selecionar = -1;
+
+    while(selecionar < 0 || selecionar > max){
+        cout << "Digite o número da acomodacao que você deseja se reservar:" << endl;
+        cin >> selecionar;
+    }
+
+    Acomodacao* acomodacao = this->cntr_serv_acomodacao->AcharAcomodacaoSelecionada(selecionar);
+
+    if(acomodacao->GetUsuario() == usuario){
+
+        cout << "\nNão é possível reservar uma acomodação que você é dono!" << endl;        
+        return false;
+    }
+
+    max = this->cntr_serv_acomodacao->ApresentarListaDisponibiliades(acomodacao);
+
+    if(max < 0){
+        return false;
+    }
+
+    selecionar = -1;
+
+    while(selecionar < 0 || selecionar > max){
+        cout << "Digite o número do período que você deseja se reservar:" << endl;
+        cin >> selecionar;
+    }
+    Reserva *reserva = this->cntr_serv_acomodacao->AcharDisponibilidadeSelecionada(acomodacao, selecionar);
+
+    bool resultado =  this->cntr_serv_acomodacao->CadastrarReserva(reserva, usuario);
+
+    if(resultado = true){
+        cout << endl <<"Reserva registrada com sucesso." << endl;
+        return true;
+    }
+    else{
+        cout << endl <<"Disponibilidade já está reservada." << endl;
+        return false;
+    }
 }
 
 
@@ -532,6 +597,7 @@ void CntrNavegacaoReserva::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* c
                     cin >> escolha;
                     switch (escolha) {
                         case OPCAO_FAZER_RESERVA:
+                            cntr_apr_aco->CadastrarReserva(usuario);
                             break;
                         case OPCAO_DESFAZER_RESERVA:
                             break;
