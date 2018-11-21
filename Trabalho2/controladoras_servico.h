@@ -37,9 +37,9 @@ public:
     Acomodacao* AcharAcomodacaoUsuarioSelecionada(Usuario* usuario, const int selecionado);
     bool VerificarReservas(Acomodacao *acomodacao);
     void RemoverAcomodacao(Acomodacao *acomodacao) throw (invalid_argument);
-    void CadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva);
+    bool CadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva);
     list<Reserva>::iterator BuscarReserva(Acomodacao *acomodacao, Reserva *reserva);
-    void DescadastrarDisponibilidade(Acomodacao *acomodacao, Reserva *reserva) throw (invalid_argument);
+    bool DescadastrarDisponibilidade(Acomodacao *acomodacao, Reserva *reserva) throw (invalid_argument);
     int ApresentarListaDisponibiliades(Acomodacao *acomodacao);
     Reserva* AcharDisponibilidadeSelecionada(Acomodacao *acomodacao, const int selecionado);
 

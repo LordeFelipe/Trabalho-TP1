@@ -135,8 +135,15 @@ void CntrServAcomodacao::RemoverAcomodacao(Acomodacao *acomodacao) throw (invali
 
 }
 
-void CntrServAcomodacao::CadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva){
-    acomodacao->AddDisponibilidade(reserva);
+bool CntrServAcomodacao::CadastrarDisponibilidade(Acomodacao *acomodacao, Reserva &reserva){
+    try{
+        acomodacao->AddDisponibilidade(reserva);
+    }
+    catch (const invalid_argument &exp){
+        return false;
+    }
+
+    return true;
 }
 
 list<Reserva>::iterator CntrServAcomodacao::BuscarReserva(Acomodacao *acomodacao, Reserva *reserva){
@@ -157,20 +164,22 @@ list<Reserva>::iterator CntrServAcomodacao::BuscarReserva(Acomodacao *acomodacao
     return listReserva.end();
 }
 
-void CntrServAcomodacao::DescadastrarDisponibilidade(Acomodacao *acomodacao, Reserva *reserva) throw (invalid_argument){
+bool CntrServAcomodacao::DescadastrarDisponibilidade(Acomodacao *acomodacao, Reserva *reserva) throw (invalid_argument){
     list<Reserva>::iterator local = this->BuscarReserva(acomodacao, reserva);
 
     if(local == acomodacao->GetReserva().end()){
         throw invalid_argument("Disponibilidade Inexstente");
-        return;
+        return false;
     }
 
     if(local->GetUsuario() != NULL){
         throw invalid_argument("Acomodacao alugada para esse periodo");
-        return;
+        return false;
     }
 
     acomodacao->GetReserva().erase(local);
+
+    return true;
 }
 
 bool CntrServAcomodacao::VerificarReservas(Acomodacao *acomodacao){
@@ -240,10 +249,11 @@ Acomodacao* CntrServAcomodacao::AcharAcomodacaoUsuarioSelecionada(Usuario* usuar
 
 int CntrServAcomodacao::ApresentarListaDisponibiliades(Acomodacao *acomodacao){
     list<Reserva>::iterator it;
+    list<Reserva> reserva = acomodacao->GetReserva();
     int max = -1;
-    if(!acomodacao->GetReserva().empty()){
+    if(!reserva.empty()){
         cout <<"\nDisponibilidades Livres Cadastradas:" << endl;
-        for(it = acomodacao->GetReserva().begin(); it != acomodacao->GetReserva().end(); ++it){
+        for(it = reserva.begin(); it != reserva.end(); ++it){
             if(it->GetUsuario() == NULL){
                 max++;
                 cout << "------------------------------" << endl;
