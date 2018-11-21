@@ -320,14 +320,9 @@ bool CntrAprAcomodacao::CadastrarDisponibilidade(Usuario* usuario) throw(runtime
     reserva.SetDatas(inicio, fim);
     reserva.SetUsuario(NULL);
 
-    bool resultado = this->cntr_serv_acomodacao->CadastrarDisponibilidade(acomodacao, reserva);
+    this->cntr_serv_acomodacao->CadastrarDisponibilidade(acomodacao, reserva);
 
-    if(resultado == true){
-        cout << "\nDisponibilidade Cadastrada com Sucesso." << endl;
-    }
-    else{
-        cout << "\nPeriodo de disponibilidade conflita com outro existente." << endl;
-    }
+    cout << "\nDisponibilidade Cadastrada com Sucesso." << endl;
 
     return true;
 
@@ -365,13 +360,9 @@ bool CntrAprAcomodacao::DescadastrarDisponibilidade(Usuario *usuario) throw(runt
 
     Reserva *reserva = this->cntr_serv_acomodacao->AcharDisponibilidadeSelecionada(acomodacao, selecionar);
 
-    bool resultado = this->cntr_serv_acomodacao->DescadastrarDisponibilidade(acomodacao, reserva);
+    this->cntr_serv_acomodacao->DescadastrarDisponibilidade(acomodacao, reserva);
 
-    if(resultado == true){
-        cout << "\nDisponibilidade Descadastrada com Sucesso." << endl;
-    }
-    else   
-        cout << "\nDisponibilidade Inexistente ou Reservada." << endl;
+    cout << "\nDisponibilidade Descadastrada com Sucesso." << endl;
 
     return true;
 

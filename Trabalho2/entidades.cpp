@@ -67,7 +67,6 @@ bool Acomodacao::AddDisponibilidade(Reserva &reserva) throw (invalid_argument){
         this->reserva.insert(local,reserva);
     }
     else{
-        this->reserva.clear();
         this->reserva.push_front(reserva);
     }
 
