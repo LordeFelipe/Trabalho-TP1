@@ -534,38 +534,4 @@ class Acomodacao
         }
 };
 
-class Resultado {
-
-protected:
-    int valor;
-
-public:
-
-    const static int SUCESSO = 0;
-    const static int FALHA   = 1;
-
-    void setValor(int valor){
-        this->valor = valor;
-    }
-
-    int getValor() const {
-        return valor;
-    }
-};
-
-class ResultadoAutenticacao:public Resultado {
-
-private:
-    Identificador identificador;
-
-public:
-    void SetIdentificador(const Identificador &identificador){
-        this->identificador = identificador;
-    }
-
-    Identificador GetIdentificador() const {
-        return identificador;
-    }
-};
-
 #endif // ENTIDADES_H_

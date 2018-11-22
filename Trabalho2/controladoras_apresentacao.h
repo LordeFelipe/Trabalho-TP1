@@ -19,14 +19,20 @@ private:
     // Referencia para o servidor
     IServUsuario *cntr_serv_usuario;
 public:
+    //Método de ligação de camadas
+    void SetCntrAprUsuario(IServUsuario*);
+
+    //Métodos que lidam com a manipulação do usuário na lista
     bool CadastrarUsuario() throw(runtime_error);
     Usuario* AutenticarUsuario() throw(runtime_error);
     bool RemoverUsuario(Usuario *usuario, IAprAcomodacao* cntr_apr_aco) throw (invalid_argument);
+
+    //Métodos que adicionam informação ao objeto usuário
     bool CadastrarConta(Usuario *usuario) throw(runtime_error);
     bool CadastrarCartao(Usuario *usuario) throw(runtime_error);
-    void SetCntrAprUsuario(IServUsuario*);
 };
 
+// Método que faz a ligação entre a camada de apresentação e a de serviço
 void inline CntrAprUsuario::SetCntrAprUsuario(IServUsuario *cntr_serv_usuario){
     this->cntr_serv_usuario = cntr_serv_usuario;
 }
@@ -38,17 +44,27 @@ private:
     // Referencia para o servidor
     IServAcomodacao *cntr_serv_acomodacao;
 public:
-    bool CadastrarAcomodacao(Usuario* usuario) throw(runtime_error);
+    //Método de ligação de camadas
     void SetCntrAprAcomodacao(IServAcomodacao *cntr_serv_acomodacao);
+
+    //Métodos que lidam com adicionar e remover acomodações da lista
+    bool CadastrarAcomodacao(Usuario* usuario) throw(runtime_error);
     bool DescadastrarAcomodacao(Usuario* usuario) throw(runtime_error);
+
+    //Metodos que lidam com o cadastro e descadastro de disponibilidades em acomodações
     bool CadastrarDisponibilidade(Usuario* usuario) throw(runtime_error);
     bool DescadastrarDisponibilidade(Usuario *usuario) throw(runtime_error);
+
+    //Métodos que lidam com o cadastro e descadastro de reservas nas acomodaões
     bool CadastrarReserva(Usuario* usuario) throw(runtime_error);
+    bool DescadastrarReserva(Usuario *usuario) throw(runtime_error);
+
+    //Métodos que fazem buscas por reservas ou acomodações do usuário desejado
     bool BuscarAcomodacoesUsuario(Usuario* usuario);
     bool BuscarReservasUsuario(Usuario* usuario);
-    bool DescadastrarReserva(Usuario *usuario) throw(runtime_error);
 };
 
+// Método que faz a ligação entre a camada de apresentação e a de serviço
 void inline CntrAprAcomodacao::SetCntrAprAcomodacao(IServAcomodacao *cntr_serv_acomodacao){
     this->cntr_serv_acomodacao = cntr_serv_acomodacao;
 }

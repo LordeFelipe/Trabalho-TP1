@@ -4,8 +4,9 @@
 
 using namespace std;
 
-//Métodos da classe de apresentação de usuário---------------------------------------
+//Métodos da classe de apresentação de usuário------------------------------------------------
 
+//Método Responsável por cadastrar o usuário informado na entrada
 bool CntrAprUsuario::CadastrarUsuario() throw(runtime_error){
 
     bool resultado;
@@ -51,14 +52,15 @@ bool CntrAprUsuario::CadastrarUsuario() throw(runtime_error){
     }
 }
 
+// Método responsável por verificar se o usuário de entrada está cadastrado 
 Usuario* CntrAprUsuario::AutenticarUsuario() throw(runtime_error){
 
     Usuario* usuario;
     Identificador identificador;
     Senha senha;
     string entrada_id, entrada_senha;
-    // Solicitar matricula e senha.
 
+    //Solicitar dados
     while(true) {
 
         try {
@@ -85,6 +87,29 @@ Usuario* CntrAprUsuario::AutenticarUsuario() throw(runtime_error){
     return usuario;
 }
 
+//Método responsável por verificar se é possível remover um usuário e então excluí-lo
+bool CntrAprUsuario::RemoverUsuario(Usuario* usuario, IAprAcomodacao* cntr_apr_aco) throw (invalid_argument){
+
+    //Verificando se existem acomodações cadastradas
+    bool resultado = cntr_apr_aco->BuscarAcomodacoesUsuario(usuario);
+    if(resultado == true){
+        cout << endl << "Erro: Usuário possui acomodação cadastrada" << endl << endl;
+        return false;
+    }
+
+    //Verificando se o usuário tem alguma reserva em seu nome
+    resultado = cntr_apr_aco->BuscarReservasUsuario(usuario);
+    if(resultado == true){
+        cout << endl << "Erro: Usuário possui reserva cadastrada" << endl << endl;
+        return false;
+    }
+
+    this->cntr_serv_usuario->RemoverUsuario(usuario);
+    //O retorno é true quando a exclusão é um sucesso
+    return true;
+}
+
+//Método que adciona uma conta bancária a um determinado usuário
 bool CntrAprUsuario::CadastrarConta(Usuario *usuario) throw(runtime_error){
 
     bool resultado;
@@ -135,6 +160,7 @@ bool CntrAprUsuario::CadastrarConta(Usuario *usuario) throw(runtime_error){
     }
 }
 
+//Método que adciona um cartão de crédito a um determinado usuário
 bool CntrAprUsuario::CadastrarCartao(Usuario *usuario) throw(runtime_error){
 
     bool resultado;
@@ -179,23 +205,9 @@ bool CntrAprUsuario::CadastrarCartao(Usuario *usuario) throw(runtime_error){
     }
 }
 
-bool CntrAprUsuario::RemoverUsuario(Usuario* usuario, IAprAcomodacao* cntr_apr_aco) throw (invalid_argument){
-    bool resultado = cntr_apr_aco->BuscarAcomodacoesUsuario(usuario);
-    if(resultado == true){
-        cout << endl << "Erro: Usuário possui acomodação cadastrada" << endl << endl;
-        return false;
-    }
-
-    resultado = cntr_apr_aco->BuscarReservasUsuario(usuario);
-    if(resultado == true){
-        cout << endl << "Erro: Usuário possui reserva cadastrada" << endl << endl;
-        return false;
-    }    
-    this->cntr_serv_usuario->RemoverUsuario(usuario);
-    return true;
-}
 //Métodos da classe de apresentação da acomodacao-------------------------------------
 
+//Método que recebe as informações de uma acomodação pelo usuário e a cadastra
 bool CntrAprAcomodacao::CadastrarAcomodacao(Usuario* usuario) throw(runtime_error){
 
     bool resultado;
@@ -265,8 +277,10 @@ bool CntrAprAcomodacao::CadastrarAcomodacao(Usuario* usuario) throw(runtime_erro
     }
 }
 
+//Método que exclui a acomodação de um usuário que é solicitada
 bool CntrAprAcomodacao::DescadastrarAcomodacao(Usuario* usuario) throw(runtime_error){
 
+    //Pegando o número de acomodações que o usuário tem cadastrado
     int max = this->cntr_serv_acomodacao->ApresentarListaAcomodacaoDoUsuario(usuario);
     
     if(max < 0){
@@ -280,8 +294,10 @@ bool CntrAprAcomodacao::DescadastrarAcomodacao(Usuario* usuario) throw(runtime_e
         cin >> selecionar;
     }
 
+    //Adquirindo acomodação desejada
     Acomodacao* acomodacao = this->cntr_serv_acomodacao->AcharAcomodacaoUsuarioSelecionada(usuario, selecionar);
 
+    //Caso em que esta acomodação tem reservas 
     if(this->cntr_serv_acomodacao->VerificarReservas(acomodacao) == false){
         cout << "\nNao e possivel descadastrar acomodacoes com reservas ativas." << endl;
         return false;
@@ -300,8 +316,10 @@ bool CntrAprAcomodacao::DescadastrarAcomodacao(Usuario* usuario) throw(runtime_e
 
 }
 
+//Método responsável por apresentar as acomodações e registrar uma disponibilidade nela
 bool CntrAprAcomodacao::CadastrarDisponibilidade(Usuario* usuario) throw(runtime_error){
     
+    //Pegando o número de acomodações que o usuário tem cadastrado e apresentando a lista delas
     int max = this->cntr_serv_acomodacao->ApresentarListaAcomodacaoDoUsuario(usuario);
     
     if(max < 0){
@@ -315,11 +333,13 @@ bool CntrAprAcomodacao::CadastrarDisponibilidade(Usuario* usuario) throw(runtime
         cin >> selecionar;
     }
 
+    //Adquirindo acomodação desejada
     Acomodacao* acomodacao = this->cntr_serv_acomodacao->AcharAcomodacaoUsuarioSelecionada(usuario, selecionar);
 
     Data inicio, fim;
     string entrada_inicio, entrada_fim;
 
+    //Coletando os dados da disponibilidade
     while(true){
         try{
             cout << "Digite as datas de disponibilidade no formato DD/MMM/AAAA." << endl;
@@ -338,6 +358,7 @@ bool CntrAprAcomodacao::CadastrarDisponibilidade(Usuario* usuario) throw(runtime
         }
     }
 
+    //Setando as informações coletadas na reserva
     Reserva reserva;
     reserva.SetDatas(inicio, fim);
     reserva.SetUsuario(NULL);
@@ -355,8 +376,10 @@ bool CntrAprAcomodacao::CadastrarDisponibilidade(Usuario* usuario) throw(runtime
 
 }
 
+//Método responsável por apresentar as acomodações para que o usuário possa remover uma de suas disponibilidades
 bool CntrAprAcomodacao::DescadastrarDisponibilidade(Usuario *usuario) throw(runtime_error){
 
+    //Pegando o número de acomodações que o usuário tem cadastrado e apresentando a lista delas
     int max = this->cntr_serv_acomodacao->ApresentarListaAcomodacoes();
     
     if(max < 0){
@@ -370,8 +393,10 @@ bool CntrAprAcomodacao::DescadastrarDisponibilidade(Usuario *usuario) throw(runt
         cin >> selecionar;
     }
 
+    //Adquirindo acomodação desejada
     Acomodacao* acomodacao = this->cntr_serv_acomodacao->AcharAcomodacaoUsuarioSelecionada(usuario, selecionar);
 
+    //Pegando o número de disponibilidades de uma acomodação e apresentando a lista delas
     max = this->cntr_serv_acomodacao->ApresentarListaDisponibiliades(acomodacao);
 
     if(max < 0){
@@ -385,6 +410,7 @@ bool CntrAprAcomodacao::DescadastrarDisponibilidade(Usuario *usuario) throw(runt
         cin >> selecionar;
     }
 
+    //Adquirindo reserva desejada
     Reserva *reserva = this->cntr_serv_acomodacao->AcharDisponibilidadeSelecionada(acomodacao, selecionar);
 
     bool resultado = this->cntr_serv_acomodacao->DescadastrarDisponibilidade(acomodacao, reserva);
@@ -399,8 +425,10 @@ bool CntrAprAcomodacao::DescadastrarDisponibilidade(Usuario *usuario) throw(runt
 
 }
 
+//Método responsável por apresentar as acomodações e efetuar uma reserva nela
 bool CntrAprAcomodacao::CadastrarReserva(Usuario* usuario) throw(runtime_error){
 
+    //Pegando o número de acomodações tem cadastrado e apresentando a lista delas
     int max = this->cntr_serv_acomodacao->ApresentarListaAcomodacoes();
     
     if(max < 0){
@@ -414,14 +442,16 @@ bool CntrAprAcomodacao::CadastrarReserva(Usuario* usuario) throw(runtime_error){
         cin >> selecionar;
     }
 
+    //Adquirindo acomodação desejada
     Acomodacao* acomodacao = this->cntr_serv_acomodacao->AcharAcomodacaoSelecionada(selecionar);
 
+    //Vericando se o usuário está tentando reservar uma acomodação o qual ele é dono
     if(acomodacao->GetUsuario() == usuario){
-
         cout << "\nNão é possível reservar uma acomodação que você é dono!" << endl;        
         return false;
     }
 
+    //Pegando o número de disponibilidades de uma acomodação e apresentando a lista delas
     max = this->cntr_serv_acomodacao->ApresentarListaDisponibiliades(acomodacao);
 
     if(max < 0){
@@ -434,6 +464,8 @@ bool CntrAprAcomodacao::CadastrarReserva(Usuario* usuario) throw(runtime_error){
         cout << "Digite o número do período que você deseja se reservar:" << endl;
         cin >> selecionar;
     }
+
+    //Adquirindo reserva desejada
     Reserva *reserva = this->cntr_serv_acomodacao->AcharDisponibilidadeSelecionada(acomodacao, selecionar);
 
     bool resultado =  this->cntr_serv_acomodacao->CadastrarReserva(reserva, usuario);
@@ -448,8 +480,10 @@ bool CntrAprAcomodacao::CadastrarReserva(Usuario* usuario) throw(runtime_error){
     }
 }
 
+//Método responsável por excluir uma reserva feita previamente pelo usuário
 bool CntrAprAcomodacao::DescadastrarReserva(Usuario *usuario) throw(runtime_error){
 
+    //Pegando o número de acomodações cadastradas e apresentando a lista delas
      int max = this->cntr_serv_acomodacao->ApresentarListaAcomodacoes();
      
      if(max < 0){
@@ -463,6 +497,7 @@ bool CntrAprAcomodacao::DescadastrarReserva(Usuario *usuario) throw(runtime_erro
          cin >> selecionar;
      }
 
+     //Adquirindo acomododação desejada
      Acomodacao* acomodacao = this->cntr_serv_acomodacao->AcharAcomodacaoSelecionada(selecionar);
 
      if(acomodacao->GetUsuario() == usuario){
@@ -471,6 +506,7 @@ bool CntrAprAcomodacao::DescadastrarReserva(Usuario *usuario) throw(runtime_erro
          return false;
      }
 
+     //Pegando o número de reservas cadastradas e apresentando a lista delas
      max = this->cntr_serv_acomodacao->ApresentarListaReservasUsuario(acomodacao, usuario);
 
      if(max < 0){
@@ -485,6 +521,7 @@ bool CntrAprAcomodacao::DescadastrarReserva(Usuario *usuario) throw(runtime_erro
          cin >> selecionar;
      }
 
+     //Adquirindo reserva desejada
      Reserva *reserva = this->cntr_serv_acomodacao->AcharReservaSelecionada(acomodacao, usuario, selecionar);
 
      bool resultado =  this->cntr_serv_acomodacao->DescadastrarReserva(reserva, usuario);
@@ -499,16 +536,19 @@ bool CntrAprAcomodacao::DescadastrarReserva(Usuario *usuario) throw(runtime_erro
      }
  }
 
+//Método responsável por checar se um usuário tem uma acomodação cadastrada
 bool CntrAprAcomodacao::BuscarAcomodacoesUsuario(Usuario* usuario){
     this->cntr_serv_acomodacao->BuscarAcomodacoesUsuario(usuario);
 }
 
+//Método responsável por checar se um usuário tem uma reserva cadastrada
 bool CntrAprAcomodacao::BuscarReservasUsuario(Usuario* usuario){
     this->cntr_serv_acomodacao->BuscarReservasUsuario(usuario);   
 }
 
 //Métodos da classe CntrNavegacaoInicial----------------------------------------------
 
+//Método que apresenta as opções do menu inicial
 void CntrNavegacaoInicial::apresentarOpcoes(){
     cout << "--- Servicos disponiveis ---" << endl << endl;
     cout << "0 - Encerrar." << endl;
@@ -516,6 +556,7 @@ void CntrNavegacaoInicial::apresentarOpcoes(){
     cout << "2 - Logar no Sistema." << endl;
 }
 
+//Método que apresenta o menu inicial
 void CntrNavegacaoInicial::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* cntr_apr_aco){
         CntrNavegacaoPrincipal cntrPrinc;
 
@@ -555,6 +596,7 @@ void CntrNavegacaoInicial::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* c
 
 //Métodos da classe CntrNavegacaoPrincipal--------------------------------------------
 
+//Método que apresenta as opções do menu principal
 void CntrNavegacaoPrincipal::apresentarOpcoes(){
     cout << "--- Servicos disponiveis ---" << endl << endl;
     cout << "0 - Deslogar." << endl;
@@ -563,6 +605,7 @@ void CntrNavegacaoPrincipal::apresentarOpcoes(){
     cout << "3 - Excluir Usuario." << endl;
 }
 
+//Método que apresenta o menu principal
 void CntrNavegacaoPrincipal::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* cntr_apr_aco, Usuario* usuario){
         unsigned int escolha;
         bool resultado;
@@ -584,6 +627,7 @@ void CntrNavegacaoPrincipal::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao*
                             }
                             if(usuario->GetConta() != NULL){
                                 cout << "\n";
+                                //Chamando a próxima interface de texto
                                 cntrAco.executar(cntr_apr_usu, cntr_apr_aco, usuario);
                             }
                             break;
@@ -594,6 +638,7 @@ void CntrNavegacaoPrincipal::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao*
                             }
                             if(usuario->GetCartao() != NULL){
                                 cout << "\n";
+                                //Chamando a proxima interface de texto
                                 cntrRes.executar(cntr_apr_usu, cntr_apr_aco, usuario);
                             }
                             break;
@@ -601,6 +646,7 @@ void CntrNavegacaoPrincipal::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao*
                             cout << "\n";
                             resultado = cntr_apr_usu->RemoverUsuario(usuario, cntr_apr_aco);
                             if(resultado == true){
+                                //Retornando à interface de texto inicial
                                 return;
                             }
 
@@ -614,6 +660,7 @@ void CntrNavegacaoPrincipal::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao*
 
 //Métodos da classe CntrNavegacaoAcomodacao--------------------------------------------
 
+//Método que apresenta as opções do menu de acomodações
 void CntrNavegacaoAcomodacao::apresentarOpcoes(){
     cout << "--- Servicos disponiveis ---" << endl << endl;
     cout << "0 - Voltar ao Menu Principal." << endl;
@@ -623,6 +670,7 @@ void CntrNavegacaoAcomodacao::apresentarOpcoes(){
     cout << "4 - Descadastrar Disponibilidade." << endl;
 }
 
+//Método que apresenta o menu de acomodações
 void CntrNavegacaoAcomodacao::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* cntr_apr_aco, Usuario* usuario){
         unsigned int escolha;
 
@@ -659,6 +707,7 @@ void CntrNavegacaoAcomodacao::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao
 
 //Métodos da classe CntrNavegacaoReserva------------------------------------------------
 
+//Método que apresenta as opções do menu de reservas
 void CntrNavegacaoReserva::apresentarOpcoes(){
     cout << "--- Servicos disponiveis ---" << endl << endl;
     cout << "0 - Voltar ao Menu Principal." << endl;
@@ -666,6 +715,7 @@ void CntrNavegacaoReserva::apresentarOpcoes(){
     cout << "2 - Cancelar Reserva." << endl;
 }
 
+//Método que apresenta o menu de reservas
 void CntrNavegacaoReserva::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* cntr_apr_aco, Usuario* usuario){
         unsigned int escolha;
 

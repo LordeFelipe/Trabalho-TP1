@@ -12,59 +12,75 @@ using namespace std;
 class IServUsuario;
 class IAprAcomodacao;
 
+//Interface que lida com a camada de apresentação relativa ao usuário
 class IAprUsuario{
 
 public:
 
-    // Métodos que solicitam serviços relacionados ao usuário da camada de serviço
+    // Método por meio do qual é estabelecida ligação (link) 
+    virtual void SetCntrAprUsuario(IServUsuario*) = 0;
+
+    //Métodos que solicitam com serviços que manipulão o usuário na lista
     virtual bool CadastrarUsuario() throw(runtime_error) = 0;
-    virtual Usuario* AutenticarUsuario() throw(runtime_error) = 0;
+    virtual Usuario* AutenticarUsuario() throw(runtime_error) = 0;com a controladora na camada de serviço.
+    virtual bool RemoverUsuario(Usuario *usuario, IAprAcomodacao* cntr_apr_aco) throw (invalid_argument) = 0;
+
+    //Métodos que solicitam serviços que adicionam informação ao objeto usuário
     virtual bool CadastrarConta(Usuario *usuario) = 0;
     virtual bool CadastrarCartao(Usuario *usuario) = 0;
-    virtual bool RemoverUsuario(Usuario *usuario, IAprAcomodacao* cntr_apr_aco) throw (invalid_argument) = 0;
-    // Método por meio do qual é estabelecida ligação (link) com a controladora na camada de serviço.
-    virtual void SetCntrAprUsuario(IServUsuario*) = 0;
+    
     // Método destrutor virtual.
     virtual ~IAprUsuario(){}
 
 };
 
+//Interface que lida com a camada de serviço relativa ao usuário
 class IServUsuario{
 public:
 
     // Métodos que realizam um serviço relacionado ao usuário para a camada de apresentação
-    virtual list<Usuario>::iterator BuscarUsuario(Identificador identificador) = 0;
     virtual bool AdicionarUsuario(Identificador identificador, Senha senha, Nome nome) = 0;
     virtual Usuario* AutenticarUsuario(Identificador &id, Senha &senha) = 0;
+    virtual void RemoverUsuario(Usuario* usuario) throw (invalid_argument) = 0;
+
     virtual bool AdicionarConta(Usuario *usuario, ContaCorrente conta) = 0;
     virtual bool AdicionarCartao(Usuario *usuario, Cartao cartao) = 0;
-    virtual void RemoverUsuario(Usuario* usuario) throw (invalid_argument) = 0;
+    virtual list<Usuario>::iterator BuscarUsuario(Identificador identificador) = 0;
     // Método destrutor virtual.
     virtual ~IServUsuario(){}
-};
-
+};  
 class IServAcomodacao;
 
+//Interface que lida com a camada de apresentação relativa à acomodação
 class IAprAcomodacao{
 
 public:
 
+    // Método por meio do qual é estabelecida ligação (link) com a controladora na camada de serviço.
+    virtual void SetCntrAprAcomodacao(IServAcomodacao*) = 0;
+
     // Métodos que solicitam serviços relacionados à acomodação da camada de serviço
     virtual bool CadastrarAcomodacao(Usuario* usuario) throw(runtime_error) = 0;
     virtual bool DescadastrarAcomodacao(Usuario* usuario) throw(runtime_error) = 0;
+
+    //Metodos que solicitam serviços que lidam com o cadastro e descadastro de disponibilidades em acomodações
     virtual bool CadastrarDisponibilidade(Usuario* usuario) throw(runtime_error) = 0;
     virtual bool DescadastrarDisponibilidade(Usuario *usuario) throw(runtime_error) = 0;
+
+    //Métodos que solicitam serviços que lidam com o cadastro e descadastro de reservas nas acomodaões
     virtual bool CadastrarReserva(Usuario* usuario) throw(runtime_error) = 0;
+    virtual bool DescadastrarReserva(Usuario *usuario) throw(runtime_error) = 0;
+
+    //Métodos que solicitam serviços que fazem buscas por reservas ou acomodações do usuário desejado
     virtual bool BuscarAcomodacoesUsuario(Usuario* usuario) = 0;
     virtual bool BuscarReservasUsuario(Usuario* usuario) = 0;
-    virtual bool DescadastrarReserva(Usuario *usuario) throw(runtime_error) = 0;
-    // Método por meio do qual é estabelecida ligação (link) com a controladora na camada de serviço.
-    virtual void SetCntrAprAcomodacao(IServAcomodacao*) = 0;
+    
     // Método destrutor virtual.
     virtual ~IAprAcomodacao(){}
 
 };
 
+//Interface que lida com a camada de serviço relativa à acomodação
 class IServAcomodacao{
 public:
 
@@ -90,6 +106,8 @@ public:
     virtual bool BuscarReservasUsuario(Usuario* usuario)=0;
     virtual ~IServAcomodacao(){}
 };
+
+//Interfaces que lidam com navegação e apresentação de menus
 
 class INavegacaoInicial{
 public:
