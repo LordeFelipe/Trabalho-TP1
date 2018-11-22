@@ -179,6 +179,16 @@ bool CntrAprUsuario::CadastrarCartao(Usuario *usuario) throw(runtime_error){
     }
 }
 
+bool CntrAprUsuario::RemoverUsuario(Usuario* usuario, IAprAcomodacao* cntr_apr_aco) throw (invalid_argument){
+    bool resultado = cntr_apr_aco->BuscarAcomodacoesUsuario(usuario);
+    if(resultado == true){
+        cout << endl << "Erro: Usuário possui acomodação cadastrada" << endl << endl;
+        return false;
+    }
+
+    this->cntr_serv_usuario->RemoverUsuario(usuario);
+    return true;
+}
 //Métodos da classe de apresentação da acomodacao-------------------------------------
 
 bool CntrAprAcomodacao::CadastrarAcomodacao(Usuario* usuario) throw(runtime_error){
@@ -433,55 +443,8 @@ bool CntrAprAcomodacao::CadastrarReserva(Usuario* usuario) throw(runtime_error){
     }
 }
 
-bool CntrAprAcomodacao::DescadastrarReserva(Usuario *usuario) throw(runtime_error){
-
-    int max = this->cntr_serv_acomodacao->ApresentarListaAcomodacoes();
-    
-    if(max < 0){
-        return false;
-    }
-
-    int selecionar = -1;
-
-    while(selecionar < 0 || selecionar > max){
-        cout << "Digite o número da acomodacao onde sua reserva está efetuada:" << endl;
-        cin >> selecionar;
-    }
-
-    Acomodacao* acomodacao = this->cntr_serv_acomodacao->AcharAcomodacaoSelecionada(selecionar);
-
-    if(acomodacao->GetUsuario() == usuario){
-
-        cout << "\nNão ha reservas suas em uma acomodação que você é dono!" << endl;        
-        return false;
-    }
-
-    max = this->cntr_serv_acomodacao->ApresentarListaReservasUsuario(acomodacao, usuario);
-
-    if(max < 0){
-        cout << "\nNao ha reservas suas nessa acomodacao." << endl;
-        return false;
-    }
-
-    selecionar = -1;
-
-    while(selecionar < 0 || selecionar > max){
-        cout << "Digite o número da reserva que você deseja descadastrar:" << endl;
-        cin >> selecionar;
-    }
-
-    Reserva *reserva = this->cntr_serv_acomodacao->AcharReservaSelecionada(acomodacao, usuario, selecionar);
-
-    bool resultado =  this->cntr_serv_acomodacao->DescadastrarReserva(reserva, usuario);
-
-    if(resultado == true){
-        cout << endl <<"\nReserva descadastrada com sucesso." << endl;
-        return true;
-    }
-    else{
-        cout << endl <<"\nUsuario nao e o dono da reserva." << endl;
-        return false;
-    }
+bool CntrAprAcomodacao::BuscarAcomodacoesUsuario(Usuario* usuario){
+    this->cntr_serv_acomodacao->BuscarAcomodacoesUsuario(usuario);
 }
 
 //Métodos da classe CntrNavegacaoInicial----------------------------------------------
@@ -542,6 +505,7 @@ void CntrNavegacaoPrincipal::apresentarOpcoes(){
 
 void CntrNavegacaoPrincipal::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao* cntr_apr_aco, Usuario* usuario){
         unsigned int escolha;
+        bool resultado;
 
         CntrNavegacaoAcomodacao cntrAco;
         CntrNavegacaoReserva cntrRes;
@@ -574,6 +538,12 @@ void CntrNavegacaoPrincipal::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao*
                             }
                             break;
                         case OPCAO_EXCLUIR_USUARIO:
+                            cout << "\n";
+                            resultado = cntr_apr_usu->RemoverUsuario(usuario, cntr_apr_aco);
+                            if(resultado == true){
+                                return;
+                            }
+
                             break;
                         case OPCAO_DESLOGAR :
                             return;
@@ -581,6 +551,57 @@ void CntrNavegacaoPrincipal::executar(IAprUsuario* cntr_apr_usu, IAprAcomodacao*
                 }
         }
 }
+
+bool CntrAprAcomodacao::DescadastrarReserva(Usuario *usuario) throw(runtime_error){
+
+     int max = this->cntr_serv_acomodacao->ApresentarListaAcomodacoes();
+     
+     if(max < 0){
+         return false;
+     }
+
+     int selecionar = -1;
+
+     while(selecionar < 0 || selecionar > max){
+         cout << "Digite o número da acomodacao onde sua reserva está efetuada:" << endl;
+         cin >> selecionar;
+     }
+
+     Acomodacao* acomodacao = this->cntr_serv_acomodacao->AcharAcomodacaoSelecionada(selecionar);
+
+     if(acomodacao->GetUsuario() == usuario){
+
+         cout << "\nNão ha reservas suas em uma acomodação que você é dono!" << endl;        
+         return false;
+     }
+
+     max = this->cntr_serv_acomodacao->ApresentarListaReservasUsuario(acomodacao, usuario);
+
+     if(max < 0){
+         cout << "\nNao ha reservas suas nessa acomodacao." << endl;
+         return false;
+     }
+
+     selecionar = -1;
+
+     while(selecionar < 0 || selecionar > max){
+         cout << "Digite o número da reserva que você deseja descadastrar:" << endl;
+         cin >> selecionar;
+     }
+
+     Reserva *reserva = this->cntr_serv_acomodacao->AcharReservaSelecionada(acomodacao, usuario, selecionar);
+
+     bool resultado =  this->cntr_serv_acomodacao->DescadastrarReserva(reserva, usuario);
+
+     if(resultado == true){
+         cout << endl <<"\nReserva descadastrada com sucesso." << endl;
+         return true;
+     }
+     else{
+         cout << endl <<"\nUsuario nao e o dono da reserva." << endl;
+         return false;
+     }
+ }
 
 //Métodos da classe CntrNavegacaoAcomodacao--------------------------------------------
 

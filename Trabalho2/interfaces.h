@@ -10,6 +10,7 @@ using namespace std;
 
 // Declarações adiantadas.
 class IServUsuario;
+class IAprAcomodacao;
 
 class IAprUsuario{
 
@@ -20,6 +21,7 @@ public:
     virtual Usuario* AutenticarUsuario() throw(runtime_error) = 0;
     virtual bool CadastrarConta(Usuario *usuario) = 0;
     virtual bool CadastrarCartao(Usuario *usuario) = 0;
+    virtual bool RemoverUsuario(Usuario *usuario, IAprAcomodacao* cntr_apr_aco) throw (invalid_argument) = 0;
     // Método por meio do qual é estabelecida ligação (link) com a controladora na camada de serviço.
     virtual void SetCntrAprUsuario(IServUsuario*) = 0;
     // Método destrutor virtual.
@@ -33,10 +35,10 @@ public:
     // Métodos que realizam um serviço relacionado ao usuário para a camada de apresentação
     virtual list<Usuario>::iterator BuscarUsuario(Identificador identificador) = 0;
     virtual bool AdicionarUsuario(Identificador identificador, Senha senha, Nome nome) = 0;
-    virtual void RemoverUsuario(Usuario &usuario) throw (invalid_argument) = 0;
     virtual Usuario* AutenticarUsuario(Identificador &id, Senha &senha) = 0;
     virtual bool AdicionarConta(Usuario *usuario, ContaCorrente conta) = 0;
     virtual bool AdicionarCartao(Usuario *usuario, Cartao cartao) = 0;
+    virtual void RemoverUsuario(Usuario* usuario) throw (invalid_argument) = 0;
     // Método destrutor virtual.
     virtual ~IServUsuario(){}
 };
@@ -53,6 +55,7 @@ public:
     virtual bool CadastrarDisponibilidade(Usuario* usuario) throw(runtime_error) = 0;
     virtual bool DescadastrarDisponibilidade(Usuario *usuario) throw(runtime_error) = 0;
     virtual bool CadastrarReserva(Usuario* usuario) throw(runtime_error) = 0;
+    virtual bool BuscarAcomodacoesUsuario(Usuario* usuario) = 0;
     virtual bool DescadastrarReserva(Usuario *usuario) throw(runtime_error) = 0;
     // Método por meio do qual é estabelecida ligação (link) com a controladora na camada de serviço.
     virtual void SetCntrAprAcomodacao(IServAcomodacao*) = 0;
@@ -79,6 +82,7 @@ public:
     virtual bool CadastrarReserva(Reserva* reserva, Usuario* usuario) = 0;
     virtual int ApresentarListaAcomodacoes() = 0;
     virtual Acomodacao* AcharAcomodacaoSelecionada(const int selecionado) = 0;
+    virtual bool BuscarAcomodacoesUsuario(Usuario* usuario) = 0;
     virtual int ApresentarListaReservasUsuario(Acomodacao *acomodacao, Usuario *usuario) = 0;
     virtual Reserva* AcharReservaSelecionada(Acomodacao *acomodacao, Usuario *usuario, const int selecionado) = 0;
     virtual bool DescadastrarReserva(Reserva* reserva, Usuario *usuario) = 0;

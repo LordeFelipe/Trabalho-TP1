@@ -21,6 +21,7 @@ private:
 public:
     bool CadastrarUsuario() throw(runtime_error);
     Usuario* AutenticarUsuario() throw(runtime_error);
+    bool RemoverUsuario(Usuario *usuario, IAprAcomodacao* cntr_apr_aco) throw (invalid_argument);
     bool CadastrarConta(Usuario *usuario) throw(runtime_error);
     bool CadastrarCartao(Usuario *usuario) throw(runtime_error);
     void SetCntrAprUsuario(IServUsuario*);
@@ -43,6 +44,7 @@ public:
     bool CadastrarDisponibilidade(Usuario* usuario) throw(runtime_error);
     bool DescadastrarDisponibilidade(Usuario *usuario) throw(runtime_error);
     bool CadastrarReserva(Usuario* usuario) throw(runtime_error);
+    bool BuscarAcomodacoesUsuario(Usuario* usuario);
     bool DescadastrarReserva(Usuario *usuario) throw(runtime_error);
 };
 

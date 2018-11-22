@@ -18,10 +18,10 @@ private:
 public:
     list<Usuario>::iterator BuscarUsuario(Identificador identificador);
     bool AdicionarUsuario(Identificador identificador, Senha senha, Nome nome);
-    void RemoverUsuario(Usuario &usuario) throw (invalid_argument);
     bool AdicionarConta(Usuario *usuario, ContaCorrente conta);
     bool AdicionarCartao(Usuario *usuario, Cartao cartao);
     Usuario* AutenticarUsuario(Identificador &id, Senha &senha);
+    void RemoverUsuario(Usuario* usuario) throw (invalid_argument);
 
 };
 
@@ -45,6 +45,7 @@ public:
     bool CadastrarReserva(Reserva* reserva, Usuario* usuario);
     int ApresentarListaAcomodacoes();
     Acomodacao* AcharAcomodacaoSelecionada(const int selecionado);
+    bool BuscarAcomodacoesUsuario(Usuario* usuario);
     int ApresentarListaReservasUsuario(Acomodacao *acomodacao, Usuario *usuario);
     Reserva* AcharReservaSelecionada(Acomodacao *acomodacao, Usuario *usuario, const int selecionado);
     bool DescadastrarReserva(Reserva* reserva, Usuario *usuario);
