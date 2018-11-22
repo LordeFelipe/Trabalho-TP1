@@ -53,6 +53,7 @@ public:
     virtual bool CadastrarDisponibilidade(Usuario* usuario) throw(runtime_error) = 0;
     virtual bool DescadastrarDisponibilidade(Usuario *usuario) throw(runtime_error) = 0;
     virtual bool CadastrarReserva(Usuario* usuario) throw(runtime_error) = 0;
+    virtual bool DescadastrarReserva(Usuario *usuario) throw(runtime_error) = 0;
     // Método por meio do qual é estabelecida ligação (link) com a controladora na camada de serviço.
     virtual void SetCntrAprAcomodacao(IServAcomodacao*) = 0;
     // Método destrutor virtual.
@@ -78,6 +79,9 @@ public:
     virtual bool CadastrarReserva(Reserva* reserva, Usuario* usuario) = 0;
     virtual int ApresentarListaAcomodacoes() = 0;
     virtual Acomodacao* AcharAcomodacaoSelecionada(const int selecionado) = 0;
+    virtual int ApresentarListaReservasUsuario(Acomodacao *acomodacao, Usuario *usuario) = 0;
+    virtual Reserva* AcharReservaSelecionada(Acomodacao *acomodacao, Usuario *usuario, const int selecionado) = 0;
+    virtual bool DescadastrarReserva(Reserva* reserva, Usuario *usuario) = 0;
     virtual ~IServAcomodacao(){}
 };
 

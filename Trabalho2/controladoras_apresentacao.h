@@ -43,6 +43,7 @@ public:
     bool CadastrarDisponibilidade(Usuario* usuario) throw(runtime_error);
     bool DescadastrarDisponibilidade(Usuario *usuario) throw(runtime_error);
     bool CadastrarReserva(Usuario* usuario) throw(runtime_error);
+    bool DescadastrarReserva(Usuario *usuario) throw(runtime_error);
 };
 
 void inline CntrAprAcomodacao::SetCntrAprAcomodacao(IServAcomodacao *cntr_serv_acomodacao){

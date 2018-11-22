@@ -370,3 +370,63 @@ bool CntrServAcomodacao::CadastrarReserva(Reserva* reserva, Usuario* usuario){
     }
 
 }
+
+int CntrServAcomodacao::ApresentarListaReservasUsuario(Acomodacao *acomodacao, Usuario *usuario){
+    list<Reserva>::iterator it;
+    int max = -1;
+    int i=0;
+    if(!acomodacao->GetReserva()->empty()){
+        cout <<"\nReservas efetuadas:" << endl;
+        for(it = acomodacao->GetReserva()->begin(); i < acomodacao->GetReserva()->size(); ++it, i++){
+            if(it->GetUsuario() == usuario){
+                max++;
+                cout << "------------------------------" << endl;
+                cout << "Opcao (" << max << "):" << endl;
+                cout << "Data de Inicio: " << it->GetDataInicio().GetData() << endl;
+                cout << "Data de Termino: " << it->GetDataTermino().GetData() << endl;
+            }
+
+        }
+        cout << "------------------------------" << endl;
+    }
+    // Lista está vazia ou nao ha disponibilidades livres
+    else{
+        cout << "Não há desse usuario efetuadas." << endl;
+    }
+
+    return max;
+
+}
+
+Reserva* CntrServAcomodacao::AcharReservaSelecionada(Acomodacao *acomodacao, Usuario *usuario, const int selecionado){
+    list<Reserva>::iterator it;
+    int i = 0;
+    unsigned int j = 0;
+    if(!acomodacao->GetReserva()->empty()){
+        for(it = acomodacao->GetReserva()->begin(); j < acomodacao->GetReserva()->size(); ++it, j++){
+            if(it->GetUsuario() == usuario){
+                if(i == selecionado){
+                    return &(*it);
+                }
+                else{
+                    i++;
+                }
+            }
+
+        }
+    }
+    else{
+        cout << "Não há disponibilidades cadastradas" << endl;
+    }
+    // Lista está vazia ou não achou a acomodacao
+    return NULL;
+}
+
+bool CntrServAcomodacao::DescadastrarReserva(Reserva* reserva, Usuario *usuario){
+    if(reserva->GetUsuario() == usuario){
+        reserva->SetUsuario(NULL);
+        return true;
+    }
+    else   
+        return false;
+}

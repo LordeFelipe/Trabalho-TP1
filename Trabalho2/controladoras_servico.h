@@ -45,6 +45,9 @@ public:
     bool CadastrarReserva(Reserva* reserva, Usuario* usuario);
     int ApresentarListaAcomodacoes();
     Acomodacao* AcharAcomodacaoSelecionada(const int selecionado);
+    int ApresentarListaReservasUsuario(Acomodacao *acomodacao, Usuario *usuario);
+    Reserva* AcharReservaSelecionada(Acomodacao *acomodacao, Usuario *usuario, const int selecionado);
+    bool DescadastrarReserva(Reserva* reserva, Usuario *usuario);
 
 };
 
