@@ -370,7 +370,6 @@ bool CntrServAcomodacao::CadastrarReserva(Reserva* reserva, Usuario* usuario){
 
 bool CntrServAcomodacao::BuscarAcomodacoesUsuario(Usuario* usuario){
     list<Acomodacao>::iterator it;
-    Identificador identificador_aux;
 
     if(!this->ListaAcomodacao.empty()){
         for(it = this->ListaAcomodacao.begin(); it != this->ListaAcomodacao.end(); ++it){
@@ -381,6 +380,28 @@ bool CntrServAcomodacao::BuscarAcomodacoesUsuario(Usuario* usuario){
         }
     }
     // Não há acomdações cadastradas nesse usuário
+    return false;
+}
+
+bool CntrServAcomodacao::BuscarReservasUsuario(Usuario* usuario){
+    list<Acomodacao>::iterator it_aco;
+    list<Reserva>::iterator it_res;
+    list<Reserva> lista;
+
+    if(!this->ListaAcomodacao.empty()){
+        for(it_aco = this->ListaAcomodacao.begin(); it_aco != this->ListaAcomodacao.end(); ++it_aco){
+            lista = *it_aco->GetReserva();
+            if(!lista.empty()){
+                for(it_res = lista.begin(); it_res != lista.end(); ++it_res){
+                    if(it_res->GetUsuario() == usuario){
+                        return true;
+                    }        
+            
+                }
+            }
+        }
+    }
+    // Não há reservas cadastradas nesse usuário
     return false;
 }
 

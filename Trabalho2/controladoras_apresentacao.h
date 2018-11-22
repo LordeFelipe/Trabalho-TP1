@@ -45,6 +45,7 @@ public:
     bool DescadastrarDisponibilidade(Usuario *usuario) throw(runtime_error);
     bool CadastrarReserva(Usuario* usuario) throw(runtime_error);
     bool BuscarAcomodacoesUsuario(Usuario* usuario);
+    bool BuscarReservasUsuario(Usuario* usuario);
     bool DescadastrarReserva(Usuario *usuario) throw(runtime_error);
 };
 
