@@ -1,0 +1,125 @@
+# depslib dependency file v1.0
+1542854358 source:/home/andre/Documentos/Prog/TP1/testes/t2/controladoras_apresentacao.cpp
+	"controladoras_apresentacao.h"
+	<iostream>
+
+1542927195 /home/andre/Documentos/Prog/TP1/testes/t2/controladoras_apresentacao.h
+	"dominios_hotel.h"
+	"dominios_usuario.h"
+	"entidades.h"
+	"interfaces.h"
+	<list>
+	<iterator>
+	"dominios_usuario.h"
+	"controladoras_servico.h"
+
+1542832001 /home/andre/Documentos/Prog/TP1/testes/t2/dominios_hotel.h
+	<stdexcept>
+	<string>
+	<cstdlib>
+
+1542832001 /home/andre/Documentos/Prog/TP1/testes/t2/dominios_usuario.h
+	<stdexcept>
+	<string>
+
+1542928888 /home/andre/Documentos/Prog/TP1/testes/t2/entidades.h
+	"dominios_hotel.h"
+	"dominios_usuario.h"
+	<list>
+	<iterator>
+
+1542929057 /home/andre/Documentos/Prog/TP1/testes/t2/interfaces.h
+	"dominios_hotel.h"
+	"dominios_usuario.h"
+	"entidades.h"
+	<stdexcept>
+
+1542928574 /home/andre/Documentos/Prog/TP1/testes/t2/controladoras_servico.h
+	"dominios_hotel.h"
+	"dominios_usuario.h"
+	"entidades.h"
+	"interfaces.h"
+	<list>
+	<iterator>
+
+1542839119 source:/home/andre/Documentos/Prog/TP1/testes/t2/dominios_hotel.cpp
+	"dominios_hotel.h"
+	<string>
+	<string.h>
+
+1542832001 source:/home/andre/Documentos/Prog/TP1/testes/t2/dominios_usuario.cpp
+	"dominios_usuario.h"
+
+1542929027 source:/home/andre/Documentos/Prog/TP1/testes/t2/entidades.cpp
+	"entidades.h"
+
+1542832001 source:/home/andre/Documentos/Prog/TP1/testes/t2/main.cpp
+	"controladoras_apresentacao.h"
+	"controladoras_servico.h"
+
+1542854358 source:/home/andre/Documentos/Prog/TP1/testes/t2/controladoras_servico.cpp
+	"controladoras_servico.h"
+	<iostream>
+
+1542932045 source:/home/andre/Documentos/Prog/TP1/Trabalho FInal/Trabalho-TP1/Trabalho2/CodeBlocks/controladoras_apresentacao.cpp
+	"controladoras_apresentacao.h"
+	<iostream>
+
+1542927195 /home/andre/Documentos/Prog/TP1/Trabalho FInal/Trabalho-TP1/Trabalho2/CodeBlocks/controladoras_apresentacao.h
+	"dominios_hotel.h"
+	"dominios_usuario.h"
+	"entidades.h"
+	"interfaces.h"
+	<list>
+	<iterator>
+	"dominios_usuario.h"
+	"controladoras_servico.h"
+
+1542832001 /home/andre/Documentos/Prog/TP1/Trabalho FInal/Trabalho-TP1/Trabalho2/CodeBlocks/dominios_hotel.h
+	<stdexcept>
+	<string>
+	<cstdlib>
+
+1542832001 /home/andre/Documentos/Prog/TP1/Trabalho FInal/Trabalho-TP1/Trabalho2/CodeBlocks/dominios_usuario.h
+	<stdexcept>
+	<string>
+
+1542928888 /home/andre/Documentos/Prog/TP1/Trabalho FInal/Trabalho-TP1/Trabalho2/CodeBlocks/entidades.h
+	"dominios_hotel.h"
+	"dominios_usuario.h"
+	<list>
+	<iterator>
+
+1542929057 /home/andre/Documentos/Prog/TP1/Trabalho FInal/Trabalho-TP1/Trabalho2/CodeBlocks/interfaces.h
+	"dominios_hotel.h"
+	"dominios_usuario.h"
+	"entidades.h"
+	<stdexcept>
+
+1542928574 /home/andre/Documentos/Prog/TP1/Trabalho FInal/Trabalho-TP1/Trabalho2/CodeBlocks/controladoras_servico.h
+	"dominios_hotel.h"
+	"dominios_usuario.h"
+	"entidades.h"
+	"interfaces.h"
+	<list>
+	<iterator>
+
+1542933123 source:/home/andre/Documentos/Prog/TP1/Trabalho FInal/Trabalho-TP1/Trabalho2/CodeBlocks/controladoras_servico.cpp
+	"controladoras_servico.h"
+	<iostream>
+
+1542839119 source:/home/andre/Documentos/Prog/TP1/Trabalho FInal/Trabalho-TP1/Trabalho2/CodeBlocks/dominios_hotel.cpp
+	"dominios_hotel.h"
+	<string>
+	<string.h>
+
+1542832001 source:/home/andre/Documentos/Prog/TP1/Trabalho FInal/Trabalho-TP1/Trabalho2/CodeBlocks/dominios_usuario.cpp
+	"dominios_usuario.h"
+
+1542929027 source:/home/andre/Documentos/Prog/TP1/Trabalho FInal/Trabalho-TP1/Trabalho2/CodeBlocks/entidades.cpp
+	"entidades.h"
+
+1542932521 source:/home/andre/Documentos/Prog/TP1/Trabalho FInal/Trabalho-TP1/Trabalho2/CodeBlocks/main.cpp
+	"controladoras_apresentacao.h"
+	"controladoras_servico.h"
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ServicoHospedagem" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/t2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=c++98" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/t2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-std=c++98" />
+		</Compiler>
+		<Unit filename="controladoras_apresentacao.cpp" />
+		<Unit filename="controladoras_apresentacao.h" />
+		<Unit filename="controladoras_servico.cpp" />
+		<Unit filename="controladoras_servico.h" />
+		<Unit filename="dominios_hotel.cpp" />
+		<Unit filename="dominios_hotel.h" />
+		<Unit filename="dominios_usuario.cpp" />
+		<Unit filename="dominios_usuario.h" />
+		<Unit filename="entidades.cpp" />
+		<Unit filename="entidades.h" />
+		<Unit filename="interfaces.h" />
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
